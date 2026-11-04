@@ -249,6 +249,10 @@ CEntryPoint ()
   DEBUG ((EFI_D_WARN, "Firmware Version %s Build at %a on %a\n", PcdGetPtr (PcdFirmwareVersionString), __TIME__, __DATE__));
   DEBUG ((EFI_D_WARN, "\n"));
 
+#if defined (DAVINCI_PREFINAL) && DAVINCI_PREFINAL
+  DEBUG ((DEBUG_ERROR, "PREPI: PASS; NEXT DXE (NOT YET VERIFIED)\n"));
+#endif
+
 #if defined (DAVINCI_FIRST_BOOT_HALT) && DAVINCI_FIRST_BOOT_HALT
   // Explicit davinci first-entry profile. Never dispatch DXE/storage drivers.
   DEBUG ((DEBUG_ERROR, "\nDAVINCI FIRST BOOT: PREPI REACHED\n"));

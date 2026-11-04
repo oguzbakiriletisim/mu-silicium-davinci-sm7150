@@ -1,0 +1,74 @@
+[
+  {
+    "name": "SmemDxe",
+    "guid": "F541D663-4A48-40AA-AABF-FF158CCAE34C",
+    "path": "Binaries/davinci/QcomPkg/Drivers/SmemDxe/SmemDxe.efi",
+    "sha256": "035ea70ed689a8b867c58c65d57849b8babf318a49122890c2e771db580be78f"
+  },
+  {
+    "name": "DALSYSDxe",
+    "guid": "8E9BD160-B184-11DF-94E2-0800200C9A66",
+    "path": "Binaries/davinci/QcomPkg/Drivers/DALSYSDxe/DALSYSDxe.efi",
+    "sha256": "0542d91c859baf816f42438cc3472fed84897e7c5dec7cdfc05221e5ede40544"
+  },
+  {
+    "name": "HWIODxe",
+    "guid": "AF9763A2-033B-4109-8E17-56A98D380C92",
+    "path": "Binaries/davinci/QcomPkg/Drivers/HWIODxe/HWIODxe.efi",
+    "sha256": "3d24391eb9fa2ab2713d1e76b3f59cbd7b8e1f9ef2db5617438ec14eafdba6c1"
+  },
+  {
+    "name": "ChipInfoDxe",
+    "guid": "10E193DF-9966-44E7-B17C-59DD831E20FC",
+    "path": "Binaries/davinci/QcomPkg/Drivers/ChipInfoDxe/ChipInfoDxe.efi",
+    "sha256": "f057b252fc811566363281eb35f419bc77d97c1526cde67e3fa8f7326ffd0f39"
+  },
+  {
+    "name": "PlatformInfoDxe",
+    "guid": "B105211B-BBBD-4ADD-A3B0-D1CF4A52154C",
+    "path": "Binaries/davinci/QcomPkg/Drivers/PlatformInfoDxe/PlatformInfoDxe.efi",
+    "sha256": "d8587594278c6bc8299cf0bf759fed45d55e300bf214214380393f7e88bc271f"
+  },
+  {
+    "name": "ULogDxe",
+    "guid": "E43128A8-8692-42B6-8AFA-676158578D18",
+    "path": "Binaries/davinci/QcomPkg/Drivers/ULogDxe/ULogDxe.efi",
+    "sha256": "e44e57a1036b0b8a9eae1bac579398a4b3c2b0e3dd2a60aa654cddd98890ecfc"
+  },
+  {
+    "name": "CmdDbDxe",
+    "guid": "ABA01FF8-2CCB-4E12-8B2E-CD3F4A742993",
+    "path": "Binaries/davinci/QcomPkg/Drivers/CmdDbDxe/CmdDbDxe.efi",
+    "sha256": "09a042bf6c17e3ce3dcddcb9879b7e030fb065036603f1edc36f59180b42dac5"
+  },
+  {
+    "name": "NpaDxe",
+    "guid": "CB29F4D1-7F37-4692-A416-93E82E219711",
+    "path": "Binaries/davinci/QcomPkg/Drivers/NpaDxe/NpaDxe.efi",
+    "sha256": "80fca4d39a18583fdf6915752fc93bd1f3e6751cc2ca0062786cec38d19e35cb"
+  },
+  {
+    "name": "RpmhDxe",
+    "guid": "CB29F4D1-7F37-4692-A416-93E82E219766",
+    "path": "Binaries/davinci/QcomPkg/Drivers/RpmhDxe/RpmhDxe.efi",
+    "sha256": "be623f5c754c06cf75f342012bbea46396b319f5a689bd89116f900605607113"
+  },
+  {
+    "name": "PdcDxe",
+    "guid": "B43C22DB-6333-490C-872D-0A73439059FD",
+    "path": "Binaries/davinci/QcomPkg/Drivers/PdcDxe/PdcDxe.efi",
+    "sha256": "0b022201920bd6d102407efcfd5ae3c3b50cf3af05bf212c4c7c0e6970f40ccd"
+  },
+  {
+    "name": "ClockDxe",
+    "guid": "4DB5DEA6-5302-4D1A-8A82-677A683B0D29",
+    "path": "Binaries/davinci/QcomPkg/Drivers/ClockDxe/ClockDxe.efi",
+    "sha256": "82ed4ba23567fccbe911fcbb6406690780fa2c779b998a521ee00af0fdf7db5a"
+  },
+  {
+    "name": "UFSDxe",
+    "guid": "0D35CD8E-97EA-4F9A-96AF-0F0D89F76567",
+    "path": "Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.efi",
+    "sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1"
+  }
+]

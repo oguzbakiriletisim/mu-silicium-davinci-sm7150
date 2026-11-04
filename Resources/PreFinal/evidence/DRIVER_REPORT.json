@@ -1,0 +1,14 @@
+{
+  "device": "Xiaomi Mi 9T / davinci / SM7150-AA",
+  "verified_windows_arm64_ufs_boot_start_package": null,
+  "ufs_inf_sys_cat_supplied_for_this_task": false,
+  "foreign_soc_drivers_integrated": false,
+  "driver_signatures_or_catalog_membership_tested_on_windows": false,
+  "actual_user_windows_staging_present_in_this_environment": false,
+  "acpi_default_profile": "Incomplete; missing DSDT and unresolved UFS/DMA/power contracts; see phase3 source evidence",
+  "prefinal_profile": "Isolated storage diagnostics; ACPI platform and Windows boot chain intentionally absent",
+  "windows_boot_manager_tested_on_davinci": false,
+  "windows_kernel_ufs_handover_tested_on_davinci": false,
+  "deployment_allowed": false,
+  "reason": "UEFI Block I/O success cannot substitute for a verified Windows boot-start storage/ACPI/power stack. No test-signing or driver compatibility assumption is used."
+}

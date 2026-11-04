@@ -1,0 +1,65 @@
+{
+  "base_commit": "8bfaa630b6b6d3efa293982b5e2cc60507458a2f",
+  "prior_physical_success": "User reported: BootShim/SEC/PrePi/framebuffer and temporary fastboot boot",
+  "host_tests": {
+    "total": 82,
+    "passed": 82,
+    "failed": 0,
+    "skipped": 0,
+    "includes": "pure production C SMMU/GPT checks, negative fixtures, RAM-only HAL/UFS emulation, Windows preparation and Linux PowerShell mock/denial tests"
+  },
+  "builds": {
+    "prefinal_debug": "PASS",
+    "normal_debug_regression": "PASS",
+    "initial_prefinal_attempt": "FAILED: -Wlogical-op-parentheses; corrected and rebuilt"
+  },
+  "actual_packaged_fv": {
+    "arm64_pe_images": 20,
+    "unchanged_native_images": 12,
+    "hal_dummy_driver_absent": true,
+    "native_driver_auto_dispatch": false
+  },
+  "artifact_validation": {
+    "image_sha256": "0673a599ab5ea35431ab8577faf50bc5843573601a004e7d9cc0693ed35d77df",
+    "image_size": 3469312,
+    "fd_sha256": "c598d18c7bae52e634d3cda13735e42aca8b8b7857078f0a41562e86e3bb9aac",
+    "exact_repack_matches": true,
+    "shim_and_fd_roundtrip": true,
+    "original_dtbs_byte_exact": true,
+    "original_header_preserved_except_kernel_size_and_id": true,
+    "original_zip_unchanged": true,
+    "android_image_id_valid": true,
+    "original_header": {
+      "kernel_size": 15720488,
+      "kernel_addr": 32768,
+      "ramdisk_size": 0,
+      "ramdisk_addr": 16777216,
+      "second_size": 0,
+      "second_addr": 15728640,
+      "tags_addr": 256,
+      "page_size": 4096,
+      "header_version": 1,
+      "os_version_raw": 335544661,
+      "os_version": "10.0.0",
+      "os_patch_level": "2021-05",
+      "header_size": 1648
+    },
+    "previous_transport_success": "USER_REPORTED: previous first-entry image booted on davinci",
+    "new_image_physical_validation": false,
+    "hal_iommu_native_initialization_enabled": false,
+    "ufs_enabled_only_on_strict_inherited_explicit_bypass": true,
+    "windows_deployment_allowed": false
+  },
+  "physical_prefinal_test": "NOT PERFORMED: user will test",
+  "native_hal_fix_completed": false,
+  "ufs_fix_completed": false,
+  "prefinal_success_criteria_met": false,
+  "windows_deployment_allowed": false,
+  "remaining": [
+    "Native HAL create/configure_bypass/UFS0 attach or a verified inherited explicit bypass state",
+    "Physical DXE/UFS/Block I/O/read-only GPT and unique Windows partition identity",
+    "Actual FAT32 ESP and NTFS target with tested metadata-preserving transfer/apply path",
+    "Verified SM7150-AA ARM64 boot-start UFS INF/SYS/CAT and catalog/signature/resource validation",
+    "Windows-compatible ACPI/PEP/IOMMU/power/clock contracts and kernel handover"
+  ]
+}

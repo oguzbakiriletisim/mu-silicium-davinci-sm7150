@@ -1,0 +1,32 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciPreFinalDxe
+  FILE_GUID = 5B887735-83A6-4876-8741-96CC8FE39B9D
+  MODULE_TYPE = DXE_DRIVER
+  VERSION_STRING = 0.1
+  ENTRY_POINT = PreFinalEntry
+[Sources]
+  PreFinalDxe.c
+  ReadOnlyChecks.h
+  NativeImages.h
+[Packages]
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+  SiliciumPkg/SiliciumPkg.dec
+  QcomPkg/QcomPkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+  BaseLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  MemoryMapHelperLib
+  DxeServicesLib
+  IoLib
+  SerialPortLib
+  CacheMaintenanceLib
+[Protocols]
+  gEfiBlockIoProtocolGuid
+[Depex]
+  TRUE

@@ -79,6 +79,9 @@ READ_STATUS        = TRUE
 READ_LOCK_CAP      = TRUE
 READ_LOCK_STATUS   = TRUE
 
+!if $(DAVINCI_PREFINAL) == 1
+  !include Include/PREFINAL.inc
+!else
   !include Include/APRIORI.inc
   !include Include/DXE.inc
   !include Include/RAW.inc
@@ -100,6 +103,7 @@ READ_LOCK_STATUS   = TRUE
   #}
 
   !include QcomPkg/Extra.fdf.inc
+!endif
 
 [FV.FVMAIN_COMPACT]
 FvAlignment        = 8

@@ -26,6 +26,10 @@
   USE_CUSTOM_DISPLAY_DRIVER      = 1
   HAS_BUILD_IN_KEYBOARD          = 0
 
+!ifndef DAVINCI_PREFINAL
+  DEFINE DAVINCI_PREFINAL = 0
+!endif
+
 !ifndef DAVINCI_FIRST_BOOT_HALT
   DEFINE DAVINCI_FIRST_BOOT_HALT  = 0
 !endif
@@ -42,7 +46,7 @@
   SOC_TYPE                       = 0
 
 [BuildOptions]
-  *_*_*_CC_FLAGS = -DSOC_TYPE=$(SOC_TYPE) -DHAS_BUILD_IN_KEYBOARD=$(HAS_BUILD_IN_KEYBOARD) -DDAVINCI_FIRST_BOOT_HALT=$(DAVINCI_FIRST_BOOT_HALT)
+  *_*_*_CC_FLAGS = -DSOC_TYPE=$(SOC_TYPE) -DHAS_BUILD_IN_KEYBOARD=$(HAS_BUILD_IN_KEYBOARD) -DDAVINCI_FIRST_BOOT_HALT=$(DAVINCI_FIRST_BOOT_HALT) -DDAVINCI_PREFINAL=$(DAVINCI_PREFINAL)
 
 [PcdsFixedAtBuild]
   # DDR Start Address
@@ -103,4 +107,8 @@
 !if $(TARGET) == DEBUG
   davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
   davinciPkg/Drivers/StorageAuditDxe/StorageAuditAfterUfsDxe.inf
+!endif
+
+!if $(DAVINCI_PREFINAL) == 1
+  davinciPkg/Drivers/PreFinalDxe/PreFinalDxe.inf
 !endif

@@ -142,7 +142,7 @@ def inspect(data):
     return report, tail
 
 
-def package(backup, shim, fd):
+def package(backup, shim, fd, profile="first-boot-halt"):
     report, dtbs = inspect(backup)
     if len(shim) != 144 or shim[56:60] != b'ARMd' or struct.unpack_from('<QQ', shim, 8) != (0x9fc00000, 0x300000):
         raise ValueError('BootShim does not match the reviewed davinci configuration')
@@ -155,9 +155,12 @@ def package(backup, shim, fd):
     entry_offset = displacement * 4
     if instruction & 0xfc000000 != 0x14000000 or not 44 <= entry_offset < len(fd):
         raise ValueError('FD does not start with an in-range AARCH64 branch to SEC')
-    # Required for this first test: stop in uncompressed SEC before DXE/UFS.
-    if b'DAVINCI FIRST BOOT: PREPI REACHED' not in fd:
-        raise ValueError('FD does not contain the explicit first-boot halt marker')
+    markers = {'first-boot-halt': b'DAVINCI FIRST BOOT: PREPI REACHED',
+               'prefinal': b'PREPI: PASS; NEXT DXE (NOT YET VERIFIED)'}
+    if profile not in markers or markers[profile] not in fd:
+        raise ValueError('FD does not contain the selected explicit profile marker')
+    if profile == 'prefinal' and markers['first-boot-halt'] in fd:
+        raise ValueError('Pre-final FD unexpectedly contains the first-entry halt profile')
     member = bytearray(gzip.compress(shim + fd, compresslevel=9, mtime=0))
     member[9] = 255  # Fixed gzip OS byte, independent of the packaging host.
     payload = bytes(member) + dtbs
@@ -173,13 +176,16 @@ def package(backup, shim, fd):
                   preserved_header_bytes_except=['kernel_size [8:12]', 'image_id [576:608]'],
                   new_avb_footer_present=False, new_image_avb_signed=False,
                   purpose='TEMPORARY FASTBOOT BOOT EXPERIMENT ONLY; NO FLASH',
-                  expected_behavior='PrePi marker then deliberate halt BEFORE DXE/storage',
+                  profile=profile,
+                  expected_behavior=('PrePi marker then deliberate halt BEFORE DXE/storage' if profile == 'first-boot-halt' else
+                                     'DXE diagnostics; UFS denied unless strict inherited-bypass gate passes; read-only GPT then halt'),
                   fastboot_boot_support_verified=False)
     return image, report
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--profile', choices=['first-boot-halt', 'prefinal'], default='first-boot-halt')
     parser.add_argument('--backup', type=Path, required=True)
     parser.add_argument('--shim', type=Path)
     parser.add_argument('--fd', type=Path)
@@ -189,7 +195,7 @@ def main():
     if args.output:
         if not args.shim or not args.fd:
             parser.error('--shim and --fd required with --output')
-        image, report = package(backup, args.shim.read_bytes(), args.fd.read_bytes())
+        image, report = package(backup, args.shim.read_bytes(), args.fd.read_bytes(), args.profile)
         # Exclusive creation, so even a mistaken input/output path cannot overwrite.
         with args.output.open('xb') as stream:
             stream.write(image)
