@@ -26,5 +26,5 @@ FILE FREEFORM = 7E374E25-8E01-4FEE-87F2-390C23C606CD {
 
 !if $(DAVINCI_CPU_ONLY_ACPI) == 1
   // Deliberately CPU-only: no borrowed UFS/USB/PEP/IOMMU resources.
-  INF RuleOverride = ACPITABLE davinciPkg/AcpiTables/AcpiTables.inf
+  INF RuleOverride = DAVINCI_ASL davinciPkg/AcpiTables/AcpiTables.inf
 !endif

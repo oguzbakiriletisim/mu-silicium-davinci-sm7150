@@ -133,3 +133,9 @@ READ_LOCK_STATUS   = TRUE
   }
 
   !include SiliciumPkg/Common.fdf.inc
+
+// This module produces AML only; ACPITABLE also requires an .acpi output.
+[Rule.Common.USER_DEFINED.DAVINCI_ASL]
+  FILE FREEFORM = $(NAMED_GUID) {
+    RAW ASL |.aml
+  }
