@@ -1,0 +1,10 @@
+File appears to be binary: found 665 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-APIC.aml, Length 0x2D4 (724) bytes
+ACPI: APIC 0x0000000000000000 0002D4 (v05 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [APIC] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-APIC.dsl - 15191 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

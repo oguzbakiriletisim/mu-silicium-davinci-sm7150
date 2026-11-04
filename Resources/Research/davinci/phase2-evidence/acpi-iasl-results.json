@@ -1,0 +1,107 @@
+[
+  {
+    "profile": "default",
+    "table": "APIC",
+    "length": 724,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "default",
+    "table": "CSRT",
+    "length": 27457,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 161
+  },
+  {
+    "profile": "default",
+    "table": "DBG2",
+    "length": 348,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 43
+  },
+  {
+    "profile": "default",
+    "table": "FACP",
+    "length": 276,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 200
+  },
+  {
+    "profile": "default",
+    "table": "FACS",
+    "length": 64,
+    "iasl_exit_code": 0,
+    "checksum_mod256": null
+  },
+  {
+    "profile": "default",
+    "table": "GTDT",
+    "length": 156,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "default",
+    "table": "IORT",
+    "length": 3627,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "default",
+    "table": "MCFG",
+    "length": 108,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "default",
+    "table": "PPTT",
+    "length": 414,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "research",
+    "table": "APIC",
+    "length": 724,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "research",
+    "table": "FACS",
+    "length": 64,
+    "iasl_exit_code": 0,
+    "checksum_mod256": null
+  },
+  {
+    "profile": "research",
+    "table": "PPTT",
+    "length": 414,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "research",
+    "table": "DSDT",
+    "length": 329,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "research",
+    "table": "GTDT",
+    "length": 96,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  },
+  {
+    "profile": "research",
+    "table": "FACP",
+    "length": 276,
+    "iasl_exit_code": 0,
+    "checksum_mod256": 0
+  }
+]

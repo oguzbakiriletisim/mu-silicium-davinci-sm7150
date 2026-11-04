@@ -1,0 +1,10 @@
+File appears to be binary: found 123 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-GTDT.aml, Length 0x9C (156) bytes
+ACPI: GTDT 0x0000000000000000 00009C (v02 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [GTDT] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-GTDT.dsl - 4185 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

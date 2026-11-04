@@ -1,0 +1,186 @@
+{
+  "development_base": "6d5d7453389864fa6562069d77a2582480d349c6",
+  "tested_code_head": "3f9119ba5590ab7e41acc59a5df46655ac01f809",
+  "date": "2026-11-04",
+  "unit_tests": {
+    "run": 27,
+    "failures": 0,
+    "skipped": 0,
+    "optional_emulation_dependencies_available": true
+  },
+  "default_debug_build": "passed",
+  "experimental_debug_build": "passed",
+  "dsdt_iasl": {
+    "errors": 0,
+    "warnings": 0,
+    "remarks": 0
+  },
+  "iasl_tables_decoded": 15,
+  "physical_validation": false,
+  "ready_for_physical_test": false,
+  "ufs_dma_implemented": false,
+  "ufs_binary_changed": false,
+  "submodules": [
+    {
+      "path": "Common/Mu",
+      "commit": "039747f3b2c13df10b4fe4844e864c3095f98212"
+    },
+    {
+      "path": "Common/Mu_OEM_Sample",
+      "commit": "e798945fbe64baad73e9c4ec7cfb26efaa95d4e3"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus",
+      "commit": "2dd1beb9cd7631030dfc8e74cb4840a89b5d008d"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm",
+      "commit": "98ef964e1e9a0c39c7efb67143d3a13a819432e0"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl",
+      "commit": "de90e54bbe82e5be4fb9608b6f5c308bb837d355"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/pyca-cryptography",
+      "commit": "c18d0567386414efa3caef7ed586c4ca75bf3a8b"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/krb5",
+      "commit": "aa9b4a2a64046afd2fab7cb49c346295874a5fb6"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/gost-engine",
+      "commit": "b2b4d629f100eaee9f5942a106b1ccefe85b8808"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/gost-engine/libprov",
+      "commit": "8a126e09547630ef900177625626b6156052f0ee"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/wycheproof",
+      "commit": "2196000605e45d91097147c9c71f26b72af58003"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/mbedtlslib/mbedtls",
+      "commit": "107ea89daaefb9867ea9121002fbbdf926780e98"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/mbedtlslib/mbedtls/framework",
+      "commit": "94599c0e3b5036e086446a51a3f79640f70f22f6"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/unit_test/cmockalib/cmocka",
+      "commit": "a01cc69ee9536f90e57c61a198f2d1944d3d4313"
+    },
+    {
+      "path": "Features/DFCI",
+      "commit": "401e480fe46d348115a6fe94a878d50069b8098c"
+    },
+    {
+      "path": "Mu_Basecore",
+      "commit": "3609e51f683e4d9eed13df8dccbb05b0a64ebab2"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/CmockaLib/cmocka",
+      "commit": "1cc9cde3448cdd2e000886a26acf1caac2db7cf1"
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/RegularExpressionDxe/oniguruma",
+      "commit": "abfc8ff81df4067f309032467785e06975678f0d"
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Library/BrotliCustomDecompressLib/brotli",
+      "commit": "028fb5a23661f123017c060daa546b55cf4bde29"
+    },
+    {
+      "path": "Mu_Basecore/BaseTools/Source/C/BrotliCompress/brotli",
+      "commit": "028fb5a23661f123017c060daa546b55cf4bde29"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/GoogleTestLib/googletest",
+      "commit": "86add13493e5c881d7e4ba77fb91c1f57752b3a4"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/SubhookLib/subhook",
+      "commit": "83d4e1ebef3588fae48b69a7352cc21801cb70bc"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/BaseFdtLib/libfdt",
+      "commit": "cfff805481bdea27f900c32698171286542b8d3c"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst",
+      "commit": "370b5944c046bab043dd8b133727b2135af7747a"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/external/pugixml",
+      "commit": "c53fdab93af76106b963216d85897614b996f8b6"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/external/googletest",
+      "commit": "a6f06bf2fd3b832822cd4e9e554b7d47f32ec084"
+    },
+    {
+      "path": "Silicium-ACPI",
+      "commit": "992be737c217ba86b2efbded0ecc60142f108917"
+    },
+    {
+      "path": "Silicon/Arm/Mu_Tiano",
+      "commit": "d65d47a5f20ddc5b9c2190413773aa76e6966818"
+    }
+  ],
+  "raw_log_sha256": {
+    "acpi-iasl-results.json": "3e15667cb9c14340e2cb8b5df8cc232949cd2e9758ca43d3fad7bc3ae572e788",
+    "c-boundary-tests-final.log": "90704e0ed64117d111c14ba2762bbcf07e607333a0e5981677708f1e850a2ada",
+    "default-APIC-iasl.log": "2c242825be268f4a4d89ed71a7eb967d0c3dd78cebd04cf3e1fe6640f7e09ae0",
+    "default-CSRT-iasl.log": "6a9bfc6d8efbdf76f5eebbdddcbc8d070cea6c74ec90ac600d55273efbf0f3ee",
+    "default-DBG2-iasl.log": "b62d86872b8b8934e9fa3177e2489874c9f285c2a710ebde21aeb7a7d14a9fd8",
+    "default-FACP-iasl.log": "06cb1dbdb94540168bc47e2a8283d9bcb138fe60c0a3b0ffd4ffbce6e1d88a73",
+    "default-FACS-iasl.log": "766eef7d26b8243bc33a94b05acc5b396cc9b8931f1c30533bd79336c5da8c42",
+    "default-GTDT-iasl.log": "47a9b2b0c524dfe50a9fed659db01a358de78448a63c842e95e704f337bb6ff3",
+    "default-IORT-iasl.log": "987f0cfb7a20872db8fdec9384584ab1db897adbed89077d13d99f81d07e9da3",
+    "default-MCFG-iasl.log": "6ac175c6edd3e23006d200b01ca10b527ea7740eed3f8318dc93035de42e2cca",
+    "default-PPTT-iasl.log": "b020a3d6f55511d44fd915a10d348960b09e181061bae5e167acd987cad9983b",
+    "default-audit-final.json": "3d49f6784a75b78f0c6d1804b1ae634094c0ee85a515de74072eee2e4a3d3abb",
+    "default-debug-final.log": "52ad57074d4837199ccdd45586cb8e7e58624250d8f886334bbe2ea328ed3041",
+    "dsdt-iasl-final.log": "d37cc77b5c9d61fd545a79a7c12c183e92f36489ea0760069a17d4d306827334",
+    "research-APIC-iasl.log": "c92b75021fed65dcc8e32fdc7f032d58fc56effbc9335824a4987c3d1713865e",
+    "research-DSDT-iasl.log": "3ca8b994f315d553b732c1551a2d1a66e92a0de473c2c95558be8485a9e5899c",
+    "research-FACP-iasl.log": "b650d836a79ca7ed4bd1b8d15ea6f23888b18a206365381ba9429bf745b973c1",
+    "research-FACS-iasl.log": "17c24b6feb3a9a173527bf4dcf56ad16eb7f4dca3b178e8f9969a2522bd9e471",
+    "research-GTDT-iasl.log": "84dd71bd810b4e15ed76b7ed3e2f3b9a7c5e49f7bd314bb292a3ce962c921423",
+    "research-PPTT-iasl.log": "376443bd4e2210ccd946777d39c8f3639bd1cb2be33cc916350fd2af469a5d23",
+    "research-audit-final.json": "35b20de33ccb52b51d968d1f77bbb18a53e0dd8d3365c460e5087d39c4ea02b8",
+    "research-debug-final.log": "12db9de142aa781d2f1fe82c6102d5b25f82bdd99a1e514e20dcdd82221b0053",
+    "ufs-emulation.json": "29daef704ea9e4486ec68becb835ba9cb4fc30d7e427ac459303ca524bf9743a",
+    "unit-tests-final.log": "d038e3fe550669620b2d04ca779dd3b8a0c92314a4077f7bd5d62de2d28d728a"
+  },
+  "log_copy_normalization": "Trailing horizontal whitespace and blank EOF lines removed from .log copies only; original logs retained locally.",
+  "log_sha256": {
+    "acpi-iasl-results.json": "3e15667cb9c14340e2cb8b5df8cc232949cd2e9758ca43d3fad7bc3ae572e788",
+    "c-boundary-tests-final.log": "90704e0ed64117d111c14ba2762bbcf07e607333a0e5981677708f1e850a2ada",
+    "default-APIC-iasl.log": "88a6b8d45c4201b208fe80e848ba806b7ec244729e1735b764ebcdf1f3dbe0da",
+    "default-CSRT-iasl.log": "11c27bf66206b767833d5523f5e7d9b480a265456bf7c1b770ffba113e1bd221",
+    "default-DBG2-iasl.log": "65d185bee383147c79657649409a3eefbcfba2d13b83ec28b252e14aee987c44",
+    "default-FACP-iasl.log": "9d8c705599de8f3ef9c2b9e188efaa69d0db0010d12b98b2872aa81a6e32508b",
+    "default-FACS-iasl.log": "273283b5eadb0bde9412fcd724f6902eb7ac4153e622811439b3e05252f173c0",
+    "default-GTDT-iasl.log": "9fb4a77a8994b770aa3517d28c036c25067bc50b1aac5bc74f5d29d08dd45f1a",
+    "default-IORT-iasl.log": "66246baeaf884b064f028aab4b0dc30b20a6e09c48f2c924c48d84f4e33d193d",
+    "default-MCFG-iasl.log": "292678bb1cb3e0918446f7a5201fd82dcfdc25a98fb80dfa88708a2a586c1e94",
+    "default-PPTT-iasl.log": "99e4a4eb21365443d6fe50eb84cb6f95aa65e020a4657e3726a1f2009a03ef2c",
+    "default-audit-final.json": "3d49f6784a75b78f0c6d1804b1ae634094c0ee85a515de74072eee2e4a3d3abb",
+    "default-debug-final.log": "d0d7d8197b317f7ecc58837061f3297b1f5ad27586c3c34877bab31cb8671ce6",
+    "dsdt-iasl-final.log": "d37cc77b5c9d61fd545a79a7c12c183e92f36489ea0760069a17d4d306827334",
+    "research-APIC-iasl.log": "b5d1574687b45daaa03a16aca5ad5fdf8a65448596c170e7df4bb7644b56318e",
+    "research-DSDT-iasl.log": "d7dfdfcd8c7bebcf1638775249a43b4d6a723c2d16d1738acc48f6fcb59b41a0",
+    "research-FACP-iasl.log": "bf78b897920ee9cbf101cfdcec43bc3608be7b054ffb3a71e0ca8c8de5b4da1a",
+    "research-FACS-iasl.log": "dea2fb1d21f7c934bc08012160288cb14320405f3ad82601455c79735eb14c87",
+    "research-GTDT-iasl.log": "cc32d6dfb5d06c40eafd221bb3a2b1f4132ce6be745151f4f9101043c4c49cdf",
+    "research-PPTT-iasl.log": "f5c64b22f74704d66d067e0d398570e057cf947e94fda5dc659e2cbf093ddf3c",
+    "research-audit-final.json": "35b20de33ccb52b51d968d1f77bbb18a53e0dd8d3365c460e5087d39c4ea02b8",
+    "research-debug-final.log": "0bb25ace4464513de83fe0c133100593b6eb350da0e0378bf2a26c45142900d7",
+    "ufs-emulation.json": "29daef704ea9e4486ec68becb835ba9cb4fc30d7e427ac459303ca524bf9743a",
+    "unit-tests-final.log": "d038e3fe550669620b2d04ca779dd3b8a0c92314a4077f7bd5d62de2d28d728a"
+  }
+}

@@ -1,0 +1,10 @@
+File appears to be binary: found 375 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-PPTT.aml, Length 0x19E (414) bytes
+ACPI: PPTT 0x0000000000000000 00019E (v01 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [PPTT] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-PPTT.dsl - 14623 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

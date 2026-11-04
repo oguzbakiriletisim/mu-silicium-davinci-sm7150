@@ -1,0 +1,15 @@
+File appears to be binary: found 68 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/research-DSDT.aml, Length 0x149 (329) bytes
+ACPI: DSDT 0x0000000000000000 000149 (v02 DVNCI  CPURSCH  00000001 INTL 20250404)
+Pass 1 parse of [DSDT]
+Pass 2 parse of [DSDT]
+Parsing Deferred Opcodes (Methods/Buffers/Packages/Regions)
+
+Parsing completed
+Disassembly completed
+ASL Output:    /workspace/work/phase2-acpi/research-DSDT.dsl - 2474 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

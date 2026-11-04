@@ -1,0 +1,181 @@
+{
+  "original_commit": "ffa8933a6ae7688fcbe3693b698833efdaa3536f",
+  "original_sha256": "7549f618b3e511a5cedca84c6e76870062961add72753b37d0221a87ba5802dc",
+  "patched_sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1",
+  "cases": {
+    "original_default": {
+      "return": "0x0",
+      "calls": [
+        {
+          "service": "create"
+        },
+        {
+          "service": "get_config",
+          "key": "EnableUfsIOC"
+        },
+        {
+          "service": "configure_bypass",
+          "type": 0
+        },
+        {
+          "service": "attach",
+          "client": "\\_SB_.UFS0",
+          "arid": 0,
+          "mask": 0
+        }
+      ]
+    },
+    "original_ioc_1": {
+      "return": "0x0",
+      "calls": [
+        {
+          "service": "create"
+        },
+        {
+          "service": "get_config",
+          "key": "EnableUfsIOC"
+        },
+        {
+          "service": "configure_bypass",
+          "type": 1
+        },
+        {
+          "service": "attach",
+          "client": "\\_SB_.UFS0",
+          "arid": 0,
+          "mask": 0
+        }
+      ]
+    },
+    "original_protocol_lookup": {
+      "return": "0x0",
+      "calls": [
+        {
+          "service": "locate_protocol"
+        },
+        {
+          "service": "protocol_init"
+        },
+        {
+          "service": "create"
+        },
+        {
+          "service": "get_config",
+          "key": "EnableUfsIOC"
+        },
+        {
+          "service": "configure_bypass",
+          "type": 0
+        },
+        {
+          "service": "attach",
+          "client": "\\_SB_.UFS0",
+          "arid": 0,
+          "mask": 0
+        }
+      ]
+    },
+    "patched": {
+      "return": "0x0",
+      "calls": []
+    },
+    "failure_create": {
+      "return": "0x8000000000000013",
+      "calls": [
+        {
+          "service": "locate_protocol"
+        },
+        {
+          "service": "protocol_init"
+        },
+        {
+          "service": "create"
+        }
+      ]
+    },
+    "failure_configure_bypass": {
+      "return": "0x8000000000000003",
+      "calls": [
+        {
+          "service": "locate_protocol"
+        },
+        {
+          "service": "protocol_init"
+        },
+        {
+          "service": "create"
+        },
+        {
+          "service": "get_config",
+          "key": "EnableUfsIOC"
+        },
+        {
+          "service": "configure_bypass",
+          "type": 0
+        }
+      ]
+    },
+    "failure_attach": {
+      "return": "0x8000000000000007",
+      "calls": [
+        {
+          "service": "locate_protocol"
+        },
+        {
+          "service": "protocol_init"
+        },
+        {
+          "service": "create"
+        },
+        {
+          "service": "get_config",
+          "key": "EnableUfsIOC"
+        },
+        {
+          "service": "configure_bypass",
+          "type": 0
+        },
+        {
+          "service": "attach",
+          "client": "\\_SB_.UFS0",
+          "arid": 0,
+          "mask": 0
+        }
+      ]
+    },
+    "failure_locate_protocol": {
+      "return": "0x800000000000000e",
+      "calls": [
+        {
+          "service": "locate_protocol"
+        }
+      ]
+    },
+    "boot_8": {
+      "return": "0x1",
+      "calls": [
+        {
+          "service": "boot_query"
+        }
+      ]
+    },
+    "boot_1": {
+      "return": "0x0",
+      "calls": [
+        {
+          "service": "boot_query"
+        }
+      ]
+    },
+    "boot_None": {
+      "return": "0x0",
+      "calls": [
+        {
+          "service": "boot_query"
+        }
+      ]
+    }
+  },
+  "mocked_services_only": true,
+  "physical_validation": false
+}

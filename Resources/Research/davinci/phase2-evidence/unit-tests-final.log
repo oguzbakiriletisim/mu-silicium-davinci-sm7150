@@ -1,0 +1,32 @@
+test_checksum_failure_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_checksum_failure_is_rejected) ... ok
+test_consistent_tables_and_revision_one_id_resource (test_davinci_acpi_bundle.AcpiBundleTests.test_consistent_tables_and_revision_one_id_resource) ... ok
+test_facs_has_no_description_header_checksum (test_davinci_acpi_bundle.AcpiBundleTests.test_facs_has_no_description_header_checksum) ... ok
+test_fadt_unverified_s0_hvc_reset_and_pointer_claims_fail (test_davinci_acpi_bundle.AcpiBundleTests.test_fadt_unverified_s0_hvc_reset_and_pointer_claims_fail) ... ok
+test_madt_pptt_uid_mismatch_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_madt_pptt_uid_mismatch_is_rejected) ... ok
+test_missing_and_duplicate_tables_are_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_missing_and_duplicate_tables_are_rejected) ... ok
+test_peripheral_table_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_peripheral_table_is_rejected) ... ok
+test_pptt_parent_cycle_and_resource_pointer_are_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_pptt_parent_cycle_and_resource_pointer_are_rejected) ... ok
+test_timer_polarity_change_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_timer_polarity_change_is_rejected) ... ok
+test_acpi_rejects_mismatched_length (test_davinci_audit.OfflineAuditTests.test_acpi_rejects_mismatched_length) ... ok
+test_cpu_topology_mismatch_is_not_accepted (test_davinci_audit.OfflineAuditTests.test_cpu_topology_mismatch_is_not_accepted) ... ok
+test_current_device_sources (test_davinci_audit.OfflineAuditTests.test_current_device_sources) ... ok
+test_depex_boolean_expression_and_reject_malformed (test_davinci_audit.OfflineAuditTests.test_depex_boolean_expression_and_reject_malformed) ... ok
+test_disabled_madt_cpu_is_rejected (test_davinci_audit.OfflineAuditTests.test_disabled_madt_cpu_is_rejected) ... ok
+test_exact_end_is_covered_but_one_byte_over_is_not (test_davinci_audit.OfflineAuditTests.test_exact_end_is_covered_but_one_byte_over_is_not) ... ok
+test_madt_rejects_zero_length_record (test_davinci_audit.OfflineAuditTests.test_madt_rejects_zero_length_record) ... ok
+test_pe_rejects_truncated_offset (test_davinci_audit.OfflineAuditTests.test_pe_rejects_truncated_offset) ... ok
+test_reject_overlap_and_unaligned_regions (test_davinci_audit.OfflineAuditTests.test_reject_overlap_and_unaligned_regions) ... ok
+test_reject_unmapped_resource (test_davinci_audit.OfflineAuditTests.test_reject_unmapped_resource) ... ok
+test_timer_gic_offsets_and_low_polarity (test_davinci_audit.OfflineAuditTests.test_timer_gic_offsets_and_low_polarity) ... ok
+test_timer_rejects_invalid_ppi (test_davinci_audit.OfflineAuditTests.test_timer_rejects_invalid_ppi) ... ok
+test_real_driver_success_and_failure_paths (test_davinci_storage_driver.StorageDriverHostTests.test_real_driver_success_and_failure_paths) ... ok
+test_boot_predicate_does_not_mean_disk_discovery (test_davinci_ufs_offline.UfsOfflineTests.test_boot_predicate_does_not_mean_disk_discovery) ... ok
+test_configured_cca_and_protocol_lookup (test_davinci_ufs_offline.UfsOfflineTests.test_configured_cca_and_protocol_lookup) ... ok
+test_existing_patch_calls_no_iommu_service (test_davinci_ufs_offline.UfsOfflineTests.test_existing_patch_calls_no_iommu_service) ... ok
+test_original_default_is_non_cca_bypass_and_named_client (test_davinci_ufs_offline.UfsOfflineTests.test_original_default_is_non_cca_bypass_and_named_client) ... ok
+test_service_failures_stop_the_initialization_chain (test_davinci_ufs_offline.UfsOfflineTests.test_service_failures_stop_the_initialization_chain) ... ok
+
+----------------------------------------------------------------------
+Ran 27 tests in 0.482s
+
+OK

@@ -1,0 +1,11 @@
+File appears to be binary: found 243 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-FACP.aml, Length 0x114 (276) bytes
+Firmware Warning (ACPI): Incorrect checksum in table [FACP] - 0xB0, should be 0xFFFFFFC8 (20250404/utcksum-100)
+ACPI: FACP 0x0000000000000000 000114 (v06 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [FACP] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-FACP.dsl - 10279 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

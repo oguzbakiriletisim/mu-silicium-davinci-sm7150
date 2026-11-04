@@ -1,0 +1,10 @@
+File appears to be binary: found 73 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/research-GTDT.aml, Length 0x60 (96) bytes
+ACPI: GTDT 0x0000000000000000 000060 (v02 DVNCI  DVNCITMR 00000001 DVNC 00000001)
+Acpi Data Table [GTDT] decoded
+Formatted output:  /workspace/work/phase2-acpi/research-GTDT.dsl - 2706 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

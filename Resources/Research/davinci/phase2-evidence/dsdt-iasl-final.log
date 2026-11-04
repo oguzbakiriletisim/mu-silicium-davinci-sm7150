@@ -1,0 +1,10 @@
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation
+
+ASL Input:     Platforms/Xiaomi/davinciPkg/AcpiTables/Dsdt.asl -    1445 bytes     33 keywords      0 source lines
+AML Output:    /workspace/work/phase2-acpi/Dsdt.aml -     329 bytes      0 opcodes      33 named objects
+Hex Dump:      /workspace/work/phase2-acpi/Dsdt.hex -    3546 bytes
+
+Compilation successful. 0 Errors, 0 Warnings, 0 Remarks, 3 Optimizations

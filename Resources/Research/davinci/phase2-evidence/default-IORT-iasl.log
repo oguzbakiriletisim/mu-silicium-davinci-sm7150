@@ -1,0 +1,10 @@
+File appears to be binary: found 2933 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-IORT.aml, Length 0xE2B (3627) bytes
+ACPI: IORT 0x0000000000000000 000E2B (v00 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [IORT] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-IORT.dsl - 77185 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

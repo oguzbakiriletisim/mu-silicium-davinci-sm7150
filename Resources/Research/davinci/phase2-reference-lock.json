@@ -1,0 +1,327 @@
+{
+  "development_base": "6d5d7453389864fa6562069d77a2582480d349c6",
+  "hardware_validation": false,
+  "copied_reference_implementations_into_firmware": false,
+  "qualcomm_equivalent_sources": [
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.c",
+      "sha256": "9ea9d7eecdab1d99a8705afb80ccac0535aef14ac0e8317803f6f7ce538e3796"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMU.c",
+      "sha256": "e8d31447f0eae999c9f12ffcb54d2d02670ff5905d8a463f04d1c307cdf47563"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Include/Protocol/EFIHALIOMMUProtocol.h",
+      "sha256": "ae6d5f3ad82513c86c1f1214366bcb27f0b83ba3e120096e47defd7342e9b010"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Include/api/kernel/HALIOMMU/HALIOMMUTypes.h",
+      "sha256": "16eb1e7427afd42d7f33b9c3059e6928ff72e0a4d99c6bdc036ec6f67c76c42c"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Drivers/UFSDxe/UFS.c",
+      "sha256": "ee2ac88d9183dfe27e5486ecc35f9dab6b52ac76416169491b140848fc9543ce"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Drivers/UFSDxe/UFSDxe.inf",
+      "sha256": "11561a9ea6ca90c7eeaf7bcaaa202169e0c3b019b333b25375bc86f996377004"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/QcomPkg.dec",
+      "sha256": "51693cd50eb0f09d91c006bc45a26626f90f70ca9003236dd8dedce34e04cc24"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Library/IORTLib/IORT.c",
+      "sha256": "43ccd4ca5545a9392847197bd22d00ab42d10de4f70088e0f689cba936419a6f"
+    }
+  ],
+  "windows_reference_packages": [
+    {
+      "repository": "WOA-Project/Qualcomm-Reference-Drivers",
+      "commit": "ad6e472836d40d6ba81855e57bbd3c7c0522735f",
+      "path": "7180_CLS/200.0.11.0/qciommu7180.cab",
+      "cab_sha256": "438dfc301587c4dfc933e55337c82e35b2b43c42d1fc5a6ce678543590aa4a65",
+      "infs": [
+        {
+          "name": "qciommu7180.inf",
+          "sha256": "5597a9bd575b73814f990b70507c6de595082ff58b610a2dac717926a61814fb",
+          "arm64_model_lines": [
+            {
+              "line": 40,
+              "section": "QC.NTARM64",
+              "text": "%IOMMU.DeviceDesc%=IOMMU_Device, ACPI\\QCOM089B"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "WOA-Project/Qualcomm-Reference-Drivers",
+      "commit": "ad6e472836d40d6ba81855e57bbd3c7c0522735f",
+      "path": "7180_CLS/200.0.11.0/qcpep.wd7180.cab",
+      "cab_sha256": "eb4ade89136b9a412789785e3a78360abcee489d7176172ea3cc7894a0b0d463",
+      "infs": [
+        {
+          "name": "qcpep.wd7180.inf",
+          "sha256": "bc0c15537de2a5fb0de2c05d816df8851de2b7ba1808d08aea79c4743db0abc5",
+          "arm64_model_lines": [
+            {
+              "line": 33,
+              "section": "QC.NTARM64",
+              "text": "%PepDevice.DeviceDesc%=Pep_Device, ACPI\\QCOM0819"
+            },
+            {
+              "line": 34,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM083B"
+            },
+            {
+              "line": 35,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM083C"
+            },
+            {
+              "line": 36,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM083D"
+            },
+            {
+              "line": 37,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM083E"
+            },
+            {
+              "line": 38,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM083F"
+            },
+            {
+              "line": 39,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0840"
+            },
+            {
+              "line": 40,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0841"
+            },
+            {
+              "line": 41,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0842"
+            },
+            {
+              "line": 42,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0843"
+            },
+            {
+              "line": 43,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0844"
+            },
+            {
+              "line": 44,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0845"
+            },
+            {
+              "line": 45,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0846"
+            },
+            {
+              "line": 46,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0847"
+            },
+            {
+              "line": 47,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0848"
+            },
+            {
+              "line": 48,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0849"
+            },
+            {
+              "line": 49,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084A"
+            },
+            {
+              "line": 50,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM085C"
+            },
+            {
+              "line": 51,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM085D"
+            },
+            {
+              "line": 52,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM089D"
+            },
+            {
+              "line": 53,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM089E"
+            },
+            {
+              "line": 54,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM085E"
+            },
+            {
+              "line": 55,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084B"
+            },
+            {
+              "line": 56,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084C"
+            },
+            {
+              "line": 57,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084D"
+            },
+            {
+              "line": 58,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084E"
+            },
+            {
+              "line": 59,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM084F"
+            },
+            {
+              "line": 60,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0850"
+            },
+            {
+              "line": 61,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0851"
+            },
+            {
+              "line": 62,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0852"
+            },
+            {
+              "line": 63,
+              "section": "QC.NTARM64",
+              "text": "%TSENS.DeviceDesc%=Pep_Device, ACPI\\QCOM0853"
+            },
+            {
+              "line": 64,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0862"
+            },
+            {
+              "line": 65,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0863"
+            },
+            {
+              "line": 66,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0864"
+            },
+            {
+              "line": 67,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0865"
+            },
+            {
+              "line": 68,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0866"
+            },
+            {
+              "line": 69,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0867"
+            },
+            {
+              "line": 70,
+              "section": "QC.NTARM64",
+              "text": "%ADC.DeviceDesc%=Pep_Device, ACPI\\QCOM0868"
+            },
+            {
+              "line": 71,
+              "section": "QC.NTARM64",
+              "text": "%BCL.DeviceDesc%=Pep_Device, ACPI\\QCOM085B"
+            },
+            {
+              "line": 73,
+              "section": "QC.NTARM64",
+              "text": "%PepDevice.DeviceDesc%=PEP_Device_CLS0, ACPI\\VEN_QCOM&DEV_0819&SUBSYS_CLS07180"
+            },
+            {
+              "line": 74,
+              "section": "QC.NTARM64",
+              "text": "%PepDevice.DeviceDesc%=PEP_Device_CLS1, ACPI\\VEN_QCOM&DEV_0819&SUBSYS_CLS17180"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "WOA-Project/Qualcomm-Reference-Drivers",
+      "commit": "ad6e472836d40d6ba81855e57bbd3c7c0522735f",
+      "path": "7180_CLS/200.0.11.0/QcXhciFilter7180.cab",
+      "cab_sha256": "1d99b9eac44dff59c5fea8977cd4c79f4c8390a00d49f17954249901c1028f0e",
+      "infs": [
+        {
+          "name": "QcXhciFilter7180.inf",
+          "sha256": "3c9c6c8ae92000a982cc0fe42b7a5836668f26159ee30d257ebddbd0440347fe",
+          "arm64_model_lines": [
+            {
+              "line": 41,
+              "section": "Standard.NTARM64",
+              "text": "%Standard.DeviceDesc%=QcXhciFilter.NT, ACPI\\QCOM0826"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "repository": "WOA-Project/Qualcomm-Reference-Drivers",
+      "commit": "ad6e472836d40d6ba81855e57bbd3c7c0522735f",
+      "path": "1000_CLS/200.0.5.0/qcusbfn8180.cab",
+      "cab_sha256": "8d51c62ac8e5f51ce9a041dad8a69bb2198b48597d3ec05383c7c4881dfa4349",
+      "infs": [
+        {
+          "name": "qcusbfn8180.inf",
+          "sha256": "b8e3f567581c2c7e87b6bf03cce983453daf220f24e46037fe26f9b0267bca8b",
+          "arm64_model_lines": []
+        }
+      ]
+    }
+  ]
+}

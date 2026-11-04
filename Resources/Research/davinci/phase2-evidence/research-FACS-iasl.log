@@ -1,0 +1,10 @@
+File appears to be binary: found 59 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/research-FACS.aml, Length 0x40 (64) bytes
+ACPI: FACS 0x0000000000000000 000040
+Acpi Data Table [FACS] decoded
+Formatted output:  /workspace/work/phase2-acpi/research-FACS.dsl - 1388 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

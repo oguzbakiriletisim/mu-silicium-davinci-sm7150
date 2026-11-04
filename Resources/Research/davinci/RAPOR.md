@@ -1,5 +1,7 @@
 # Xiaomi Mi 9T UEFI geliştirme raporu
 
+> Bu belge ilk 11 commit aşamasının tarihsel kaydıdır. Devam eden geliştirme ve güncel test sonuçları için [ikinci aşama raporuna](FAZ2_RAPOR.md) bakın.
+
 Tarih: 4 Kasım 2026. Hedef: `davinci`, Snapdragon 730 / SM7150-AA.
 Dal: `davinci-win11-uefi-research`.
 Taban: `89cae67c6544cd100d3080fe02b3f3190c9be3ba`.

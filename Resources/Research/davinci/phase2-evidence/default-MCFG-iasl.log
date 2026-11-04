@@ -1,0 +1,10 @@
+File appears to be binary: found 76 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-MCFG.aml, Length 0x6C (108) bytes
+ACPI: MCFG 0x0000000000000000 00006C (v01 QCOM   QCOMEDK2 00007150 INTL 20230628)
+Acpi Data Table [MCFG] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-MCFG.dsl - 2602 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

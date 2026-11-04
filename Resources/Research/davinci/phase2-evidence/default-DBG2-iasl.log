@@ -1,0 +1,11 @@
+File appears to be binary: found 275 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-DBG2.aml, Length 0x15C (348) bytes
+Firmware Warning (ACPI): Incorrect checksum in table [DBG2] - 0x00, should be 0xFFFFFF2B (20250404/utcksum-100)
+ACPI: DBG2 0x0000000000000000 00015C (v01 QCOM   QCOMEDK2 00007150 QCOM 00000001)
+Acpi Data Table [DBG2] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-DBG2.dsl - 6686 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

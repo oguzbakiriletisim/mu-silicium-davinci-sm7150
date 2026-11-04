@@ -1,0 +1,10 @@
+File appears to be binary: found 254 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/research-FACP.aml, Length 0x114 (276) bytes
+ACPI: FACP 0x0000000000000000 000114 (v06 DVNCI  DVNCIFAD 00000001 DVNC 00000001)
+Acpi Data Table [FACP] decoded
+Formatted output:  /workspace/work/phase2-acpi/research-FACP.dsl - 10235 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation

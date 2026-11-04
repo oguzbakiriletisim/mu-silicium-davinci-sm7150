@@ -1,0 +1,11 @@
+File appears to be binary: found 26851 non-ASCII characters, disassembling
+Binary file appears to be a valid ACPI table, disassembling
+Input file /workspace/work/phase2-acpi/default-CSRT.aml, Length 0x6B41 (27457) bytes
+Firmware Warning (ACPI): Incorrect checksum in table [CSRT] - 0x00, should be 0xFFFFFFA1 (20250404/utcksum-100)
+ACPI: CSRT 0x0000000000000000 006B41 (v00 QCOM   QCOMEDK2 00007150 QCOM 00000001)
+Acpi Data Table [CSRT] decoded
+Formatted output:  /workspace/work/phase2-acpi/default-CSRT.dsl - 345267 bytes
+
+Intel ACPI Component Architecture
+ASL+ Optimizing Compiler/Disassembler version 20250404
+Copyright (c) 2000 - 2025 Intel Corporation
