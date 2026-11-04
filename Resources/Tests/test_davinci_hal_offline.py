@@ -34,6 +34,23 @@ class HalOfflineTests(unittest.TestCase):
         self.assertEqual(result['debug_notifications'],4)
         self.assertEqual(len([c for c in result['dummy_calls'] if c['call']=='attach']),4)
 
+    def test_bank_choice_depends_on_fixture_hardware_state(self):
+        self.assertEqual(hal.emulate_bank_choice(self.image,[0,0])['selected_bank'],0)
+        result=hal.emulate_bank_choice(self.image,[0x10000,0x10000,0])
+        self.assertEqual(result['selected_bank'],2)
+        self.assertEqual([x['register'] for x in result['intercepted_write_arguments']],['CBAR','CBA2R'])
+        self.assertEqual(result['intercepted_write_arguments'][1]['value'],1)
+        self.assertFalse(result['actual_register_services_executed'])
+
+    def test_bank_exhaustion_and_zero_bank_fixture_do_not_write(self):
+        for values in [[],[0x10000,0x10000]]:
+            result=hal.emulate_bank_choice(self.image,values)
+            self.assertIsNone(result['selected_bank'])
+            self.assertEqual(result['intercepted_write_arguments'],[])
+
+    def test_unused_vmid_bank_is_selected(self):
+        self.assertEqual(hal.emulate_bank_choice(self.image,[0x100ff])['selected_bank'],0)
+
     def test_unknown_image_is_rejected_before_emulation(self):
         with self.assertRaises(ValueError): hal.emulate(b'unknown')
 
