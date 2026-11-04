@@ -7,6 +7,9 @@ param(
     [switch]$Create
 )
 $ErrorActionPreference = 'Stop'
+if ([Environment]::OSVersion.Platform -ne [PlatformID]::Win32NT) {
+    throw 'Windows is required; no disk operation was attempted.'
+}
 $full = [IO.Path]::GetFullPath($Path)
 $taskProfileRoot = [IO.Path]::GetFullPath($env:USERPROFILE).TrimEnd('\')
 if (-not $full.StartsWith($taskProfileRoot + '\', [StringComparison]::OrdinalIgnoreCase) -or
