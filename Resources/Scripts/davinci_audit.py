@@ -6,10 +6,12 @@ import json
 from pathlib import Path
 import re
 import struct
+import uuid
 
 UFS_SHA256 = '0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1'
 UFS_GUID = '0d35cd8e-97ea-4f9a-96af-0f0d89f76567'
 AUDIT_GUID = '373cccf6-9a82-4fd9-ab08-0dac61afc9da'
+APRIORI_GUID = 'fc510ee7-ffdc-11d4-bd41-0080c73c8881'
 
 def regions(text):
     text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
@@ -156,11 +158,17 @@ def firmware_audit(path, cpu_only=False, expected_timer=None):
     volume = FirmwareVolume(data[offset:])
     if not volume.valid_header or not volume.process():
         raise ValueError('Could not parse firmware volume')
-    found, tables, timer_tables = {}, [], []
+    found, tables, timer_tables, apriori, ufs_depex = {}, [], [], [], []
     def visit(nodes):
         for node in nodes:
             if node['type'] == 'FirmwareFileSystemSection':
                 raw = getattr(node['_self'], 'data', b'')
+                if node['attrs'].get('type') == 25 and node['guid'].lower() == APRIORI_GUID:
+                    if len(raw) % 16:
+                        raise ValueError('Truncated APRIORI GUID list')
+                    apriori.extend(str(uuid.UUID(bytes_le=raw[i:i + 16])) for i in range(0, len(raw), 16))
+                if node['attrs'].get('type') == 19 and node['guid'].lower() == UFS_GUID:
+                    ufs_depex.append(raw)
                 if node['attrs'].get('type') == 16 and node['guid'].lower() in [UFS_GUID, AUDIT_GUID]:
                     if pe_machine(raw) != 0xAA64:
                         raise ValueError('Non-ARM64 EFI component')
@@ -175,6 +183,10 @@ def firmware_audit(path, cpu_only=False, expected_timer=None):
     visit(volume.iterate_objects())
     if found.get(UFS_GUID) != UFS_SHA256 or AUDIT_GUID not in found:
         raise ValueError('Firmware is missing the reviewed UFS or DEBUG audit driver')
+    if ufs_depex != [bytes.fromhex('02d0c7e5f439d2cb47aacd7f66ef76323808')]:
+        raise ValueError('Firmware UFS DEPEX differs from the reviewed SMEM dependency')
+    if AUDIT_GUID not in apriori or UFS_GUID not in apriori or apriori.index(AUDIT_GUID) >= apriori.index(UFS_GUID):
+        raise ValueError('Compiled APRIORI does not put the audit before UFS')
     if cpu_only:
         dsdt = [t for t in tables if t['signature'] == 'DSDT']
         if len(dsdt) != 1 or dsdt[0]['oem_id'] != 'DVNCI' or dsdt[0]['checksum_mod256']:
@@ -186,6 +198,7 @@ def firmware_audit(path, cpu_only=False, expected_timer=None):
         if any(t['checksum_mod256'] for t in tables if t['signature'] == 'GTDT'):
             raise ValueError('Research GTDT checksum is invalid')
     return {'fd_sha256': hashlib.sha256(data).hexdigest(), 'efi_components': found, 'acpi_raw_tables': tables,
+            'apriori_audit_before_ufs': True, 'ufs_depex_smem_confirmed': True,
             'note': 'Raw ACPI checksums may be recalculated by InstallAcpiTable; no runtime evidence.'}
 
 def main():
