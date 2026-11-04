@@ -4,6 +4,7 @@
 #include <Protocol/BlockIo.h>
 #include <Protocol/EFIClock.h>
 #include <Protocol/EFISmem.h>
+#include <Protocol/EFIScm.h>
 #include <Library/ConfigurationMapHelperLib.h>
 #include <Library/DebugLib.h>
 #include <Library/IoLib.h>
@@ -21,7 +22,7 @@ AuditProtocol (CHAR8 *Name, EFI_GUID *Guid)
 {
   VOID       *Interface = NULL;
   EFI_STATUS  Status = gBS->LocateProtocol (Guid, NULL, &Interface);
-  DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: %a protocol %r\n", Name, Status));
+  DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: %a protocol %r (presence only; initialization status unknown)\n", Name, Status));
 }
 
 STATIC VOID
@@ -92,8 +93,14 @@ StorageAuditEntry (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
   DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: pre-UFSDxe audit; bundled IOMMU bypass is unchanged\n"));
   AuditProtocol ("SMEM", &gEfiSMEMProtocolGuid);
   AuditProtocol ("Clock", &gEfiClockProtocolGuid);
-  AuditProtocol ("IOMMU", &mIommuGuid);
+  AuditProtocol ("HALIOMMU", &mIommuGuid);
+  AuditProtocol ("SCM", &gQcomScmProtocolGuid);
   AuditImem ();
+  {
+    UINT32 Ioc = 0;
+    Status = LocateConfigurationMapUINT32ByName ("EnableUfsIOC", &Ioc);
+    DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: EnableUfsIOC lookup %r value=%u; bypassed routine does not consume it\n", Status, Ioc));
+  }
   Status = gBS->CreateEventEx (EVT_NOTIFY_SIGNAL, TPL_CALLBACK, AuditBlockIo,
                              "EndOfDxe", &gEfiEndOfDxeEventGroupGuid, &Event);
   DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: EndOfDxe audit registration %r\n", Status));
@@ -113,7 +120,8 @@ StorageAuditAfterUfsEntry (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable
   DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: post-UFSDxe APRIORI position reached; UFS status unknown\n"));
   AuditProtocol ("SMEM", &gEfiSMEMProtocolGuid);
   AuditProtocol ("Clock", &gEfiClockProtocolGuid);
-  AuditProtocol ("IOMMU", &mIommuGuid);
+  AuditProtocol ("HALIOMMU", &mIommuGuid);
+  AuditProtocol ("SCM", &gQcomScmProtocolGuid);
   AuditBlockIo (NULL, "post-UFSDxe");
   return EFI_SUCCESS;
 }

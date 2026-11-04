@@ -21,6 +21,7 @@
   MemoryMapHelperLib
   ConfigurationMapHelperLib
 [Protocols]
+  gQcomScmProtocolGuid
   gEfiSMEMProtocolGuid
   gEfiClockProtocolGuid
   gEfiBlockIoProtocolGuid

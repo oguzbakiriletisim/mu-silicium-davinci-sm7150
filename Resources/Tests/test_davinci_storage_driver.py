@@ -13,7 +13,7 @@ class StorageDriverHostTests(unittest.TestCase):
             tmp = Path(tmp)
             # All declarations come from the host harness, not production UEFI.
             for name in ['Uefi.h', 'Guid/EventGroup.h', 'Protocol/BlockIo.h',
-                         'Protocol/EFIClock.h', 'Protocol/EFISmem.h',
+                         'Protocol/EFIClock.h', 'Protocol/EFISmem.h', 'Protocol/EFIScm.h',
                          'Library/ConfigurationMapHelperLib.h', 'Library/DebugLib.h',
                          'Library/IoLib.h', 'Library/MemoryAllocationLib.h',
                          'Library/MemoryMapHelperLib.h', 'Library/UefiBootServicesTableLib.h']:

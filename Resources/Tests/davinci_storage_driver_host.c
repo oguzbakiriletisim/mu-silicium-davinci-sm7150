@@ -37,6 +37,7 @@ typedef struct {
   EFI_STATUS (*HandleProtocol)(EFI_HANDLE, EFI_GUID *, VOID **);
   EFI_STATUS (*CreateEventEx)(int, int, NOTIFY, VOID *, EFI_GUID *, EFI_EVENT *);
 } EFI_BOOT_SERVICES;
+static EFI_GUID gQcomScmProtocolGuid;
 static EFI_GUID gEfiSMEMProtocolGuid, gEfiClockProtocolGuid, gEfiBlockIoProtocolGuid;
 static EFI_GUID gEfiEndOfDxeEventGroupGuid, gEfiEventReadyToBootGuid;
 static unsigned ProtocolCalls, ReadCalls, MapCalls, EventCalls, ScanCalls, FreeCalls, LogCalls;
@@ -47,7 +48,8 @@ static EFI_BLOCK_IO_MEDIA Media = {1, 0, 4096, 1023};
 static EFI_BLOCK_IO_PROTOCOL Block = {&Media};
 static void HostDebug(int Level, const char *Format, ...) { (void)Level; (void)Format; LogCalls++; }
 static EFI_STATUS LocateConfigurationMapUINT32ByName(CHAR8 *Name, UINT32 *Base) {
-  (void)Name; *Base = 0x146aa000; return FailConfiguration ? EFI_NOT_FOUND : EFI_SUCCESS;
+  if (strcmp(Name,"EnableUfsIOC")==0) return EFI_NOT_FOUND;
+  *Base = 0x146aa000; return FailConfiguration ? EFI_NOT_FOUND : EFI_SUCCESS;
 }
 static EFI_STATUS LocateMemoryMapAreaByAddress(UINT32 Base, ARM_MEMORY_REGION_DESCRIPTOR_EX *R) {
   MapCalls++; R->Address=Base; R->Length=0x1000; return FailMapping ? EFI_NOT_FOUND : EFI_SUCCESS;
@@ -86,7 +88,7 @@ static void Reset(void) {
 }
 int main(void) {
   Reset(); assert(StorageAuditEntry(NULL,NULL)==EFI_SUCCESS);
-  assert(ProtocolCalls==3 && ReadCalls==3 && EventCalls==2 && ScanCalls==0);
+  assert(ProtocolCalls==4 && ReadCalls==3 && EventCalls==2 && ScanCalls==0);
   Callbacks[0](NULL,Contexts[0]); Callbacks[1](NULL,Contexts[1]);
   assert(ScanCalls==2 && FreeCalls==2);
   Reset(); FailConfiguration=1; assert(StorageAuditEntry(NULL,NULL)==EFI_SUCCESS);
@@ -94,7 +96,7 @@ int main(void) {
   Reset(); FailMapping=1; FailEvents=1; assert(StorageAuditEntry(NULL,NULL)==EFI_SUCCESS);
   assert(ReadCalls==0 && MapCalls==1 && EventCalls==2);
   Reset(); assert(StorageAuditAfterUfsEntry(NULL,NULL)==EFI_SUCCESS);
-  assert(ProtocolCalls==3 && ScanCalls==1 && FreeCalls==1 && ReadCalls==0 && EventCalls==0);
+  assert(ProtocolCalls==4 && ScanCalls==1 && FreeCalls==1 && ReadCalls==0 && EventCalls==0);
   Reset(); FailScan=1; assert(StorageAuditAfterUfsEntry(NULL,NULL)==EFI_SUCCESS);
   assert(FreeCalls==0);
   Reset(); FailProtocol=1; AuditBlockIo(NULL,"test"); assert(FreeCalls==1);
