@@ -1,3 +1,5 @@
+> Bu belge f3016dd4 öncesi paket içindir. DUU1 HAL/UFS sürümü için `Resources/UfsUnblock/README_TR.md` kullanın; HAL artık yalnız koşullu ve kontrollü yüklenebilir.
+
 # Davinci: tek deneysel boot testi ve Windows hazırlığı
 
 Başlangıç: `8bfaa630b6b6d3efa293982b5e2cc60507458a2f`.

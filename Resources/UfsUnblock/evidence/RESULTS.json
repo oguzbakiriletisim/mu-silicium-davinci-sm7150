@@ -1,0 +1,57 @@
+{
+  "base_commit": "f3016dd43346d63960dda5144c30f26f3824f0ba",
+  "host_tests": {
+    "total": 89,
+    "passed": 89,
+    "failed": 0,
+    "skipped": 0
+  },
+  "edk2_build": "PASS",
+  "pe_validation": "PASS after explicitly declaring FREEFORM profile with unchanged DEFAULT requirements",
+  "initial_pe_validation": "FREEFORM profile missing; initial log retained, corrected configuration rerun clean",
+  "physical_new_image_tested": false,
+  "ufs_block_io_on_phone_verified": false,
+  "gpt_on_phone_verified": false,
+  "bootshim_prepi_memorymap_sources_unchanged": true,
+  "binary_patches_applied": false,
+  "source_fix": "Explicit HAL loading; exact native ABI domain chain if unmapped; existing verified identity reuse; live readback and ownership gates",
+  "limitations": [
+    "Existing unverified UFS routes are not detached or overwritten.",
+    "HAL dummy client can be skipped to avoid duplicate SDC/USB mappings; source labels this honestly.",
+    "Exact CB2 control values are not yet known; readback decides at runtime.",
+    "Native HAL/UFS/Clock register/DMA behavior on the phone is not validated by host tests."
+  ],
+  "image": {
+    "image_sha256": "6bd51e63dd70840837a5189feb027761e1388751547f1020769c728cdc3ee354",
+    "image_size": 3477504,
+    "fd_sha256": "68fc32e7625eaed2be4db112326bd59f670f5075ea234594778c0cdf16077ddf",
+    "exact_repack_matches": true,
+    "shim_and_fd_roundtrip": true,
+    "original_dtbs_byte_exact": true,
+    "original_header_preserved_except_kernel_size_and_id": true,
+    "original_zip_unchanged": true,
+    "android_image_id_valid": true,
+    "original_header": {
+      "kernel_size": 15720488,
+      "kernel_addr": 32768,
+      "ramdisk_size": 0,
+      "ramdisk_addr": 16777216,
+      "second_size": 0,
+      "second_addr": 15728640,
+      "tags_addr": 256,
+      "page_size": 4096,
+      "header_version": 1,
+      "os_version_raw": 335544661,
+      "os_version": "10.0.0",
+      "os_patch_level": "2021-05",
+      "header_size": 1648
+    },
+    "previous_transport_success": "USER_REPORTED: previous first-entry image booted on davinci",
+    "new_image_physical_validation": false,
+    "hal_iommu_native_initialization_enabled": true,
+    "native_hal_path_conditional_on_live_ownership": true,
+    "ufs_requires_verified_identity_readback": true,
+    "windows_deployment_allowed": false
+  },
+  "windows_install_kit_regenerated": false
+}

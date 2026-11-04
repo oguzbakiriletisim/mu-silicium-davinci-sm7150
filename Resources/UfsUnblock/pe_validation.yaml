@@ -1,0 +1,5 @@
+# FREEFORM is a deliberate FFS container, not a different PE execution type.
+# Inherit the tool's ARM64 DEFAULT W^X and 4K section-alignment requirements.
+# No ignore list and no relaxed binary requirements.
+IMAGE_FILE_MACHINE_ARM64:
+  FREEFORM: {}

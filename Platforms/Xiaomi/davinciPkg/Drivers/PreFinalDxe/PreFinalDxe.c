@@ -4,6 +4,8 @@
 #include <Uefi.h>
 #include <Pi/PiFirmwareFile.h>
 #include <Protocol/BlockIo.h>
+#include <Protocol/LoadedImage.h>
+#include <Library/ConfigurationMapHelperLib.h>
 #include <Library/BaseLib.h>
 #include <Library/BaseMemoryLib.h>
 #include <Library/CacheMaintenanceLib.h>
@@ -16,14 +18,157 @@
 #include <Library/UefiBootServicesTableLib.h>
 #include "ReadOnlyChecks.h"
 #include "NativeImages.h"
+#include "HalUfsBridge.h"
 
 STATIC EFI_GUID mHal = {0x54b6d3b4,0x5d33,0x4f91,{0x86,0,0x6c,0x41,0xd5,0xde,0xb1,0x9a}};
 STATIC EFI_GUID mEsp = {0xc12a7328,0xf81f,0x11d2,{0xba,0x4b,0,0xa0,0xc9,0x3e,0xc9,0x3b}};
-STATIC EFI_STATUS mGate, mHalStatus, mUfs = EFI_NOT_STARTED, mBlock = EFI_NOT_FOUND;
+STATIC EFI_STATUS mGate = EFI_NOT_STARTED, mHalStatus = EFI_NOT_STARTED, mUfs = EFI_NOT_STARTED, mBlock = EFI_NOT_FOUND;
 STATIC EFI_STATUS mGpt = EFI_NOT_FOUND;
 STATIC UINTN mCount, mDisks, mWin, mEsps, mGptFailures, mReads;
 STATIC UINT32 mIdr0, mIdr1, mCr0, mMatching;
 STATIC EFI_HANDLE mThisImage;
+
+// All writes in the native path belong to the unchanged Qualcomm HAL image.
+// This coordinator only reads registers and invokes published ABI methods.
+#define NATIVE_HAL_INDEX (ARRAY_SIZE (mNative) - 2)
+STATIC EFI_HANDLE mNativeHandle[ARRAY_SIZE (mNative)];
+STATIC EFI_STATUS mLoadStatus[ARRAY_SIZE (mNative)], mStartStatus[ARRAY_SIZE (mNative)];
+STATIC EFI_STATUS mHalEntry = EFI_NOT_STARTED, mHalInit = EFI_NOT_STARTED;
+STATIC EFI_STATUS mHalDomain = EFI_NOT_STARTED, mReadback = EFI_NOT_STARTED;
+STATIC DAVINCI_UFS_DOMAIN mDomain = { NULL, 0xffffffffU, 0xffffffffU, 0xffffffffU, 0 };
+STATIC UINT32 mIoc;
+STATIC CHAR8 *mPath = "NOT SELECTED";
+STATIC struct {
+  UINT32 Idr0, Idr1, Cr0, Cr0Ns, N, Banks;
+  UINT64 CtxOffset;
+  UINT32 Smr[128], S2cr[128], Cbar[128], Cba2r[128], Sctlr[128];
+} mLive;
+
+STATIC BOOLEAN MatchSid (UINT32 Smr, UINT32 Sid) {
+  return (Smr & 0x80000000U) && (((Sid ^ (Smr & 0x7fffU)) & ~((Smr >> 16) & 0x7fffU)) == 0);
+}
+STATIC EFI_STATUS CaptureNative (CHAR8 *Label) {
+  ARM_MEMORY_REGION_DESCRIPTOR_EX R; UINTN I;
+  EFI_STATUS S = LocateMemoryMapAreaByName ("SMMU", &R);
+  if (EFI_ERROR (S) || R.Address != 0x15000000 || R.Length < 0x2000) { return EFI_UNSUPPORTED; }
+  mLive.Idr0 = MmioRead32 ((UINTN)R.Address + 0x20);
+  mLive.Idr1 = MmioRead32 ((UINTN)R.Address + 0x24);
+  mLive.Cr0 = MmioRead32 ((UINTN)R.Address);
+  mLive.Cr0Ns = MmioRead32 ((UINTN)R.Address + 0x400);
+  DEBUG ((DEBUG_ERROR, "%a IDR0=%08x IDR1=%08x CR0=%08x CR0NS=%08x\n", Label, mLive.Idr0,mLive.Idr1,mLive.Cr0,mLive.Cr0Ns));
+  mLive.N = mLive.Idr0 & 255U;
+  // The observed QSMMU ID pair has SMS=0 although live SMRs exist. Support
+  // only that exact reported pair or ordinary SMS layouts, never infer a
+  // different register schema just from a nonzero word at an MMIO address.
+  if (!NativeLayoutSupported(mLive.Idr0,mLive.Idr1) ||
+      !ContextWindow (mLive.Idr1, R.Length, &mLive.CtxOffset, &mLive.Banks)) { return EFI_UNSUPPORTED; }
+  DEBUG ((DEBUG_ERROR, "NATIVE LAYOUT SMR=%u BANKS=%u CTX_OFFSET=0x%Lx\n", mLive.N,mLive.Banks,mLive.CtxOffset));
+  for (I = 0; I < mLive.N; ++I) {
+    mLive.Smr[I] = MmioRead32 ((UINTN)R.Address + 0x800 + 4*I);
+    mLive.S2cr[I] = MmioRead32 ((UINTN)R.Address + 0xc00 + 4*I);
+    if (MatchSid (mLive.Smr[I], 0x300)) {
+      DEBUG ((DEBUG_ERROR, "UFS GROUP=%u SMR=%08x S2CR=%08x TYPE[17:16]=%u CB[7:0]=%u\n",
+              (UINT32)I,mLive.Smr[I],mLive.S2cr[I],(mLive.S2cr[I]>>16)&3U,mLive.S2cr[I]&255U));
+    }
+  }
+  for (I = 0; I < mLive.Banks; ++I) {
+    mLive.Cbar[I] = MmioRead32 ((UINTN)R.Address + 0x1000 + 4*I);
+    mLive.Cba2r[I] = MmioRead32 ((UINTN)R.Address + 0x1800 + 4*I);
+    mLive.Sctlr[I] = MmioRead32 ((UINTN)R.Address + (UINTN)mLive.CtxOffset + (I<<12));
+  }
+  for (I = 0; I < mLive.N; ++I) {
+    UINT32 Bank = mLive.S2cr[I] & 255U;
+    if (MatchSid (mLive.Smr[I],0x300) && Bank < mLive.Banks) {
+      DEBUG ((DEBUG_ERROR, "LIVE CB=%u CBAR=%08x CBA2R=%08x SCTLR=%08x M=%u\n",
+              Bank,mLive.Cbar[Bank],mLive.Cba2r[Bank],mLive.Sctlr[Bank],mLive.Sctlr[Bank]&1U));
+    }
+  }
+  if (mLive.Idr0 != MmioRead32 ((UINTN)R.Address+0x20) ||
+      mLive.Idr1 != MmioRead32 ((UINTN)R.Address+0x24) ||
+      mLive.Cr0 != MmioRead32 ((UINTN)R.Address) ||
+      mLive.Cr0Ns != MmioRead32 ((UINTN)R.Address+0x400)) { return EFI_NOT_READY; }
+  if ((mLive.Cr0 | mLive.Cr0Ns) & 1U) { return EFI_SECURITY_VIOLATION; }
+  return EFI_SUCCESS;
+}
+STATIC EFI_STATUS ReadbackUfs (VOID) {
+  UINTN I, Sid, Matches;
+  for (Sid=0x300; Sid<0x310; ++Sid) {
+    Matches=0;
+    for (I=0; I<mLive.N; ++I) {
+      UINT32 B = mLive.S2cr[I] & 255U, T = (mLive.S2cr[I]>>16)&3U;
+      if (!MatchSid (mLive.Smr[I],(UINT32)Sid)) { continue; }
+      ++Matches;
+      if (T == 1) { continue; } // Explicit stream bypass, no CB access needed.
+      if (B >= mLive.Banks || !NativeBankBypass (mLive.S2cr[I],mLive.Cbar[B],mLive.Cba2r[B],mLive.Sctlr[B],mIoc,mLive.Banks)) {
+        return EFI_SECURITY_VIOLATION;
+      }
+    }
+    if (Matches != 1) { return EFI_SECURITY_VIOLATION; }
+  }
+  return EFI_SUCCESS;
+}
+STATIC BOOLEAN HasUfsRoute (VOID) {
+  UINTN I, Sid;
+  for (I=0; I<mLive.N; ++I) {
+    for (Sid=0x300; Sid<0x310; ++Sid) { if (MatchSid (mLive.Smr[I],(UINT32)Sid)) { return TRUE; } }
+  }
+  return FALSE;
+}
+// The native provider runs SDC1/2/4 and USB3-0 dummy clients. Do not create
+// duplicate stream matches or let its free-bank heuristic clobber live banks.
+STATIC EFI_STATUS SafePool (UINTN NeedSmr, UINTN NeedCb) {
+  UINTN I, B, FreeSmr=0, FreeCb=0;
+  for (I=0; I+1<mLive.N; ++I) { if (!(mLive.Smr[I]&0x80000000U)) { ++FreeSmr; } }
+  for (B=0; B<mLive.Banks; ++B) {
+    UINT32 T=(mLive.Cbar[B]>>16)&3U;
+    if (T!=0 && T!=2 && !(T==1 && (mLive.Cbar[B]&255U)==255U)) { continue; }
+    if (mLive.Sctlr[B]&1U) { return EFI_SECURITY_VIOLATION; }
+    for (I=0; I<mLive.N; ++I) {
+      if ((mLive.Smr[I]&0x80000000U) && ((mLive.S2cr[I]>>16)&3U)==0 && (mLive.S2cr[I]&255U)==B) { return EFI_SECURITY_VIOLATION; }
+    }
+    ++FreeCb;
+  }
+  DEBUG ((DEBUG_ERROR,"HAL AVAILABLE free-SMR=%u free-CB=%u NEED=%u/%u\n",(UINT32)FreeSmr,(UINT32)FreeCb,(UINT32)NeedSmr,(UINT32)NeedCb));
+  return FreeSmr>=NeedSmr && FreeCb>=NeedCb ? EFI_SUCCESS : EFI_OUT_OF_RESOURCES;
+}
+STATIC EFI_STATUS NativeProviderSafe (VOID) {
+  UINTN I, Sid;
+  for (I=0; I<mLive.N; ++I) {
+    if (!(mLive.Smr[I]&0x80000000U)) { continue; }
+    for (Sid=0x2a0; Sid<0x2b0; ++Sid) { if (MatchSid(mLive.Smr[I],(UINT32)Sid)) { return EFI_ALREADY_STARTED; } }
+    for (Sid=0x2c0; Sid<0x2d0; ++Sid) { if (MatchSid(mLive.Smr[I],(UINT32)Sid)) { return EFI_ALREADY_STARTED; } }
+    for (Sid=0x340; Sid<0x350; ++Sid) { if (MatchSid(mLive.Smr[I],(UINT32)Sid)) { return EFI_ALREADY_STARTED; } }
+    if (MatchSid(mLive.Smr[I],0x540)) { return EFI_ALREADY_STARTED; }
+  }
+  return SafePool(5,3);
+}
+STATIC BOOLEAN InImage (VOID *P, UINTN Bytes, EFI_LOADED_IMAGE_PROTOCOL *L) {
+  UINTN Base=(UINTN)L->ImageBase, A=(UINTN)P;
+  return A>=Base && Bytes<=L->ImageSize && A-Base<=L->ImageSize-Bytes;
+}
+STATIC EFI_STATUS InitHalTable (DAVINCI_HAL_TABLE **T) {
+  EFI_LOADED_IMAGE_PROTOCOL *L=NULL; DAVINCI_HAL_PROTOCOL *P=NULL;
+  EFI_STATUS S;
+  // An entry error may have caused image unload despite protocol publication.
+  // Never dereference a potentially dangling protocol after StartImage failed.
+  if (mHalEntry != EFI_SUCCESS || mStartStatus[NATIVE_HAL_INDEX] != EFI_SUCCESS) { return EFI_NOT_STARTED; }
+  S=gBS->HandleProtocol(mNativeHandle[NATIVE_HAL_INDEX],&gEfiLoadedImageProtocolGuid,(VOID **)&L);
+  if (EFI_ERROR(S) || L==NULL || L->ImageBase==NULL) { return EFI_COMPROMISED_DATA; }
+  mHalStatus=gBS->LocateProtocol(&mHal,NULL,(VOID **)&P);
+  if (EFI_ERROR(mHalStatus)) { return mHalStatus; }
+  if (!InImage(P,sizeof(*P),L) || P->Revision!=1 ||
+      !InImage((VOID *)(UINTN)P->Init,4,L) || (UINTN)P->Init-(UINTN)L->ImageBase!=0x13bc) { return EFI_COMPROMISED_DATA; }
+  P->Init(T); // void ABI: validate its output, never invent a return status.
+  if (!InImage(*T,sizeof(**T),L) ||
+      (UINTN)(*T)->Create-(UINTN)L->ImageBase!=0x1904 ||
+      (UINTN)(*T)->Attach-(UINTN)L->ImageBase!=0x1b70 ||
+      (UINTN)(*T)->ConfigureBypass-(UINTN)L->ImageBase!=0x3160) { return EFI_COMPROMISED_DATA; }
+  return EFI_SUCCESS;
+}
+STATIC VOID HalTrace (CHAR8 *Step, BOOLEAN Returned, UINT32 Raw) {
+  if (Returned) { DEBUG ((DEBUG_ERROR,"HAL %a RETURN RAW=0x%x\n",Step,Raw)); }
+  else { DEBUG ((DEBUG_ERROR,"HAL %a CALL (pending)\n",Step)); }
+}
 
 STATIC VOID Screen (VOID) {
   ARM_MEMORY_REGION_DESCRIPTOR_EX R;
@@ -87,6 +232,7 @@ STATIC EFI_STATUS Depex (EFI_GUID *Guid) {
       if (I + sizeof G > N || Top == 64) { break; }
       CopyMem (&G, B + I, sizeof G); I += sizeof G;
       Stack[Top++] = !EFI_ERROR (gBS->LocateProtocol (&G, NULL, &P));
+      if (!Stack[Top-1]) { DEBUG ((DEBUG_ERROR,"DEPEX MISSING %g for image %g\n",&G,Guid)); }
     } else if (Op == 6 || Op == 7) {
       if (Top == 64) { break; } Stack[Top++] = (Op == 6);
     } else if (Op == 3 || Op == 4) {
@@ -103,12 +249,13 @@ STATIC EFI_STATUS Depex (EFI_GUID *Guid) {
 STATIC EFI_STATUS StartNative (UINTN Index) {
   VOID *B = NULL; UINTN N = 0; EFI_HANDLE H = NULL;
   EFI_STATUS S = Depex (&mNative[Index].Guid);
-  if (EFI_ERROR (S)) { Result (mNative[Index].Name, S); return S; }
+  if (EFI_ERROR (S)) { DEBUG ((DEBUG_ERROR,"DEPEX %a STATUS=%r\n",mNative[Index].Name,S)); return S; }
   S = GetSectionFromAnyFv (&mNative[Index].Guid, EFI_SECTION_PE32, 0, &B, &N);
-  if (!EFI_ERROR (S)) { S = gBS->LoadImage (FALSE, mThisImage, NULL, B, N, &H); FreePool (B); }
+  if (!EFI_ERROR (S)) { S = gBS->LoadImage (FALSE, mThisImage, NULL, B, N, &H); mLoadStatus[Index]=S; FreePool (B); }
   if (!EFI_ERROR (S)) {
     DEBUG ((DEBUG_ERROR, "START %a (if hangs, this entry did not return)\n", mNative[Index].Name));
-    S = gBS->StartImage (H, NULL, NULL);
+    mNativeHandle[Index] = H;
+    S = gBS->StartImage (H, NULL, NULL); mStartStatus[Index]=S;
   }
   Result (mNative[Index].Name, S);
   return S;
@@ -177,40 +324,94 @@ Exit:
 }
 
 EFI_STATUS EFIAPI PreFinalEntry (EFI_HANDLE Image, EFI_SYSTEM_TABLE *SystemTable) {
-  EFI_STATUS S; VOID *Hal = NULL; EFI_HANDLE *Handles = NULL;
+  EFI_STATUS S, ProviderGuard; VOID *Hal = NULL; EFI_HANDLE *Handles = NULL;
   EFI_BLOCK_IO_PROTOCOL *Io; UINTN I, Stage, Pass, RawCount = 0;
   BOOLEAN Done[ARRAY_SIZE (mNative)] = {FALSE};
+  DAVINCI_HAL_TABLE *Table = NULL;
   mThisImage = Image;
-  gBS->SetWatchdogTimer (0, 0, 0, NULL); // UEFI software watchdog only.
-  Screen (); Result ("DXE", EFI_SUCCESS);
-  DEBUG ((DEBUG_ERROR, "PREPI: PASS (execution reached DXE)\nSMMU: READ-ONLY SNAPSHOT NEXT\n"));
-  mGate = Snapshot (TRUE); Result ("IOMMU INHERITED BYPASS", mGate);
-  mHalStatus = gBS->LocateProtocol (&mHal, NULL, &Hal);
-  Result ("HALIOMMU PROTOCOL PRESENCE ONLY", mHalStatus);
-  DEBUG ((DEBUG_ERROR, "HALIOMMU: NOT STARTED; dummy-client writes are excluded\n"));
-  if (!EFI_ERROR (mGate)) {
-    // No HAL calls: preserve inherited identity state. This is NOT a native
-    // domain/attach fix and cannot handle translated or unmatched streams.
-    // Load only original davinci dependencies; never ignore their DEPEX.
-    for (Pass = 0; Pass < ARRAY_SIZE(mNative); ++Pass) {
-      BOOLEAN Progress = FALSE;
-      for (Stage = 0; Stage + 1 < ARRAY_SIZE(mNative); ++Stage) {
-        if (Done[Stage]) { continue; }
-        S = Depex (&mNative[Stage].Guid);
-        if (S == EFI_NOT_READY) { continue; }
-        S = StartNative (Stage); Done[Stage] = TRUE; Progress = TRUE;
-        if (EFI_ERROR (S)) { DEBUG ((DEBUG_ERROR, "DEPENDENCY FAILURE; UFS WILL NOT START\n")); mUfs = S; goto Summary; }
+  for (I=0; I<ARRAY_SIZE(mNative); ++I) { mLoadStatus[I]=mStartStatus[I]=EFI_NOT_STARTED; }
+  gBS->SetWatchdogTimer (0, 0, 0, NULL);
+  Screen (); DEBUG ((DEBUG_ERROR,"DAVINCI UFS UNBLOCK V1 / DUU1\n")); Result ("DXE", EFI_SUCCESS);
+  DEBUG ((DEBUG_ERROR,"PREPI: PASS (previous physical success preserved)\n"));
+  S=Snapshot(TRUE); Result("LEGACY TYPE1 CHECK (NOT THE NEW GATE)",S);
+  mGate=CaptureNative("BEFORE HAL");
+  if (EFI_ERROR(mGate)) { goto Summary; }
+  S=LocateConfigurationMapUINT32ByName("EnableUfsIOC",&mIoc);
+  if (S==EFI_NOT_FOUND) { mIoc=0; }
+  else if (EFI_ERROR(S)) { mGate=S; goto Summary; }
+  if (mIoc>1) { mGate=EFI_UNSUPPORTED; goto Summary; }
+  DEBUG ((DEBUG_ERROR,"EnableUfsIOC=%u STATUS=%r\n",mIoc,S));
+  mHalStatus=gBS->LocateProtocol(&mHal,NULL,&Hal);
+  Result("HALIOMMU BEFORE LOAD PRESENCE",mHalStatus);
+  // Dependencies are no longer hidden behind the failed inherited-TYPE1 gate.
+  for (Pass=0; Pass<ARRAY_SIZE(mNative); ++Pass) {
+    BOOLEAN Progress=FALSE;
+    for (Stage=0; Stage<NATIVE_HAL_INDEX; ++Stage) {
+      if (Done[Stage]) { continue; }
+      S=Depex(&mNative[Stage].Guid);
+      if (S==EFI_NOT_READY) { continue; }
+      S=StartNative(Stage); Done[Stage]=TRUE; Progress=TRUE;
+      if (EFI_ERROR(S)) { mUfs=S; goto Summary; }
+    }
+    if (!Progress) { break; }
+  }
+  for (Stage=0; Stage<NATIVE_HAL_INDEX; ++Stage) {
+    if (!Done[Stage]) { S=Depex(&mNative[Stage].Guid); Result("DEPENDENCY STILL BLOCKED",S); mUfs=EFI_NOT_READY; goto Summary; }
+  }
+  mGate=CaptureNative("AFTER DEPENDENCIES");
+  if (EFI_ERROR(mGate)) { goto Summary; }
+  if (HasUfsRoute()) {
+    mReadback=ReadbackUfs();
+    if (EFI_ERROR(mReadback)) {
+      mGate=mReadback;
+      DEBUG ((DEBUG_ERROR,"EXISTING UFS BANK NOT VERIFIED IDENTITY; HAL/DMA NOT STARTED\n"));
+      goto Summary;
+    }
+  }
+  ProviderGuard=NativeProviderSafe(); Result("HAL PROVIDER OWNERSHIP GUARD",ProviderGuard);
+  if (EFI_ERROR(ProviderGuard)) {
+    // Never load a dummy provider that would duplicate a live SDC/USB mapping
+    // or reclaim a bank used by a live stream. Reuse is permitted ONLY after
+    // actual, complete identity readback; no configure/attach success is claimed.
+    mGate=ReadbackUfs(); mReadback=mGate;
+    if (EFI_ERROR(mGate)) { goto Summary; }
+    mPath="EXISTING VERIFIED IDENTITY; HAL PROVIDER SKIPPED";
+  } else {
+    S=StartNative(NATIVE_HAL_INDEX); mHalEntry=mStartStatus[NATIVE_HAL_INDEX];
+    Result("HALIOMMU LOAD/START PATH",S); Result("HALIOMMU ENTRY",mHalEntry);
+    if (S!=EFI_SUCCESS || mHalEntry!=EFI_SUCCESS) { goto Summary; }
+    mHalInit=InitHalTable(&Table); Result("HALIOMMU INIT ABI",mHalInit);
+    if (EFI_ERROR(mHalInit)) { goto Summary; }
+    mGate=CaptureNative("AFTER HAL ENTRY");
+    if (EFI_ERROR(mGate)) { goto Summary; }
+    if (HasUfsRoute()) {
+      mGate=ReadbackUfs(); mReadback=mGate;
+      if (EFI_ERROR(mGate)) {
+        DEBUG ((DEBUG_ERROR,"EXISTING UFS ROUTE IS NOT VERIFIED IDENTITY; NO OVERWRITE/DETACH\n"));
+        goto Summary;
       }
-      if (!Progress) { break; }
+      mPath="EXISTING VERIFIED IDENTITY; ATTACH NOT NEEDED";
+    } else {
+      // A second matching SMR would cause a multi-hit. Only attach an unmapped
+      // UFS range; native HAL selects a free bank from live CBAR state.
+      ProviderGuard=SafePool(1,1); Result("UFS ALLOCATION OWNERSHIP GUARD",ProviderGuard);
+      if (EFI_ERROR(ProviderGuard)) { mGate=ProviderGuard; goto Summary; }
+      mHalDomain=RunUfsDomainChain(Table,mIoc,&mDomain,HalTrace);
+      Result("HAL UFS DOMAIN CHAIN",mHalDomain);
+      if (EFI_ERROR(mHalDomain)) { goto Summary; }
+      mGate=CaptureNative("AFTER UFS ATTACH");
+      if (!EFI_ERROR(mGate)) { mGate=ReadbackUfs(); mReadback=mGate; }
+      if (EFI_ERROR(mGate)) { goto Summary; }
+      mPath="NATIVE CREATE/CONFIGURE_BYPASS/ATTACH + READBACK";
     }
-    for (Stage = 0; Stage + 1 < ARRAY_SIZE(mNative); ++Stage) {
-      if (!Done[Stage]) { mUfs = EFI_NOT_READY; goto Summary; }
-    }
-    S = Snapshot (FALSE);
-    if (EFI_ERROR (S)) { mGate = S; mUfs = S; goto Summary; }
+  }
+  Result("UFS IOMMU READBACK",mGate);
+  if (!EFI_ERROR(mGate)) {
     mUfs = StartNative (ARRAY_SIZE(mNative)-1);
     if (EFI_ERROR (mUfs)) { goto Summary; }
-    S = Snapshot (FALSE);
+    S = CaptureNative ("AFTER UFS ENTRY");
+    if (!EFI_ERROR (S)) { S=ReadbackUfs(); }
+    mReadback=S;
     if (EFI_ERROR (S)) { mGate = S; goto Summary; }
     Screen ();
     mBlock = gBS->LocateHandleBuffer (ByProtocol, &gEfiBlockIoProtocolGuid, NULL, &RawCount, &Handles);
@@ -233,10 +434,22 @@ EFI_STATUS EFIAPI PreFinalEntry (EFI_HANDLE Image, EFI_SYSTEM_TABLE *SystemTable
   } else { mUfs = EFI_SECURITY_VIOLATION; }
 Summary:
   DEBUG ((DEBUG_ERROR, "\n=== DAVINCI PREFINAL RESULTS ===\nPREPI: PASS\n"));
-  Result ("DXE", EFI_SUCCESS); Result ("HALIOMMU PRESENCE ONLY", mHalStatus);
-  DEBUG ((DEBUG_ERROR, "HALIOMMU INIT: NOT RUN (no native attach writes)\n"));
-  Result ("IOMMU INHERITED BYPASS", mGate);
-  DEBUG ((DEBUG_ERROR, "SID300 MATCHES=%u IDR0=%08x IDR1=%08x CR0NS=%08x\n", mMatching,mIdr0,mIdr1,mCr0));
+  Result ("DXE", EFI_SUCCESS); Result ("HALIOMMU PRESENCE", mHalStatus);
+  Result("HALIOMMU LOADIMAGE",mLoadStatus[NATIVE_HAL_INDEX]);
+  Result("HALIOMMU ENTRY",mHalEntry); Result("HALIOMMU INIT ABI",mHalInit);
+  Result("HAL UFS DOMAIN CHAIN",mHalDomain);
+  DEBUG ((DEBUG_ERROR,"UFS DOMAIN completed=%u create=%08x cfg=%08x attach=%08x\n",mDomain.Completed,mDomain.Create,mDomain.Configure,mDomain.Attach));
+  DEBUG ((DEBUG_ERROR,"IOMMU PATH: %a\n",mPath));
+  Result ("IOMMU PATH STATUS", mGate);
+  Result ("IOMMU NATIVE/IDENTITY READBACK", mReadback);
+  DEBUG ((DEBUG_ERROR,"RAW IDR0=%08x IDR1=%08x CR0=%08x CR0NS=%08x\n",mLive.Idr0,mLive.Idr1,mLive.Cr0,mLive.Cr0Ns));
+  for (I=0; I<mLive.N && I<128; ++I) {
+    UINT32 B=mLive.S2cr[I]&255U;
+    if (!MatchSid(mLive.Smr[I],0x300)) { continue; }
+    DEBUG ((DEBUG_ERROR,"LAST UFS SMR=%08x S2CR=%08x TYPE=%u CB=%u\n",mLive.Smr[I],mLive.S2cr[I],(mLive.S2cr[I]>>16)&3U,B));
+    if (B<mLive.Banks && B<128) { DEBUG ((DEBUG_ERROR,"LAST CBAR=%08x CBA2R=%08x SCTLR=%08x M=%u IOC=%u\n",mLive.Cbar[B],mLive.Cba2r[B],mLive.Sctlr[B],mLive.Sctlr[B]&1U,mIoc)); }
+  }
+
   DEBUG ((DEBUG_ERROR, "UFS LOAD/START PATH STATUS=0x%Lx (%r) (entry alone is not PASS)\n", (UINT64)mUfs, mUfs));
   Result ("UFS READ ACCESS", mReads ? EFI_SUCCESS : (EFI_ERROR(mUfs) ? mUfs : EFI_NOT_FOUND));
   DEBUG ((DEBUG_ERROR, "UFS SUCCESSFUL READ CALLS=%u\n", (UINT32)mReads));

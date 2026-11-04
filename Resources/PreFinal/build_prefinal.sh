@@ -13,7 +13,8 @@ for x in json.loads(pathlib.Path('Resources/PreFinal/native-lock.json').read_tex
 PY
 python3 Platforms/Xiaomi/davinciPkg/DeviceBuild.py TARGET=DEBUG \
   FD_BASE=0x9FC00000 FD_SIZE=0x00300000 FD_BLOCKS=0x300 \
-  BLD_DEBUG_DAVINCI_PREFINAL=1 BLD_DEBUG_DAVINCI_FIRST_BOOT_HALT=0
+  BLD_DEBUG_DAVINCI_PREFINAL=1 BLD_DEBUG_DAVINCI_FIRST_BOOT_HALT=0 \
+  PE_VALIDATION_PATH="$PWD/Resources/UfsUnblock/pe_validation.yaml"
 mkdir -- "$OUT"
 clang --target=aarch64-linux-gnu -c BootShim/BootShim.S -o "$OUT/BootShim.elf" \
   -DCREATE_FDT_POINTER=0 -DFDT_POINTER_ADDRESS=0 -DUEFI_BASE=0x9FC00000 -DUEFI_SIZE=0x00300000

@@ -1,6 +1,6 @@
 # Opt-in computer-built read-only diagnostics profile. No BDS, PartitionDxe,
 # FAT, variable runtime, USB mass storage, SCM/RPMB/GPT listener consumers,
-# HALIOMMU dummy client or auto-dispatched UFS driver.
+# auto-dispatched HALIOMMU/UFS driver. HAL is loaded explicitly after dependencies.
 APRIORI DXE {
   INF MdeModulePkg/Universal/PCD/Dxe/Pcd.inf
   INF Binaries/davinci/QcomPkg/Drivers/EnvDxe/EnvDxe.inf
@@ -77,4 +77,9 @@ FILE FREEFORM = 4DB5DEA6-5302-4D1A-8A82-677A683B0D29 {
 FILE FREEFORM = 0D35CD8E-97EA-4F9A-96AF-0F0D89F76567 {
   SECTION DXE_DEPEX = Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.depex
   SECTION PE32 = Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.efi
+}
+
+FILE FREEFORM = 9A00771F-36D4-4DD5-8916-C48ED9B16B86 {
+  SECTION DXE_DEPEX = Binaries/davinci/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.depex
+  SECTION PE32 = Binaries/davinci/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.efi
 }

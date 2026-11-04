@@ -1,3 +1,5 @@
+> Bu belge f3016dd4 öncesi paket içindir. DUU1 HAL/UFS sürümü için `Resources/UfsUnblock/README_TR.md` kullanın; HAL artık yalnız koşullu ve kontrollü yüklenebilir.
+
 # Mi 9T / davinci — deneysel pre-final boot testi
 
 **Yeni imaj fiziksel olarak denenmedi. Tam HALIOMMU/UFS düzeltmesi değildir. Windows kurulumu yapmaz.** Önceki PrePi/ekran/geçici Fastboot başarınız başlangıç kabul edildi.

@@ -39,8 +39,9 @@ def validate(backup_path, directory):
                 original_header=original_report['header'],
                 previous_transport_success='USER_REPORTED: previous first-entry image booted on davinci',
                 new_image_physical_validation=False,
-                hal_iommu_native_initialization_enabled=False,
-                ufs_enabled_only_on_strict_inherited_explicit_bypass=True,
+                hal_iommu_native_initialization_enabled=True,
+                native_hal_path_conditional_on_live_ownership=True,
+                ufs_requires_verified_identity_readback=True,
                 windows_deployment_allowed=False)
 
 if __name__=='__main__':

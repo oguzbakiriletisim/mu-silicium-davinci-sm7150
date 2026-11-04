@@ -9,6 +9,7 @@
   PreFinalDxe.c
   ReadOnlyChecks.h
   NativeImages.h
+  HalUfsBridge.h
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
@@ -21,6 +22,7 @@
   BaseLib
   BaseMemoryLib
   MemoryAllocationLib
+  ConfigurationMapHelperLib
   MemoryMapHelperLib
   DxeServicesLib
   IoLib
@@ -28,5 +30,6 @@
   CacheMaintenanceLib
 [Protocols]
   gEfiBlockIoProtocolGuid
+  gEfiLoadedImageProtocolGuid
 [Depex]
   TRUE

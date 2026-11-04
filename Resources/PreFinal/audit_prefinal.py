@@ -42,8 +42,7 @@ def audit(fd, root):
         if g in apriori:raise ValueError('Native PE automatically dispatched')
     coordinator='5b887735-83a6-4876-8741-96cc8fe39b9d'
     if coordinator not in apriori or coordinator not in pe:raise ValueError('Coordinator missing')
-    forbidden={'HALIOMMU':'9a00771f-36d4-4dd5-8916-c48ed9b16b86',
-               'UefiBds':'6d33944a-ec75-4855-a54d-809c75241f6c',
+    forbidden={'UefiBds':'6d33944a-ec75-4855-a54d-809c75241f6c',
                'PartitionDxe':'1fa1f39e-feff-4aae-bd7b-38a070a3b609'}
     for name,g in forbidden.items():
         if g in files:raise ValueError('Forbidden profile component '+name)
@@ -51,7 +50,7 @@ def audit(fd, root):
                 unchanged_manual_native_images=len(expected),apriori=apriori,files=files,
                 native_pe_sha256=pe,native_depex=depex,
                 coordinator_in_apriori=True,native_images_not_auto_dispatched=True,
-                hal_dummy_driver_absent=True,physical_validation=False)
+                hal_provider_in_manual_load_manifest=True,hal_provider_auto_dispatched=False,physical_validation=False)
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('fd',type=Path);p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[2]);a=p.parse_args()

@@ -66,6 +66,12 @@
     "sha256": "82ed4ba23567fccbe911fcbb6406690780fa2c779b998a521ee00af0fdf7db5a"
   },
   {
+    "name": "HALIOMMUDxe",
+    "guid": "9A00771F-36D4-4DD5-8916-C48ED9B16B86",
+    "path": "Binaries/davinci/QcomPkg/Drivers/HALIOMMUDxe/HALIOMMUDxe.efi",
+    "sha256": "72bdfde0fb278a2a5bbaa6eb8a6f72a36d3b3b3e61864f6e6aad6f59c6da52e5"
+  },
+  {
     "name": "UFSDxe",
     "guid": "0D35CD8E-97EA-4F9A-96AF-0F0D89F76567",
     "path": "Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.efi",

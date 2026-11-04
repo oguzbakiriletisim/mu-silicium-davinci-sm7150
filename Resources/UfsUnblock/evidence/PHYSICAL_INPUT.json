@@ -1,0 +1,17 @@
+{
+  "source": "User text transcription of physical test screen; photo not attached to this task",
+  "idr0": "0x40017e4f",
+  "idr1": "0x6000003d",
+  "cr0ns": "0x00000000",
+  "sid300_matches": 1,
+  "smr": "0x800f0300",
+  "s2cr": "0x00000002",
+  "reported_type": 2,
+  "decoded_type": 0,
+  "decoded_bank": 2,
+  "reported_legacy_status": "EFI_SECURITY_VIOLATION",
+  "replayed_old_source_status": "EFI_UNSUPPORTED",
+  "previous_prepi_dxe_success": "USER REPORTED; accepted starting point",
+  "cbar_cba2r_sctlr_observed": null,
+  "conclusion": "No fault/bypass conclusion from S2CR alone; DUU1 performs fresh context-bank reads before DMA."
+}
