@@ -1,0 +1,10 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciResearchFadt
+  FILE_GUID = 64D95B2C-A7D3-495D-8F02-02DFD6268D1E
+  MODULE_TYPE = USER_DEFINED
+  VERSION_STRING = 0.1
+[Sources]
+  Fadt.aslc
+[Packages]
+  MdePkg/MdePkg.dec

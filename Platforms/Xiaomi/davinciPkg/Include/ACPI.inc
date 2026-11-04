@@ -8,7 +8,9 @@ FILE FREEFORM = 7E374E25-8E01-4FEE-87F2-390C23C606CD {
   SECTION RAW = Moorea/DBG2.aml
 !endif
 !endif
+!if $(DAVINCI_CPU_ONLY_ACPI) != 1
   SECTION RAW = Moorea/FACP.aml
+!endif
   SECTION RAW = Moorea/FACS.aml
 # SECTION RAW = Moorea/FPDT.aml
 !if $(DAVINCI_CPU_ONLY_ACPI) != 1
@@ -30,4 +32,5 @@ FILE FREEFORM = 7E374E25-8E01-4FEE-87F2-390C23C606CD {
   // Deliberately CPU-only: no borrowed UFS/USB/PEP/IOMMU resources.
   INF RuleOverride = DAVINCI_ASL davinciPkg/AcpiTables/AcpiTables.inf
   INF RuleOverride = DAVINCI_ACPI davinciPkg/AcpiTables/Gtdt.inf
+  INF RuleOverride = DAVINCI_ACPI davinciPkg/AcpiTables/Fadt.inf
 !endif

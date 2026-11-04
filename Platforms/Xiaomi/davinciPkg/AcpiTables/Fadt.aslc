@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: BSD-2-Clause-Patent
+#include <IndustryStandard/Acpi60.h>
+
+// Optional CPU-only research profile. No peripheral power contract is claimed.
+// davinci.dts uses arm,psci-1.0 with method="smc". Table pointers are populated
+// by AcpiTableDxe, not addresses borrowed from another platform.
+EFI_ACPI_6_0_FIXED_ACPI_DESCRIPTION_TABLE mDavinciFadt = {
+  .Header = {
+    EFI_ACPI_6_0_FIXED_ACPI_DESCRIPTION_TABLE_SIGNATURE,
+    sizeof (EFI_ACPI_6_0_FIXED_ACPI_DESCRIPTION_TABLE),
+    EFI_ACPI_6_0_FIXED_ACPI_DESCRIPTION_TABLE_REVISION,
+    0xb2,
+    { 'D', 'V', 'N', 'C', 'I', ' ' },
+    SIGNATURE_64 ('D', 'V', 'N', 'C', 'I', 'F', 'A', 'D'),
+    1,
+    SIGNATURE_32 ('D', 'V', 'N', 'C'),
+    1
+  },
+  .PreferredPmProfile = EFI_ACPI_6_0_PM_PROFILE_TABLET,
+  .Flags = EFI_ACPI_6_0_HW_REDUCED_ACPI,
+  .ArmBootArch = EFI_ACPI_6_0_ARM_PSCI_COMPLIANT,
+  .MinorVersion = EFI_ACPI_6_0_FIXED_ACPI_DESCRIPTION_TABLE_MINOR_REVISION
+  // Other fields zero: no unsupported S0 idle, reset register or hypervisor ID.
+};
+
+VOID *
+ReferenceAcpiTable (VOID)
+{
+  return &mDavinciFadt;
+}
