@@ -178,7 +178,7 @@ def package(backup, shim, fd, profile="first-boot-halt"):
                   purpose='TEMPORARY FASTBOOT BOOT EXPERIMENT ONLY; NO FLASH',
                   profile=profile,
                   expected_behavior=('PrePi marker then deliberate halt BEFORE DXE/storage' if profile == 'first-boot-halt' else
-                                     'DXE diagnostics; UFS denied unless strict inherited-bypass gate passes; read-only GPT then halt'),
+                                     'DXE HAL/UFS diagnostics; UFS requires verified native or inherited identity readback; read-only GPT then halt'),
                   fastboot_boot_support_verified=False)
     return image, report
 
