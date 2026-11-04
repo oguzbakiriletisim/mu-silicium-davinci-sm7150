@@ -1,0 +1,143 @@
+{
+  "base_commit": "89cae67c6544cd100d3080fe02b3f3190c9be3ba",
+  "submodules": [
+    {
+      "path": "Common/Mu",
+      "gitlink": "039747f3b2c13df10b4fe4844e864c3095f98212",
+      "checkout": "039747f3b2c13df10b4fe4844e864c3095f98212"
+    },
+    {
+      "path": "Common/Mu_OEM_Sample",
+      "gitlink": "e798945fbe64baad73e9c4ec7cfb26efaa95d4e3",
+      "checkout": "e798945fbe64baad73e9c4ec7cfb26efaa95d4e3"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus",
+      "gitlink": "2dd1beb9cd7631030dfc8e74cb4840a89b5d008d",
+      "checkout": "2dd1beb9cd7631030dfc8e74cb4840a89b5d008d"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm",
+      "gitlink": "98ef964e1e9a0c39c7efb67143d3a13a819432e0",
+      "checkout": "98ef964e1e9a0c39c7efb67143d3a13a819432e0"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl",
+      "gitlink": "de90e54bbe82e5be4fb9608b6f5c308bb837d355",
+      "checkout": "de90e54bbe82e5be4fb9608b6f5c308bb837d355"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/pyca-cryptography",
+      "gitlink": "c18d0567386414efa3caef7ed586c4ca75bf3a8b",
+      "checkout": "c18d0567386414efa3caef7ed586c4ca75bf3a8b"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/krb5",
+      "gitlink": "aa9b4a2a64046afd2fab7cb49c346295874a5fb6",
+      "checkout": "aa9b4a2a64046afd2fab7cb49c346295874a5fb6"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/gost-engine",
+      "gitlink": "b2b4d629f100eaee9f5942a106b1ccefe85b8808",
+      "checkout": "b2b4d629f100eaee9f5942a106b1ccefe85b8808"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/gost-engine/libprov",
+      "gitlink": "8a126e09547630ef900177625626b6156052f0ee",
+      "checkout": "8a126e09547630ef900177625626b6156052f0ee"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/openssllib/openssl/wycheproof",
+      "gitlink": "2196000605e45d91097147c9c71f26b72af58003",
+      "checkout": "2196000605e45d91097147c9c71f26b72af58003"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/mbedtlslib/mbedtls",
+      "gitlink": "107ea89daaefb9867ea9121002fbbdf926780e98",
+      "checkout": "107ea89daaefb9867ea9121002fbbdf926780e98"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/os_stub/mbedtlslib/mbedtls/framework",
+      "gitlink": "94599c0e3b5036e086446a51a3f79640f70f22f6",
+      "checkout": "94599c0e3b5036e086446a51a3f79640f70f22f6"
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/SecurityPkg/DeviceSecurity/SpdmLib/libspdm/unit_test/cmockalib/cmocka",
+      "gitlink": "a01cc69ee9536f90e57c61a198f2d1944d3d4313",
+      "checkout": "a01cc69ee9536f90e57c61a198f2d1944d3d4313"
+    },
+    {
+      "path": "Features/DFCI",
+      "gitlink": "401e480fe46d348115a6fe94a878d50069b8098c",
+      "checkout": "401e480fe46d348115a6fe94a878d50069b8098c"
+    },
+    {
+      "path": "Mu_Basecore",
+      "gitlink": "3609e51f683e4d9eed13df8dccbb05b0a64ebab2",
+      "checkout": "3609e51f683e4d9eed13df8dccbb05b0a64ebab2"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/CmockaLib/cmocka",
+      "gitlink": "1cc9cde3448cdd2e000886a26acf1caac2db7cf1",
+      "checkout": "1cc9cde3448cdd2e000886a26acf1caac2db7cf1"
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/RegularExpressionDxe/oniguruma",
+      "gitlink": "abfc8ff81df4067f309032467785e06975678f0d",
+      "checkout": "abfc8ff81df4067f309032467785e06975678f0d"
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Library/BrotliCustomDecompressLib/brotli",
+      "gitlink": "028fb5a23661f123017c060daa546b55cf4bde29",
+      "checkout": "028fb5a23661f123017c060daa546b55cf4bde29"
+    },
+    {
+      "path": "Mu_Basecore/BaseTools/Source/C/BrotliCompress/brotli",
+      "gitlink": "028fb5a23661f123017c060daa546b55cf4bde29",
+      "checkout": "028fb5a23661f123017c060daa546b55cf4bde29"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/GoogleTestLib/googletest",
+      "gitlink": "86add13493e5c881d7e4ba77fb91c1f57752b3a4",
+      "checkout": "86add13493e5c881d7e4ba77fb91c1f57752b3a4"
+    },
+    {
+      "path": "Mu_Basecore/UnitTestFrameworkPkg/Library/SubhookLib/subhook",
+      "gitlink": "83d4e1ebef3588fae48b69a7352cc21801cb70bc",
+      "checkout": "83d4e1ebef3588fae48b69a7352cc21801cb70bc"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/BaseFdtLib/libfdt",
+      "gitlink": "cfff805481bdea27f900c32698171286542b8d3c",
+      "checkout": "cfff805481bdea27f900c32698171286542b8d3c"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst",
+      "gitlink": "370b5944c046bab043dd8b133727b2135af7747a",
+      "checkout": "370b5944c046bab043dd8b133727b2135af7747a"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/external/pugixml",
+      "gitlink": "c53fdab93af76106b963216d85897614b996f8b6",
+      "checkout": "c53fdab93af76106b963216d85897614b996f8b6"
+    },
+    {
+      "path": "Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/external/googletest",
+      "gitlink": "a6f06bf2fd3b832822cd4e9e554b7d47f32ec084",
+      "checkout": "a6f06bf2fd3b832822cd4e9e554b7d47f32ec084"
+    },
+    {
+      "path": "Silicium-ACPI",
+      "gitlink": "992be737c217ba86b2efbded0ecc60142f108917",
+      "checkout": "992be737c217ba86b2efbded0ecc60142f108917"
+    },
+    {
+      "path": "Silicon/Arm/Mu_Tiano",
+      "gitlink": "d65d47a5f20ddc5b9c2190413773aa76e6966818",
+      "checkout": "d65d47a5f20ddc5b9c2190413773aa76e6966818"
+    }
+  ],
+  "ufs_sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1",
+  "cpu_only_acpi_default": false,
+  "physical_validation": false
+}
