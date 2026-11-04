@@ -1,0 +1,2 @@
+a3e41a7c0d70beca9dd33d6c3abebd5c01ba4e37094c240e388e67e76994e722  davinci-prefinal-boot-test.zip
+5bc03450cfbda405487a97e4725d8b26a1f1bd5520b80354bbf5f86d12577a87  davinci-win11-install-kit.zip
