@@ -28,6 +28,7 @@
   SiliciumPkg/SiliciumPkg.dec
 
 [LibraryClasses]
+  BaseLib
   CacheMaintenanceLib
   DebugAgentLib
   PrePiLib

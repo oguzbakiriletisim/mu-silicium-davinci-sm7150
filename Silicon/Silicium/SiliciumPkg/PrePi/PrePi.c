@@ -13,6 +13,7 @@
 #include <Library/SoCPlatformLib.h>
 #include <Library/PcdLib.h>
 #include <Library/BaseMemoryLib.h>
+#include <Library/BaseLib.h>
 #include <Library/DebugLib.h>
 #include <Library/SerialPortLib.h>
 #include <Library/PlatformPrePiLib.h>
@@ -247,6 +248,16 @@ CEntryPoint ()
   DEBUG ((EFI_D_WARN, "Project Silicium for %a\n",               FixedPcdGetPtr (PcdSmbiosSystemModel)));
   DEBUG ((EFI_D_WARN, "Firmware Version %s Build at %a on %a\n", PcdGetPtr (PcdFirmwareVersionString), __TIME__, __DATE__));
   DEBUG ((EFI_D_WARN, "\n"));
+
+#if defined (DAVINCI_FIRST_BOOT_HALT) && DAVINCI_FIRST_BOOT_HALT
+  // Explicit davinci first-entry profile. Never dispatch DXE/storage drivers.
+  DEBUG ((DEBUG_ERROR, "\nDAVINCI FIRST BOOT: PREPI REACHED\n"));
+  DEBUG ((DEBUG_ERROR, "HALTED BEFORE DXE / UFS / HALIOMMU\n"));
+  DEBUG ((DEBUG_ERROR, "HOLD POWER TO RESTART; NO UEFI MENU EXPECTED\n"));
+  for (;;) {
+    CpuDeadLoop (); // Even a debugger returning from this call cannot dispatch DXE.
+  }
+#endif
 
   if (PerformanceMeasurementEnabled ()) {
     // Get Start Time Stamp
