@@ -1,0 +1,55 @@
+{
+  "development_base": "6ac46d335fb867dec9842a0ffff1ec857211a016",
+  "tested_code_head": "7bc1b63fc1ae22f5d5d68326a1744c52dbde3dad",
+  "date": "2026-11-04",
+  "tests": {
+    "run": 59,
+    "failures": 0,
+    "skipped": 0,
+    "native_windows_bcdedit": false,
+    "native_windows_powershell_storage": false,
+    "hyper_v_vhd_creation": false,
+    "user_actual_windows_staging_files_available": false,
+    "powershell_7_4_6_syntax": true,
+    "powershell_inventory_mock": true,
+    "lab_non_windows_guard": true
+  },
+  "default_debug_regression": "passed",
+  "research_debug_regression": "passed",
+  "firmware_binary_sources_changed": false,
+  "generated_fd_identical_to_phase2": true,
+  "original_18_commits_preserved": true,
+  "source_modules_pinned": 27,
+  "physical_phone_access": false,
+  "physical_milestones": {
+    "ufs_init": "NOT_VERIFIED",
+    "block_io": "NOT_VERIFIED",
+    "gpt_esp": "NOT_VERIFIED",
+    "windows_boot_manager": "NOT_VERIFIED",
+    "windows_kernel": "NOT_VERIFIED",
+    "windows_desktop": "NOT_VERIFIED"
+  },
+  "ready_for_phone_firmware_installation": false,
+  "raw_log_sha256": {
+    "dal-iort-binding.json": "d06ad39a64522912d241f39874508650e2ae0f4b5946fc5d90714d47f14a4392",
+    "hal-offline.json": "b7fa909cc8fa4d332d9642f6897754521ef3e72503bdf0b115b29ef0b3cfa711",
+    "tests-final.log": "eafd9e5b2da1d35d5758396010e58bd8032ba1faef470304422954e33656da13",
+    "tests-hal-first-failure.log": "a6b8fa562fe803887ab2b9c5f99a59f7eed163025fc8c760f39e0d618e2fe1f6",
+    "default-debug-regression.log": "ced1b88f22593ed88b0af372dab7c181ea8a18a8b6f42b05b9aa59a207def485",
+    "research-debug-regression.log": "6738c5635128f745d75ed572f4dd38e8468ecb18ace4141655452004b5aa87e1",
+    "default-audit.json": "3d49f6784a75b78f0c6d1804b1ae634094c0ee85a515de74072eee2e4a3d3abb",
+    "research-audit.json": "35b20de33ccb52b51d968d1f77bbb18a53e0dd8d3365c460e5087d39c4ea02b8",
+    "powershell-tool.json": "9d4eac270a536b355fdca1912445ef0f07e57bad1d8b5e629cbd091ec781bb02"
+  },
+  "delivered_log_sha256": {
+    "dal-iort-binding.json": "d06ad39a64522912d241f39874508650e2ae0f4b5946fc5d90714d47f14a4392",
+    "hal-offline.json": "b7fa909cc8fa4d332d9642f6897754521ef3e72503bdf0b115b29ef0b3cfa711",
+    "tests-final.log": "eafd9e5b2da1d35d5758396010e58bd8032ba1faef470304422954e33656da13",
+    "tests-hal-first-failure.log": "0116f8e5443fdc5bc2cbf2081331f61658366471b00a5e94faf155deea6ef413",
+    "default-debug-regression.log": "cc10d1bc313ed6715bd0498bfee3e18b2d2dbc03aad3a79fc1f85408a1489d41",
+    "research-debug-regression.log": "e1f54895500b196d5b63c9fd0a461f773c27954beedb1669469eaf51fe25f953",
+    "default-audit.json": "3d49f6784a75b78f0c6d1804b1ae634094c0ee85a515de74072eee2e4a3d3abb",
+    "research-audit.json": "35b20de33ccb52b51d968d1f77bbb18a53e0dd8d3365c460e5087d39c4ea02b8",
+    "powershell-tool.json": "9d4eac270a536b355fdca1912445ef0f07e57bad1d8b5e629cbd091ec781bb02"
+  }
+}

@@ -1,0 +1,70 @@
+test_checksum_failure_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_checksum_failure_is_rejected) ... ok
+test_consistent_tables_and_revision_one_id_resource (test_davinci_acpi_bundle.AcpiBundleTests.test_consistent_tables_and_revision_one_id_resource) ... ok
+test_facs_has_no_description_header_checksum (test_davinci_acpi_bundle.AcpiBundleTests.test_facs_has_no_description_header_checksum) ... ok
+test_fadt_unverified_s0_hvc_reset_and_pointer_claims_fail (test_davinci_acpi_bundle.AcpiBundleTests.test_fadt_unverified_s0_hvc_reset_and_pointer_claims_fail) ... ok
+test_madt_pptt_uid_mismatch_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_madt_pptt_uid_mismatch_is_rejected) ... ok
+test_missing_and_duplicate_tables_are_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_missing_and_duplicate_tables_are_rejected) ... ok
+test_peripheral_table_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_peripheral_table_is_rejected) ... ok
+test_pptt_parent_cycle_and_resource_pointer_are_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_pptt_parent_cycle_and_resource_pointer_are_rejected) ... ok
+test_timer_polarity_change_is_rejected (test_davinci_acpi_bundle.AcpiBundleTests.test_timer_polarity_change_is_rejected) ... ok
+test_acpi_rejects_mismatched_length (test_davinci_audit.OfflineAuditTests.test_acpi_rejects_mismatched_length) ... ok
+test_cpu_topology_mismatch_is_not_accepted (test_davinci_audit.OfflineAuditTests.test_cpu_topology_mismatch_is_not_accepted) ... ok
+test_current_device_sources (test_davinci_audit.OfflineAuditTests.test_current_device_sources) ... ok
+test_depex_boolean_expression_and_reject_malformed (test_davinci_audit.OfflineAuditTests.test_depex_boolean_expression_and_reject_malformed) ... ok
+test_disabled_madt_cpu_is_rejected (test_davinci_audit.OfflineAuditTests.test_disabled_madt_cpu_is_rejected) ... ok
+test_exact_end_is_covered_but_one_byte_over_is_not (test_davinci_audit.OfflineAuditTests.test_exact_end_is_covered_but_one_byte_over_is_not) ... ok
+test_madt_rejects_zero_length_record (test_davinci_audit.OfflineAuditTests.test_madt_rejects_zero_length_record) ... ok
+test_pe_rejects_truncated_offset (test_davinci_audit.OfflineAuditTests.test_pe_rejects_truncated_offset) ... ok
+test_reject_overlap_and_unaligned_regions (test_davinci_audit.OfflineAuditTests.test_reject_overlap_and_unaligned_regions) ... ok
+test_reject_unmapped_resource (test_davinci_audit.OfflineAuditTests.test_reject_unmapped_resource) ... ok
+test_timer_gic_offsets_and_low_polarity (test_davinci_audit.OfflineAuditTests.test_timer_gic_offsets_and_low_polarity) ... ok
+test_timer_rejects_invalid_ppi (test_davinci_audit.OfflineAuditTests.test_timer_rejects_invalid_ppi) ... ok
+test_bad_named_reference_and_unterminated_name (test_davinci_dal_iort.DalIortTests.test_bad_named_reference_and_unterminated_name) ... ok
+test_compact_property_type_and_name_corruption_are_rejected (test_davinci_dal_iort.DalIortTests.test_compact_property_type_and_name_corruption_are_rejected) ... ok
+test_iort_invalid_lengths_and_mapping_bounds (test_davinci_dal_iort.DalIortTests.test_iort_invalid_lengths_and_mapping_bounds) ... ok
+test_pinned_phase_zero_registration_uses_7150_props_info (test_davinci_dal_iort.DalIortTests.test_pinned_phase_zero_registration_uses_7150_props_info) ... ok
+test_real_property_binding_and_ufs_mapping (test_davinci_dal_iort.DalIortTests.test_real_property_binding_and_ufs_mapping) ... ok
+test_smmu_interrupt_bounds_are_checked (test_davinci_dal_iort.DalIortTests.test_smmu_interrupt_bounds_are_checked) ... ok
+test_struct_pointer_corruption_is_rejected (test_davinci_dal_iort.DalIortTests.test_struct_pointer_corruption_is_rejected) ... ok
+test_truncated_and_invalid_pe_are_rejected (test_davinci_dal_iort.DalIortTests.test_truncated_and_invalid_pe_are_rejected) ... ok
+test_usb_cross_check_and_table_anomalies_remain_visible (test_davinci_dal_iort.DalIortTests.test_usb_cross_check_and_table_anomalies_remain_visible) ... ok
+test_dummy_client_stops_on_mocked_errors (test_davinci_hal_offline.HalOfflineTests.test_dummy_client_stops_on_mocked_errors) ...
+  test_dummy_client_stops_on_mocked_errors (test_davinci_hal_offline.HalOfflineTests.test_dummy_client_stops_on_mocked_errors) (service='attach') ... ERROR
+test_real_protocol_layout_and_absent_ufs_dummy_client (test_davinci_hal_offline.HalOfflineTests.test_real_protocol_layout_and_absent_ufs_dummy_client) ... ok
+test_unknown_image_is_rejected_before_emulation (test_davinci_hal_offline.HalOfflineTests.test_unknown_image_is_rejected_before_emulation) ... ok
+test_real_driver_success_and_failure_paths (test_davinci_storage_driver.StorageDriverHostTests.test_real_driver_success_and_failure_paths) ... ok
+test_boot_predicate_does_not_mean_disk_discovery (test_davinci_ufs_offline.UfsOfflineTests.test_boot_predicate_does_not_mean_disk_discovery) ... ok
+test_configured_cca_and_protocol_lookup (test_davinci_ufs_offline.UfsOfflineTests.test_configured_cca_and_protocol_lookup) ... ok
+test_existing_patch_calls_no_iommu_service (test_davinci_ufs_offline.UfsOfflineTests.test_existing_patch_calls_no_iommu_service) ... ok
+test_original_default_is_non_cca_bypass_and_named_client (test_davinci_ufs_offline.UfsOfflineTests.test_original_default_is_non_cca_bypass_and_named_client) ... ok
+test_service_failures_stop_the_initialization_chain (test_davinci_ufs_offline.UfsOfflineTests.test_service_failures_stop_the_initialization_chain) ... ok
+test_bcd_commands_always_use_new_explicit_offline_store (test_davinci_windows_prepare.WindowsPrepareTests.test_bcd_commands_always_use_new_explicit_offline_store) ... ok
+test_copy_only_small_efi_helpers_and_never_overwrite_existing_folder (test_davinci_windows_prepare.WindowsPrepareTests.test_copy_only_small_efi_helpers_and_never_overwrite_existing_folder) ... ok
+test_dirty_or_bad_checksum_registry_hive_is_rejected (test_davinci_windows_prepare.WindowsPrepareTests.test_dirty_or_bad_checksum_registry_hive_is_rejected) ... ok
+test_dynamic_guids_and_existing_partition_letters (test_davinci_windows_prepare.WindowsPrepareTests.test_dynamic_guids_and_existing_partition_letters) ... ok
+test_ext4_wrong_esp_missing_file_system_and_host_disk_are_blocked (test_davinci_windows_prepare.WindowsPrepareTests.test_ext4_wrong_esp_missing_file_system_and_host_disk_are_blocked) ... ok
+test_overlaps_duplicate_guids_and_letters_are_rejected (test_davinci_windows_prepare.WindowsPrepareTests.test_overlaps_duplicate_guids_and_letters_are_rejected) ... ok
+test_pe_truncation_is_rejected (test_davinci_windows_prepare.WindowsPrepareTests.test_pe_truncation_is_rejected) ... ok
+test_plan_does_not_write_or_authorize_phone_deployment (test_davinci_windows_prepare.WindowsPrepareTests.test_plan_does_not_write_or_authorize_phone_deployment) ... ok
+test_reject_x64_loader_and_missing_hive (test_davinci_windows_prepare.WindowsPrepareTests.test_reject_x64_loader_and_missing_hive) ... ok
+test_staging_symlink_escape_and_nested_output_are_rejected (test_davinci_windows_prepare.WindowsPrepareTests.test_staging_symlink_escape_and_nested_output_are_rejected) ... ok
+test_valid_staging_is_not_claimed_to_be_installed_windows (test_davinci_windows_prepare.WindowsPrepareTests.test_valid_staging_is_not_claimed_to_be_installed_windows) ... ok
+
+======================================================================
+ERROR: test_dummy_client_stops_on_mocked_errors (test_davinci_hal_offline.HalOfflineTests.test_dummy_client_stops_on_mocked_errors) (service='attach')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/work/davinci-uefi/Resources/Tests/test_davinci_hal_offline.py", line 27, in test_dummy_client_stops_on_mocked_errors
+    result=hal.emulate(self.image,fail=service)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/work/davinci-uefi/Resources/Scripts/davinci_hal_offline.py", line 53, in emulate
+    status = call(0x1490)  # Dummy client only; all domain services are mocked.
+             ^^^^^^^^^^^^
+  File "/workspace/work/davinci-uefi/Resources/Scripts/davinci_hal_offline.py", line 48, in call
+    raise ValueError('HAL routine did not return within instruction budget')
+ValueError: HAL routine did not return within instruction budget
+
+----------------------------------------------------------------------
+Ran 50 tests in 0.543s
+
+FAILED (errors=1)

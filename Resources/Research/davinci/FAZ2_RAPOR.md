@@ -1,5 +1,7 @@
 # Xiaomi Mi 9T / davinci: UFS ve ACPI geliştirme, ikinci aşama
 
+> Son görevdeki DAL/IORT çıkarımı, gerçek HAL farkları ve Windows hazırlık araçları için [üçüncü aşama sonucuna](FAZ3_SONUC.md) bakın. Bu belge Faz 2 kaydıdır.
+
 Tarih: 4 Kasım 2026. Cihaz: Snapdragon 730 / SM7150-AA; raphael veya sweet değildir.
 Başlangıç: `6d5d7453389864fa6562069d77a2582480d349c6`; önceki 11 commit korundu.
 Dal: `davinci-win11-uefi-research`, yalnız kullanıcının `oguzbakiriletisim/mu-silicium-davinci-sm7150` fork'u.

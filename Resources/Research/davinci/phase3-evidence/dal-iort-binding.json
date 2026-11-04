@@ -1,0 +1,244 @@
+{
+  "props_info_offset": 31088,
+  "property_bin_offset": 105056,
+  "string_device_offset": 106456,
+  "compact_property_offset": 105736,
+  "struct_index": 16,
+  "struct_descriptor_offset": 104128,
+  "iort_file_offset": 161416,
+  "iort": {
+    "revision": 0,
+    "length": 1657,
+    "declared_nodes": 9,
+    "checksum_mod256": 27,
+    "unparsed_tail_bytes": 101,
+    "nodes": [
+      {
+        "offset": 48,
+        "type": 3,
+        "revision": 1,
+        "length": 800,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 160,
+            "output_reference": 0,
+            "flags": 0
+          }
+        ],
+        "base": 352321536,
+        "span": 1048576,
+        "model": 3,
+        "flags": 3,
+        "context_interrupts": 80,
+        "pmu_interrupts": 8
+      },
+      {
+        "offset": 848,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 832,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.SDC1",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 929,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 672,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.SDC2",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 1010,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 704,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.SDC4",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 1091,
+        "type": 1,
+        "revision": 1,
+        "length": 121,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 768,
+            "output_reference": 48,
+            "flags": 0
+          },
+          {
+            "input_base": 16,
+            "number_raw": 0,
+            "output_base": 0,
+            "output_reference": 48,
+            "flags": 0
+          },
+          {
+            "input_base": 32,
+            "number_raw": 0,
+            "output_base": 0,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.UFS0",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 1212,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 16,
+            "output_base": 7776,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.PCI0",
+        "coherent": 1,
+        "address_bits": 36
+      },
+      {
+        "offset": 1293,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 1,
+            "output_base": 1344,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.USB3-0",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 1374,
+        "type": 1,
+        "revision": 1,
+        "length": 81,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 1,
+            "output_base": 2048,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.MDP",
+        "coherent": 0,
+        "address_bits": 36
+      },
+      {
+        "offset": 1455,
+        "type": 1,
+        "revision": 1,
+        "length": 101,
+        "identifier": 0,
+        "mappings": [
+          {
+            "input_base": 0,
+            "number_raw": 1,
+            "output_base": 515,
+            "output_reference": 48,
+            "flags": 0
+          },
+          {
+            "input_base": 1,
+            "number_raw": 1,
+            "output_base": 534,
+            "output_reference": 48,
+            "flags": 0
+          }
+        ],
+        "name": "\\_SB_.QGP0",
+        "coherent": 0,
+        "address_bits": 36
+      }
+    ]
+  },
+  "target_registration_records": [
+    {
+      "target_record_offset": 111080,
+      "label": "7150_xml",
+      "phase": 0
+    }
+  ],
+  "ufs_arid_zero": {
+    "sid_base": 768,
+    "firmware_number_raw": 16,
+    "smmu_base": 352321536,
+    "smmu_span": 1048576,
+    "context_bank": null,
+    "context_bank_reason": "Selected dynamically by HAL from hardware; not encoded as a fixed UFS bank."
+  },
+  "binary_sha256": "0542d91c859baf816f42438cc3472fed84897e7c5dec7cdfc05221e5ede40544",
+  "matches_pinned_davinci_binary": true,
+  "runtime_selection_verified": false,
+  "physical_validation": false,
+  "safe_to_enable_dma": false,
+  "suitable_for_direct_os_acpi_publication": false,
+  "registration_emulation": {
+    "mock_allocations_payloads": [
+      0,
+      31088
+    ],
+    "phase_zero_props_info": 31088,
+    "next_phase": 1,
+    "ram_only_emulation": true,
+    "physical_validation": false
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "binary_sha256": "72bdfde0fb278a2a5bbaa6eb8a6f72a36d3b3b3e61864f6e6aad6f59c6da52e5",
+  "function_table_rva": 37032,
+  "function_slots": [
+    6404,
+    6584,
+    7024,
+    10768,
+    11992,
+    12936,
+    13080,
+    13244,
+    12640,
+    13276
+  ],
+  "dummy_return": "0x0",
+  "dummy_calls": [
+    {
+      "call": "create"
+    },
+    {
+      "call": "create"
+    },
+    {
+      "call": "configure"
+    },
+    {
+      "call": "configure"
+    },
+    {
+      "call": "attach",
+      "client": "\\_SB_.SDC1",
+      "arid": 0,
+      "mask": 0
+    },
+    {
+      "call": "attach",
+      "client": "\\_SB_.SDC2",
+      "arid": 0,
+      "mask": 0
+    },
+    {
+      "call": "attach",
+      "client": "\\_SB_.SDC4",
+      "arid": 0,
+      "mask": 0
+    },
+    {
+      "call": "attach",
+      "client": "\\_SB_.USB3-0",
+      "arid": 0,
+      "mask": 0
+    }
+  ],
+  "debug_notifications": 0,
+  "dummy_initializes_ufs": false,
+  "ram_only_emulation": true,
+  "actual_domain_services_executed": false,
+  "physical_validation": false,
+  "context_bank_fixture_examples": {
+    "por_bank_zero": {
+      "selected_bank": 0,
+      "intercepted_write_arguments": [
+        {
+          "register": "CBAR",
+          "base": 352321536,
+          "bank": 0,
+          "value": 126976
+        },
+        {
+          "register": "CBA2R",
+          "base": 352321536,
+          "bank": 0,
+          "value": 1
+        }
+      ],
+      "fixture_only": true,
+      "actual_register_services_executed": false,
+      "physical_validation": false
+    },
+    "first_two_busy": {
+      "selected_bank": 2,
+      "intercepted_write_arguments": [
+        {
+          "register": "CBAR",
+          "base": 352321536,
+          "bank": 2,
+          "value": 126976
+        },
+        {
+          "register": "CBA2R",
+          "base": 352321536,
+          "bank": 2,
+          "value": 1
+        }
+      ],
+      "fixture_only": true,
+      "actual_register_services_executed": false,
+      "physical_validation": false
+    },
+    "all_busy": {
+      "selected_bank": null,
+      "intercepted_write_arguments": [],
+      "fixture_only": true,
+      "actual_register_services_executed": false,
+      "physical_validation": false
+    }
+  }
+}

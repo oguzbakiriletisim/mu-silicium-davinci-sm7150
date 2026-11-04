@@ -1,0 +1,6 @@
+{
+  "release": "PowerShell v7.4.6 linux-x64",
+  "sha256": "6f6015203c47806c5cc444c19d8ed019695e610fbd948154264bf9ca8e157561",
+  "official_release_hash_verified": true,
+  "purpose": "PowerShell parsing and mocked/default behavior only; not native Windows storage/BCD testing"
+}

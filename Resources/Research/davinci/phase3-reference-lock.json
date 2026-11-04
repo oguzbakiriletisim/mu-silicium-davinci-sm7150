@@ -1,0 +1,31 @@
+{
+  "base": "6ac46d335fb867dec9842a0ffff1ec857211a016",
+  "reference_sources": [
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Include/api/dal/DALSysCmn.h",
+      "sha256": "b622a3d51c352f25a301b314aa6e8ced16df2f5286ca3da7f1c4461b33efd682",
+      "usage": "schema comparison only; implementation not copied to firmware"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Include/api/dal/DALPropDef.h",
+      "sha256": "8dc126161edde1add133a9e5cb20a4de3c9a2420e81df48be908213d0f5d41d2",
+      "usage": "schema comparison only; implementation not copied to firmware"
+    },
+    {
+      "repository": "Rivko/android-firmware-qti-sdm670",
+      "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+      "path": "boot_images/QcomPkg/Tools/reverse_propgen.py",
+      "sha256": "7091bab72306ed328d565048328efbe8d2a27fa62996da300506a476bc9ef480",
+      "usage": "schema comparison only; implementation not copied to firmware"
+    }
+  ],
+  "binary_inputs": {
+    "DALSYSDxe": "0542d91c859baf816f42438cc3472fed84897e7c5dec7cdfc05221e5ede40544",
+    "HALIOMMUDxe": "72bdfde0fb278a2a5bbaa6eb8a6f72a36d3b3b3e61864f6e6aad6f59c6da52e5",
+    "UFSDxe": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1"
+  }
+}
