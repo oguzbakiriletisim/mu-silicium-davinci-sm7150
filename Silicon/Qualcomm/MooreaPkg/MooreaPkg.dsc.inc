@@ -75,7 +75,15 @@
 [LibraryClasses]
   PlatformPrePiLib|MooreaPkg/Library/PlatformPrePiLib/PlatformPrePiLib.inf
   RFSProtectionLib|MooreaPkg/Library/RFSProtectionLib/RFSProtectionLib.inf
+!if $(PLATFORM_NAME) == davinci
+!if $(DAVINCI_CPU_ONLY_ACPI) == 1
+  AcpiPlatformUpdateLib|davinciPkg/Library/ResearchAcpiPlatformUpdateLib/ResearchAcpiPlatformUpdateLib.inf
+!else
   AcpiPlatformUpdateLib|MooreaPkg/Library/AcpiPlatformUpdateLib/AcpiPlatformUpdateLib.inf
+!endif
+!else
+  AcpiPlatformUpdateLib|MooreaPkg/Library/AcpiPlatformUpdateLib/AcpiPlatformUpdateLib.inf
+!endif
   HwResetSystemLib|ArmPkg/Library/ArmPsciResetSystemLib/ArmPsciResetSystemLib.inf
   ResetSystemLib|ArmPkg/Library/ArmPsciResetSystemLib/ArmPsciResetSystemLib.inf
   SoCPlatformLib|MooreaPkg/Library/SoCPlatformLib/SoCPlatformLib.inf

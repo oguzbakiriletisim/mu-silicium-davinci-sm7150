@@ -1,0 +1,12 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = ResearchAcpiPlatformUpdateLib
+  FILE_GUID = 60DD9426-D475-4714-A28F-5AD845B5EDEB
+  MODULE_TYPE = DXE_DRIVER
+  LIBRARY_CLASS = AcpiPlatformUpdateLib|DXE_DRIVER DXE_RUNTIME_DRIVER UEFI_APPLICATION
+[Sources]
+  ResearchAcpiPlatformUpdateLib.c
+[Packages]
+  MdePkg/MdePkg.dec
+[LibraryClasses]
+  DebugLib

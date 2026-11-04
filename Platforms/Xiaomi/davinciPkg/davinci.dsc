@@ -26,6 +26,10 @@
   USE_CUSTOM_DISPLAY_DRIVER      = 1
   HAS_BUILD_IN_KEYBOARD          = 0
 
+!ifndef DAVINCI_CPU_ONLY_ACPI
+  DEFINE DAVINCI_CPU_ONLY_ACPI    = 0
+!endif
+
   #
   # 0 = SM7150
   # 1 = SM7150-AB
@@ -87,6 +91,9 @@
 !include MooreaPkg/MooreaPkg.dsc.inc
 
 [Components.common]
+!if $(DAVINCI_CPU_ONLY_ACPI) == 1
+  davinciPkg/AcpiTables/AcpiTables.inf
+!endif
 !if $(TARGET) == DEBUG
   davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
 !endif
