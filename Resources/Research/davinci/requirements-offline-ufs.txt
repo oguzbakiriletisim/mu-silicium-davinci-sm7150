@@ -1,0 +1,3 @@
+# Optional host emulation dependencies. Never included in firmware.
+pefile==2024.8.26
+unicorn==2.1.4
