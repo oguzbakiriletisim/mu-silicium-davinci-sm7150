@@ -43,6 +43,9 @@ APRIORI DXE {
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
 
   INF Binaries/davinci/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
+!if $(TARGET) == DEBUG
+  INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
+!endif
   INF Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
 
   INF FatPkg/EnhancedFatDxe/Fat.inf

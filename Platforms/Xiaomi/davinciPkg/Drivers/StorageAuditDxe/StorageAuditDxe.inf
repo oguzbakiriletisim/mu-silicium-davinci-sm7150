@@ -1,0 +1,31 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciStorageAuditDxe
+  FILE_GUID = 373CCCF6-9A82-4FD9-AB08-0DAC61AFC9DA
+  MODULE_TYPE = DXE_DRIVER
+  VERSION_STRING = 0.1
+  ENTRY_POINT = StorageAuditEntry
+[Sources]
+  StorageAuditDxe.c
+  StorageAudit.h
+[Packages]
+  MdePkg/MdePkg.dec
+  SiliciumPkg/SiliciumPkg.dec
+  QcomPkg/QcomPkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  DebugLib
+  IoLib
+  MemoryAllocationLib
+  MemoryMapHelperLib
+  ConfigurationMapHelperLib
+[Protocols]
+  gEfiSMEMProtocolGuid
+  gEfiClockProtocolGuid
+  gEfiBlockIoProtocolGuid
+[Guids]
+  gEfiEndOfDxeEventGroupGuid
+  gEfiEventReadyToBootGuid
+[Depex]
+  TRUE

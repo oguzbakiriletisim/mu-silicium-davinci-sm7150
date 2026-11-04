@@ -61,6 +61,9 @@
   INF Binaries/davinci/QcomPkg/Drivers/I2CDxe/I2CDxe.inf
   INF Binaries/davinci/QcomPkg/Drivers/SPMIDxe/SPMIDxe.inf
   INF Binaries/davinci/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
+!if $(TARGET) == DEBUG
+  INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
+!endif
   INF Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
   INF Binaries/davinci/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf
   INF Binaries/davinci/QcomPkg/Drivers/VibratorDxe/VibratorDxe.inf

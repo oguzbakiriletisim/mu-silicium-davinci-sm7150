@@ -85,3 +85,8 @@
   AcpiDeviceUpdateLib|SiliciumPkg/Library/AcpiDeviceUpdateLibNull/AcpiDeviceUpdateLibNull.inf
 
 !include MooreaPkg/MooreaPkg.dsc.inc
+
+[Components.common]
+!if $(TARGET) == DEBUG
+  davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
+!endif
