@@ -311,7 +311,7 @@ def firmware_audit(path, cpu_only=False, expected_timer=None):
                     if pe_machine(raw) != 0xAA64:
                         raise ValueError('Non-ARM64 EFI component')
                     found[node['guid'].lower()] = hashlib.sha256(raw).hexdigest()
-                if node['attrs'].get('type') == 25 and raw[:4] in [b'DSDT', b'APIC', b'GTDT', b'FACP', b'FACS', b'PPTT', b'IORT', b'MCFG', b'CSRT']:
+                if node['attrs'].get('type') == 25 and raw[:4] in [b'DSDT', b'APIC', b'GTDT', b'FACP', b'FACS', b'PPTT', b'IORT', b'MCFG', b'CSRT', b'DBG2']:
                     tables.append(acpi_header(raw))
                     raw_tables.append(raw)
             visit(node.get('objects', []))
