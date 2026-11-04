@@ -1,0 +1,30 @@
+{
+  "base_commit": "59518c7fbd022a130eebd1270a1a4e4d31c3169c",
+  "host_tests": {
+    "total": 91,
+    "passed": 91,
+    "failed": 0,
+    "skipped": 0
+  },
+  "builds": {
+    "baseline D010": "PASS",
+    "auto": "PASS",
+    "before HAL B0B6": "PASS",
+    "before UFS B0C6": "PASS"
+  },
+  "physical_duu2_test_performed": false,
+  "reset_root_cause_determined": false,
+  "software_reset_request_capture": "Implemented; runtime table CRC updated; not a hardware reset interception",
+  "exception_capture": "SYNC and SERROR registration via CPU protocol; existing handler refusal retained; IRQ/FIQ unchanged",
+  "watchdog": "UEFI cancellation return recorded; known APSS ENABLE read only; no new watchdog write/feed",
+  "hardware_safety_guards_preserved": true,
+  "raw_register_values_require_read_completion": true,
+  "windows_install_kit_regenerated": false,
+  "limits": [
+    "Private vendor logger may bypass source serial mute.",
+    "Hardware/TZ/PMIC reset can still erase the screen.",
+    "One-second pre-call pauses change timing and may affect watchdog exposure.",
+    "No temperature sensor was read."
+  ],
+  "normal_debug_regression": "PASS with photo mode disabled"
+}

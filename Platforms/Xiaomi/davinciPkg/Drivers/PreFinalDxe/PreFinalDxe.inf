@@ -10,6 +10,8 @@
   ReadOnlyChecks.h
   NativeImages.h
   HalUfsBridge.h
+  PhotoDiag.h
+  PhotoRaster.h
 [Packages]
   MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
@@ -19,6 +21,9 @@
   UefiDriverEntryPoint
   UefiBootServicesTableLib
   DebugLib
+  ArmLib
+  PrintLib
+  TimerLib
   BaseLib
   BaseMemoryLib
   MemoryAllocationLib
@@ -31,5 +36,6 @@
 [Protocols]
   gEfiBlockIoProtocolGuid
   gEfiLoadedImageProtocolGuid
+  gEfiCpuArchProtocolGuid
 [Depex]
   TRUE

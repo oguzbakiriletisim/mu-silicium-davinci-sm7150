@@ -270,6 +270,16 @@ SerialPortWrite (
   IN UINT8 *Buffer,
   IN UINTN  NumberOfBytes)
 {
+#if defined(DAVINCI_PHOTO_DIAG) && DAVINCI_PHOTO_DIAG
+  // Photo profile only. Cookie is inside Display Reserved, after the existing
+  // FBCON cursor. No UART, MMIO or storage write is introduced.
+  UINTN FrameBytes = ScreenWidth * ScreenHeight * (ScreenColorDepth / 8);
+  if (DisplayMemoryRegion.Address && FrameBytes &&
+      DisplayMemoryRegion.Length >= FrameBytes + 0x108 &&
+      *(volatile UINT64 *)(UINTN)(DisplayMemoryRegion.Address + FrameBytes + 0x100) == 0x445550324d555445ULL) {
+    return NumberOfBytes;
+  }
+#endif
   UINT8 *CONST Final = &Buffer[NumberOfBytes];
 
   // Get Interrupts State

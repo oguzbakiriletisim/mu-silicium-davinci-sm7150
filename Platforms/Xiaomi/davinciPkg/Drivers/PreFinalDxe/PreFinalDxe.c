@@ -44,6 +44,8 @@ STATIC struct {
   UINT32 Smr[128], S2cr[128], Cbar[128], Cba2r[128], Sctlr[128];
 } mLive;
 
+#include "PhotoDiag.h"
+
 STATIC BOOLEAN MatchSid (UINT32 Smr, UINT32 Sid) {
   return (Smr & 0x80000000U) && (((Sid ^ (Smr & 0x7fffU)) & ~((Smr >> 16) & 0x7fffU)) == 0);
 }
@@ -51,10 +53,17 @@ STATIC EFI_STATUS CaptureNative (CHAR8 *Label) {
   ARM_MEMORY_REGION_DESCRIPTOR_EX R; UINTN I;
   EFI_STATUS S = LocateMemoryMapAreaByName ("SMMU", &R);
   if (EFI_ERROR (S) || R.Address != 0x15000000 || R.Length < 0x2000) { return EFI_UNSUPPORTED; }
+  PhotoNewCapture();
+  PhotoMarkMmio((UINTN)R.Address+0x20);
+  PhotoCheckpoint(0xA100,"SMMU IDR READ CALL",EFI_NOT_STARTED,TRUE);
   mLive.Idr0 = MmioRead32 ((UINTN)R.Address + 0x20);
+  PhotoMarkMmio((UINTN)R.Address+0x24);
   mLive.Idr1 = MmioRead32 ((UINTN)R.Address + 0x24);
+  PhotoMarkMmio((UINTN)R.Address);
   mLive.Cr0 = MmioRead32 ((UINTN)R.Address);
+  PhotoMarkMmio((UINTN)R.Address+0x400);
   mLive.Cr0Ns = MmioRead32 ((UINTN)R.Address + 0x400);
+  PhotoRegsDone(1U);
   DEBUG ((DEBUG_ERROR, "%a IDR0=%08x IDR1=%08x CR0=%08x CR0NS=%08x\n", Label, mLive.Idr0,mLive.Idr1,mLive.Cr0,mLive.Cr0Ns));
   mLive.N = mLive.Idr0 & 255U;
   // The observed QSMMU ID pair has SMS=0 although live SMRs exist. Support
@@ -63,18 +72,35 @@ STATIC EFI_STATUS CaptureNative (CHAR8 *Label) {
   if (!NativeLayoutSupported(mLive.Idr0,mLive.Idr1) ||
       !ContextWindow (mLive.Idr1, R.Length, &mLive.CtxOffset, &mLive.Banks)) { return EFI_UNSUPPORTED; }
   DEBUG ((DEBUG_ERROR, "NATIVE LAYOUT SMR=%u BANKS=%u CTX_OFFSET=0x%Lx\n", mLive.N,mLive.Banks,mLive.CtxOffset));
+  PhotoCheckpoint(0xA101,"SMMU SMR/S2CR READ CALL",EFI_NOT_STARTED,TRUE);
   for (I = 0; I < mLive.N; ++I) {
+    PhotoMarkMmio((UINTN)R.Address+0x800+4*I);
     mLive.Smr[I] = MmioRead32 ((UINTN)R.Address + 0x800 + 4*I);
+    PhotoMarkMmio((UINTN)R.Address+0xc00+4*I);
     mLive.S2cr[I] = MmioRead32 ((UINTN)R.Address + 0xc00 + 4*I);
     if (MatchSid (mLive.Smr[I], 0x300)) {
       DEBUG ((DEBUG_ERROR, "UFS GROUP=%u SMR=%08x S2CR=%08x TYPE[17:16]=%u CB[7:0]=%u\n",
               (UINT32)I,mLive.Smr[I],mLive.S2cr[I],(mLive.S2cr[I]>>16)&3U,mLive.S2cr[I]&255U));
     }
   }
+  PhotoRegsDone(2U);
+  PhotoMarkMmio((UINTN)R.Address+0x1000);
+  PhotoCheckpoint(0xA102,"SMMU CBAR READ CALL",EFI_NOT_STARTED,TRUE);
   for (I = 0; I < mLive.Banks; ++I) {
-    mLive.Cbar[I] = MmioRead32 ((UINTN)R.Address + 0x1000 + 4*I);
-    mLive.Cba2r[I] = MmioRead32 ((UINTN)R.Address + 0x1800 + 4*I);
-    mLive.Sctlr[I] = MmioRead32 ((UINTN)R.Address + (UINTN)mLive.CtxOffset + (I<<12));
+    PhotoMarkMmio((UINTN)R.Address + 0x1000 + 4*I);
+    mLive.Cbar[I] = MmioRead32 ((UINTN)R.Address + 0x1000 + 4*I); PhotoBankDone(I,1U);
+  }
+  PhotoMarkMmio((UINTN)R.Address+0x1800);
+  PhotoCheckpoint(0xA103,"SMMU CBA2R READ CALL",EFI_NOT_STARTED,TRUE);
+  for (I = 0; I < mLive.Banks; ++I) {
+    PhotoMarkMmio((UINTN)R.Address + 0x1800 + 4*I);
+    mLive.Cba2r[I] = MmioRead32 ((UINTN)R.Address + 0x1800 + 4*I); PhotoBankDone(I,2U);
+  }
+  PhotoMarkMmio((UINTN)R.Address+(UINTN)mLive.CtxOffset);
+  PhotoCheckpoint(0xA104,"SMMU SCTLR READ CALL",EFI_NOT_STARTED,TRUE);
+  for (I = 0; I < mLive.Banks; ++I) {
+    PhotoMarkMmio((UINTN)R.Address + (UINTN)mLive.CtxOffset + (I<<12));
+    mLive.Sctlr[I] = MmioRead32 ((UINTN)R.Address + (UINTN)mLive.CtxOffset + (I<<12)); PhotoBankDone(I,4U);
   }
   for (I = 0; I < mLive.N; ++I) {
     UINT32 Bank = mLive.S2cr[I] & 255U;
@@ -87,7 +113,8 @@ STATIC EFI_STATUS CaptureNative (CHAR8 *Label) {
       mLive.Idr1 != MmioRead32 ((UINTN)R.Address+0x24) ||
       mLive.Cr0 != MmioRead32 ((UINTN)R.Address) ||
       mLive.Cr0Ns != MmioRead32 ((UINTN)R.Address+0x400)) { return EFI_NOT_READY; }
-  if ((mLive.Cr0 | mLive.Cr0Ns) & 1U) { return EFI_SECURITY_VIOLATION; }
+  if ((mLive.Cr0 | mLive.Cr0Ns) & 1U) { PhotoCheckpoint(0xA1EF,"SMMU GLOBAL DISABLED",EFI_SECURITY_VIOLATION,FALSE); return EFI_SECURITY_VIOLATION; }
+  PhotoCheckpoint(0xA105,"SMMU CAPTURE RETURN",EFI_SUCCESS,FALSE);
   return EFI_SUCCESS;
 }
 STATIC EFI_STATUS ReadbackUfs (VOID) {
@@ -158,7 +185,9 @@ STATIC EFI_STATUS InitHalTable (DAVINCI_HAL_TABLE **T) {
   if (EFI_ERROR(mHalStatus)) { return mHalStatus; }
   if (!InImage(P,sizeof(*P),L) || P->Revision!=1 ||
       !InImage((VOID *)(UINTN)P->Init,4,L) || (UINTN)P->Init-(UINTN)L->ImageBase!=0x13bc) { return EFI_COMPROMISED_DATA; }
+  PhotoCheckpoint(0xC100,"HAL PROTOCOL INIT CALL",EFI_NOT_STARTED,TRUE);
   P->Init(T); // void ABI: validate its output, never invent a return status.
+  PhotoCheckpoint(0xC101,"HAL INIT VOID RETURN",EFI_SUCCESS,FALSE);
   if (!InImage(*T,sizeof(**T),L) ||
       (UINTN)(*T)->Create-(UINTN)L->ImageBase!=0x1904 ||
       (UINTN)(*T)->Attach-(UINTN)L->ImageBase!=0x1b70 ||
@@ -166,6 +195,9 @@ STATIC EFI_STATUS InitHalTable (DAVINCI_HAL_TABLE **T) {
   return EFI_SUCCESS;
 }
 STATIC VOID HalTrace (CHAR8 *Step, BOOLEAN Returned, UINT32 Raw) {
+  UINT32 Base=Step[0]=='C' ? (Step[1]=='R' ? 0xC200 : 0xC210) : 0xC220;
+  (VOID)Base;
+  PhotoCheckpoint(Base+(Returned?1U:0U),Step,Returned?(Raw==0?EFI_SUCCESS:EFI_DEVICE_ERROR):EFI_NOT_STARTED,!Returned);
   if (Returned) { DEBUG ((DEBUG_ERROR,"HAL %a RETURN RAW=0x%x\n",Step,Raw)); }
   else { DEBUG ((DEBUG_ERROR,"HAL %a CALL (pending)\n",Step)); }
 }
@@ -181,6 +213,7 @@ STATIC VOID Screen (VOID) {
   }
 }
 STATIC VOID Result (CHAR8 *Name, EFI_STATUS S) {
+  PhotoResult(Name,S);
   DEBUG ((DEBUG_ERROR, "%a: %a STATUS=0x%Lx (%r)\n", Name,
           EFI_ERROR (S) ? "FAIL" : "PASS", (UINT64)S, S));
 }
@@ -232,7 +265,7 @@ STATIC EFI_STATUS Depex (EFI_GUID *Guid) {
       if (I + sizeof G > N || Top == 64) { break; }
       CopyMem (&G, B + I, sizeof G); I += sizeof G;
       Stack[Top++] = !EFI_ERROR (gBS->LocateProtocol (&G, NULL, &P));
-      if (!Stack[Top-1]) { DEBUG ((DEBUG_ERROR,"DEPEX MISSING %g for image %g\n",&G,Guid)); }
+      if (!Stack[Top-1]) { PhotoDepexMissing(&G,Guid); DEBUG ((DEBUG_ERROR,"DEPEX MISSING %g for image %g\n",&G,Guid)); }
     } else if (Op == 6 || Op == 7) {
       if (Top == 64) { break; } Stack[Top++] = (Op == 6);
     } else if (Op == 3 || Op == 4) {
@@ -248,14 +281,26 @@ STATIC EFI_STATUS Depex (EFI_GUID *Guid) {
 }
 STATIC EFI_STATUS StartNative (UINTN Index) {
   VOID *B = NULL; UINTN N = 0; EFI_HANDLE H = NULL;
-  EFI_STATUS S = Depex (&mNative[Index].Guid);
+  EFI_STATUS S;
+  PhotoModule(Index,0,EFI_NOT_STARTED,FALSE);
+  S = Depex (&mNative[Index].Guid);
+  PhotoModule(Index,1,S,FALSE);
   if (EFI_ERROR (S)) { DEBUG ((DEBUG_ERROR,"DEPEX %a STATUS=%r\n",mNative[Index].Name,S)); return S; }
+  PhotoModule(Index,2,EFI_NOT_STARTED,FALSE);
   S = GetSectionFromAnyFv (&mNative[Index].Guid, EFI_SECTION_PE32, 0, &B, &N);
-  if (!EFI_ERROR (S)) { S = gBS->LoadImage (FALSE, mThisImage, NULL, B, N, &H); mLoadStatus[Index]=S; FreePool (B); }
+  PhotoModule(Index,3,S,FALSE);
+  if (!EFI_ERROR (S)) {
+    PhotoModule(Index,4,EFI_NOT_STARTED,TRUE);
+    S = gBS->LoadImage (FALSE, mThisImage, NULL, B, N, &H); mLoadStatus[Index]=S; FreePool (B);
+    PhotoModule(Index,5,S,FALSE);
+  }
   if (!EFI_ERROR (S)) {
     DEBUG ((DEBUG_ERROR, "START %a (if hangs, this entry did not return)\n", mNative[Index].Name));
     mNativeHandle[Index] = H;
+    PhotoImage(Index,H);
+    PhotoModule(Index,6,EFI_NOT_STARTED,TRUE);
     S = gBS->StartImage (H, NULL, NULL); mStartStatus[Index]=S;
+    PhotoModule(Index,7,S,FALSE);
   }
   Result (mNative[Index].Name, S);
   return S;
@@ -266,7 +311,10 @@ STATIC EFI_STATUS Read (EFI_BLOCK_IO_PROTOCOL *Io, UINT64 Lba, UINTN Bytes, VOID
       !Bytes || Bytes % Io->Media->BlockSize || Lba > Io->Media->LastBlock ||
       Bytes / Io->Media->BlockSize - 1 > Io->Media->LastBlock - Lba) { return EFI_INVALID_PARAMETER; }
   {
-    EFI_STATUS Status = Io->ReadBlocks (Io, Io->Media->MediaId, Lba, Bytes, B);
+    EFI_STATUS Status;
+    PhotoCheckpoint(0xE100,"BLOCK IO ReadBlocks CALL",EFI_NOT_STARTED,TRUE);
+    Status = Io->ReadBlocks (Io, Io->Media->MediaId, Lba, Bytes, B);
+    PhotoCheckpoint(0xE101,"BLOCK IO ReadBlocks RETURN",Status,FALSE);
     if (!EFI_ERROR (Status)) { ++mReads; }
     return Status;
   }
@@ -296,7 +344,7 @@ STATIC EFI_STATUS Gpt (EFI_BLOCK_IO_PROTOCOL *Io, UINTN Disk) {
   S = EFI_COMPROMISED_DATA;
   if (Crc (Entries, Total) != Le32 (H + 88) || CompareMem (Entries, Other, Total) ||
       !ValidEntries (Entries, Count, Size, First, Last)) { goto Exit; }
-  ++mDisks;
+  ++mDisks; PhotoDiskGuid(H+56);
   DEBUG ((DEBUG_ERROR, "GPT DISK %u GUID=%g BLOCK=%u LAST=0x%Lx\n", (UINT32)Disk, H + 56, (UINT32)Block, Io->Media->LastBlock));
   for (I = 0; I < Count; ++I) {
     UINT8 *P = Entries + I * Size;
@@ -304,7 +352,7 @@ STATIC EFI_STATUS Gpt (EFI_BLOCK_IO_PROTOCOL *Io, UINTN Disk) {
     if (!UsedEntry (P)) { continue; }
     Win = WinName (P); Esp = CompareMem (P, &mEsp, 16) == 0;
     if (!Win && !Esp) { continue; }
-    mWin += Win; mEsps += Esp;
+    mWin += Win; mEsps += Esp; PhotoPartitionGuid(Win,Esp,P+16);
     DEBUG ((DEBUG_ERROR, "%a DISK=%u ENTRY=%u GUID=%g\n", Win ? "WIN CANDIDATE" : "ESP TYPE", (UINT32)Disk, (UINT32)I+1, P + 16));
     DEBUG ((DEBUG_ERROR, "TYPE=%g LBA=0x%Lx..0x%Lx BYTES=0x%Lx\n", P, Le64 (P+32), Le64 (P+40), (Le64(P+40)-Le64(P+32)+1)*Block));
     // Read only a partition's first block. Label/type do not prove filesystem.
@@ -331,9 +379,11 @@ EFI_STATUS EFIAPI PreFinalEntry (EFI_HANDLE Image, EFI_SYSTEM_TABLE *SystemTable
   mThisImage = Image;
   for (I=0; I<ARRAY_SIZE(mNative); ++I) { mLoadStatus[I]=mStartStatus[I]=EFI_NOT_STARTED; }
   gBS->SetWatchdogTimer (0, 0, 0, NULL);
-  Screen (); DEBUG ((DEBUG_ERROR,"DAVINCI UFS UNBLOCK V1 / DUU1\n")); Result ("DXE", EFI_SUCCESS);
+  Screen (); PhotoInit(SystemTable); DEBUG ((DEBUG_ERROR,"DAVINCI UFS UNBLOCK V1 / DUU1\n")); Result ("DXE", EFI_SUCCESS);
   DEBUG ((DEBUG_ERROR,"PREPI: PASS (previous physical success preserved)\n"));
+  PhotoCheckpoint(0xA000,"LEGACY SMMU READ CALL",EFI_NOT_STARTED,TRUE);
   S=Snapshot(TRUE); Result("LEGACY TYPE1 CHECK (NOT THE NEW GATE)",S);
+  PhotoCheckpoint(0xA001,"LEGACY SMMU READ RETURN",S,FALSE);
   mGate=CaptureNative("BEFORE HAL");
   if (EFI_ERROR(mGate)) { goto Summary; }
   S=LocateConfigurationMapUINT32ByName("EnableUfsIOC",&mIoc);
@@ -414,7 +464,9 @@ EFI_STATUS EFIAPI PreFinalEntry (EFI_HANDLE Image, EFI_SYSTEM_TABLE *SystemTable
     mReadback=S;
     if (EFI_ERROR (S)) { mGate = S; goto Summary; }
     Screen ();
+    PhotoCheckpoint(0xE000,"BLOCK IO ENUM CALL",EFI_NOT_STARTED,TRUE);
     mBlock = gBS->LocateHandleBuffer (ByProtocol, &gEfiBlockIoProtocolGuid, NULL, &RawCount, &Handles);
+    PhotoCheckpoint(0xE001,"BLOCK IO ENUM RETURN",mBlock,FALSE);
     if (!EFI_ERROR (mBlock)) {
       for (I = 0; I < RawCount; ++I) {
         S = gBS->HandleProtocol (Handles[I], &gEfiBlockIoProtocolGuid, (VOID **)&Io);
@@ -422,7 +474,9 @@ EFI_STATUS EFIAPI PreFinalEntry (EFI_HANDLE Image, EFI_SYSTEM_TABLE *SystemTable
             Io->Media->LogicalPartition || Io->Media->RemovableMedia) { continue; }
         ++mCount;
         DEBUG ((DEBUG_ERROR, "LUN HANDLE %u block=%u last=0x%Lx\n", (UINT32)I, Io->Media->BlockSize, Io->Media->LastBlock));
+        PhotoCheckpoint(0xE200,"GPT VALIDATION CALL",EFI_NOT_STARTED,TRUE);
         S = Gpt (Io, I);
+        PhotoCheckpoint(0xE201,"GPT VALIDATION RETURN",S,FALSE);
         // UFS has boot/RPMB-related LUNs without GPT. Count/report each failure.
         Result ("LUN GPT READ", S);
         if (EFI_ERROR (S)) { ++mGptFailures; }
@@ -458,5 +512,6 @@ Summary:
   DEBUG ((DEBUG_ERROR, "WINDOWS PARTITION: %a CANDIDATES=%u (label only)\n", mWin ? "FOUND" : "NOT FOUND", (UINT32)mWin));
   DEBUG ((DEBUG_ERROR, "ESP: %a COUNT=%u (GPT type only)\n", mEsps ? "FOUND" : "NOT FOUND", (UINT32)mEsps));
   DEBUG ((DEBUG_ERROR, "NO INSTALL / NO BOOT MANAGER / HALTED\nHOLD POWER TO RESTART\n"));
+  PhotoFinish();
   for (;;) { CpuDeadLoop (); }
 }
