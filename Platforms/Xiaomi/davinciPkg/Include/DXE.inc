@@ -63,6 +63,7 @@
   INF Binaries/davinci/QcomPkg/Drivers/SdccDxe/SdccDxe.inf
 !if $(TARGET) == DEBUG
   INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
+  INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditAfterUfsDxe.inf
 !endif
   INF Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
   INF Binaries/davinci/QcomPkg/Drivers/TLMMDxe/TLMMDxe.inf

@@ -97,4 +97,5 @@
 !endif
 !if $(TARGET) == DEBUG
   davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
+  davinciPkg/Drivers/StorageAuditDxe/StorageAuditAfterUfsDxe.inf
 !endif

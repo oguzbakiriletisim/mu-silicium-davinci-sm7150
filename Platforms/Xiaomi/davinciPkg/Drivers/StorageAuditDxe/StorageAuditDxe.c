@@ -71,10 +71,13 @@ AuditBlockIo (EFI_EVENT Event, VOID *Context)
   }
   for (Index = 0; Index < Count; Index++) {
     Status = gBS->HandleProtocol (Handles[Index], &gEfiBlockIoProtocolGuid, (VOID **)&BlockIo);
-    if (!EFI_ERROR (Status) && BlockIo->Media != NULL) {
+    if (!EFI_ERROR (Status) && BlockIo != NULL && BlockIo->Media != NULL) {
       DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: handle=%p present=%u partition=%u block=%u last=0x%Lx\n",
               Handles[Index], BlockIo->Media->MediaPresent, BlockIo->Media->LogicalPartition,
               BlockIo->Media->BlockSize, (UINT64)BlockIo->Media->LastBlock));
+    } else {
+      DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: handle=%p unavailable media metadata (%r)\n",
+              Handles[Index], Status));
     }
   }
   FreePool (Handles);
@@ -98,4 +101,19 @@ StorageAuditEntry (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
                              "ReadyToBoot", &gEfiEventReadyToBootGuid, &Event);
   DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: ReadyToBoot audit registration %r\n", Status));
   return EFI_SUCCESS; // Diagnostics do not gate or change the existing UFS path.
+}
+
+// Separate image placed immediately after UFSDxe in DEBUG APRIORI. Reaching
+// this point proves dispatcher progress only: UFS may have failed to load,
+// returned an error, or deliberately skipped probing. Never report it as a
+// successful UFS entry/initialization marker.
+EFI_STATUS EFIAPI
+StorageAuditAfterUfsEntry (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+{
+  DEBUG ((DEBUG_WARN, "DAVINCI-STORAGE: post-UFSDxe APRIORI position reached; UFS status unknown\n"));
+  AuditProtocol ("SMEM", &gEfiSMEMProtocolGuid);
+  AuditProtocol ("Clock", &gEfiClockProtocolGuid);
+  AuditProtocol ("IOMMU", &mIommuGuid);
+  AuditBlockIo (NULL, "post-UFSDxe");
+  return EFI_SUCCESS;
 }

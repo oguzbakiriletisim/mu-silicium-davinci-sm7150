@@ -47,6 +47,9 @@ APRIORI DXE {
   INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
 !endif
   INF Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.inf
+!if $(TARGET) == DEBUG
+  INF davinciPkg/Drivers/StorageAuditDxe/StorageAuditAfterUfsDxe.inf
+!endif
 
   INF FatPkg/EnhancedFatDxe/Fat.inf
 
