@@ -7,6 +7,7 @@ import datetime
 import logging
 import os
 import uuid
+import shutil
 
 from io import StringIO
 from pathlib import Path
@@ -27,7 +28,11 @@ class CommonPlatform ():
     PackagesSupported = ("davinciPkg")
     ArchSupported = ("AARCH64")
     TargetsSupported = ("DEBUG", "RELEASE")
-    Scopes = ('davinci', 'gcc_aarch64_linux', 'edk2-build')
+    # Explicit offline/toolchain choice; do not silently substitute downloaded tools.
+    UseSystemNasm = os.environ.get('DAVINCI_SYSTEM_NASM') == '1'
+    if UseSystemNasm and shutil.which('nasm') is None:
+        raise RuntimeError('DAVINCI_SYSTEM_NASM=1 requires nasm on PATH')
+    Scopes = ('davinci', 'gcc_aarch64_linux', 'edk2-build') + (('davinci-system-nasm',) if UseSystemNasm else ())
     WorkspaceRoot = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     PackagesPath = (
         "Platforms/Xiaomi",
