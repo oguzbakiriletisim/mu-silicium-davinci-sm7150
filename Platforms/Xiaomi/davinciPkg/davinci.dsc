@@ -31,7 +31,7 @@
   # 1 = SM7150-AB
   # 2 = SM7150-AC
   #
-  SOC_TYPE                       = 2
+  SOC_TYPE                       = 0
 
 [BuildOptions]
   *_*_*_CC_FLAGS = -DSOC_TYPE=$(SOC_TYPE) -DHAS_BUILD_IN_KEYBOARD=$(HAS_BUILD_IN_KEYBOARD)
