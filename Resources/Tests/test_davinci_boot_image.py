@@ -27,7 +27,7 @@ def fixture():
     vb=bytearray(512);vb[:4]=b'AVB0';struct.pack_into('>IIQQI',vb,4,1,0,0,256,0);struct.pack_into('>QQ',vb,96,0,200);vb[256:456]=desc
     image=bytes(body)+vb+bytes(32768-len(body)-len(vb)-64)+struct.pack('>4sIIQQQ28s',b'AVBf',1,0,len(body),len(body),len(vb),bytes(28))
     shim=bytearray(144);shim[56:60]=b'ARMd';struct.pack_into('<QQ',shim,8,0x9fc00000,0x300000)
-    fd=bytearray(0x300000);fd[40:44]=b'_FVH';fd[100:134]=b'DAVINCI FIRST BOOT: PREPI REACHED'.ljust(34,b'\0')
+    fd=bytearray(0x300000);struct.pack_into('<I',fd,0,0x14000040);fd[40:44]=b'_FVH';fd[100:134]=b'DAVINCI FIRST BOOT: PREPI REACHED'.ljust(34,b'\0')
     return image,bytes(shim),bytes(fd),fdt
 
 
@@ -70,6 +70,11 @@ class BootImageTests(unittest.TestCase):
     def test_full_debug_fd_without_halt_marker_is_rejected(self):
         fd=bytearray(self.fd);fd[100:134]=bytes(34)
         with self.assertRaises(ValueError):boot.package(self.original,self.shim,fd)
+
+    def test_fd_without_a_valid_entry_branch_is_rejected(self):
+        for instruction in [0,0x14000000,0x15ffffff]:
+            fd=bytearray(self.fd);struct.pack_into('<I',fd,0,instruction)
+            with self.assertRaises(ValueError):boot.package(self.original,self.shim,fd)
 
     def test_fdt_extent_and_truncation_are_rejected(self):
         for data in [b'',self.fdt[:20],self.fdt[:4]+struct.pack('>I',1000)+self.fdt[8:]]:

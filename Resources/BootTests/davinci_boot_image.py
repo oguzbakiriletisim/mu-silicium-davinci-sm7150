@@ -148,6 +148,13 @@ def package(backup, shim, fd):
         raise ValueError('BootShim does not match the reviewed davinci configuration')
     if len(fd) != 0x300000 or fd[40:44] != b'_FVH':
         raise ValueError('Expected the reviewed 3 MiB davinci FD')
+    instruction, = struct.unpack_from('<I', fd)
+    displacement = instruction & 0x03ffffff
+    if displacement & 0x02000000:
+        displacement -= 0x04000000
+    entry_offset = displacement * 4
+    if instruction & 0xfc000000 != 0x14000000 or not 44 <= entry_offset < len(fd):
+        raise ValueError('FD does not start with an in-range AARCH64 branch to SEC')
     # Required for this first test: stop in uncompressed SEC before DXE/UFS.
     if b'DAVINCI FIRST BOOT: PREPI REACHED' not in fd:
         raise ValueError('FD does not contain the explicit first-boot halt marker')
@@ -162,7 +169,7 @@ def package(backup, shim, fd):
     image += bytes(align(len(image), page) - len(image))
     # Never carry the original, now-invalid AVB footer/hash into the new image.
     report.update(image_size=len(image), image_sha256=digest(image), kernel_payload_size=len(payload),
-                  bootshim_sha256=digest(shim), fd_sha256=digest(fd),
+                  bootshim_sha256=digest(shim), fd_sha256=digest(fd), fd_entry_branch_offset=entry_offset,
                   preserved_header_bytes_except=['kernel_size [8:12]', 'image_id [576:608]'],
                   new_avb_footer_present=False, new_image_avb_signed=False,
                   purpose='TEMPORARY FASTBOOT BOOT EXPERIMENT ONLY; NO FLASH',
