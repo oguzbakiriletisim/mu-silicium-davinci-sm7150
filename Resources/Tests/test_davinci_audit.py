@@ -9,6 +9,13 @@ audit = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(audit)
 
 class OfflineAuditTests(unittest.TestCase):
+    def test_depex_boolean_expression_and_reject_malformed(self):
+        self.assertEqual(audit.decode_depex(bytes([6, 7, 4, 5, 8]))['expression'], '(NOT (TRUE OR FALSE))')
+        for data in [b'', bytes([2, 0]), bytes([3, 8]), bytes([5, 8]),
+                     bytes([6]), bytes([6, 8, 0]), bytes([6, 7, 8]), bytes([9, 8])]:
+            with self.subTest(data=data), self.assertRaises(ValueError):
+                audit.decode_depex(data)
+
     def test_timer_gic_offsets_and_low_polarity(self):
         dts = (ROOT / 'Resources/DTBs/davinci.dts').read_text()
         self.assertEqual(audit.timer_from_dts(dts), [(17, 2), (18, 2), (19, 2), (16, 2)])
@@ -47,6 +54,12 @@ class OfflineAuditTests(unittest.TestCase):
         b[:4] = b'APIC'
         with self.assertRaises(ValueError):
             audit.gicc_topology(b)
+
+    def test_disabled_madt_cpu_is_rejected(self):
+        madt = bytearray((ROOT / 'Silicium-ACPI/SoCs/Qualcomm/Moorea/APIC.aml').read_bytes())
+        struct.pack_into('<I', madt, 44 + 12, 0)
+        with self.assertRaises(ValueError):
+            audit.gicc_topology(madt)
 
     def test_cpu_topology_mismatch_is_not_accepted(self):
         dts = (ROOT / 'Resources/DTBs/davinci.dts').read_text()
