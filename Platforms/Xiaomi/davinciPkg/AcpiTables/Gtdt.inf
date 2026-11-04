@@ -1,0 +1,10 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciResearchGtdt
+  FILE_GUID = AFD9C40B-6CBC-4D58-BDA2-67879B60834D
+  MODULE_TYPE = USER_DEFINED
+  VERSION_STRING = 0.1
+[Sources]
+  Gtdt.aslc
+[Packages]
+  MdePkg/MdePkg.dec

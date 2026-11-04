@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: BSD-2-Clause-Patent
+#include <IndustryStandard/Acpi51.h>
+
+// Resources/DTBs/davinci.dts: timer node, PPIs 1,2,3,0 + GIC PPI base 16.
+// DT flags 0xf08: CPU mask 0xf00, level-low 0x8. GTDT level-low is BIT1.
+// No unverified memory-mapped timer frames or always-on claims are exposed.
+EFI_ACPI_5_1_GENERIC_TIMER_DESCRIPTION_TABLE mDavinciGtdt = {
+  {
+    EFI_ACPI_5_1_GENERIC_TIMER_DESCRIPTION_TABLE_SIGNATURE,
+    sizeof (EFI_ACPI_5_1_GENERIC_TIMER_DESCRIPTION_TABLE),
+    EFI_ACPI_5_1_GENERIC_TIMER_DESCRIPTION_TABLE_REVISION,
+    0x05, // Checksum of this fixed 96-byte table; checked in firmware_audit.
+    { 'D', 'V', 'N', 'C', 'I', ' ' },
+    SIGNATURE_64 ('D', 'V', 'N', 'C', 'I', 'T', 'M', 'R'),
+    1,
+    SIGNATURE_32 ('D', 'V', 'N', 'C'),
+    1
+  },
+  MAX_UINT64,
+  0,
+  17, EFI_ACPI_5_1_GTDT_TIMER_FLAG_TIMER_INTERRUPT_POLARITY,
+  18, EFI_ACPI_5_1_GTDT_TIMER_FLAG_TIMER_INTERRUPT_POLARITY,
+  19, EFI_ACPI_5_1_GTDT_TIMER_FLAG_TIMER_INTERRUPT_POLARITY,
+  16, EFI_ACPI_5_1_GTDT_TIMER_FLAG_TIMER_INTERRUPT_POLARITY,
+  MAX_UINT64,
+  0,
+  0
+};
+
+// Entry point required by the CLANGPDB ACPI extraction rule.
+VOID *
+ReferenceAcpiTable (VOID)
+{
+  return &mDavinciGtdt;
+}

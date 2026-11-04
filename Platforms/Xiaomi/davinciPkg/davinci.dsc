@@ -93,6 +93,7 @@
 [Components.common]
 !if $(DAVINCI_CPU_ONLY_ACPI) == 1
   davinciPkg/AcpiTables/AcpiTables.inf
+  davinciPkg/AcpiTables/Gtdt.inf
 !endif
 !if $(TARGET) == DEBUG
   davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf
