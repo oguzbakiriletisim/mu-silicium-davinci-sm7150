@@ -1,0 +1,1 @@
+PASS: final image matches AOSP mkbootimg output except preserved original addresses of absent ramdisk/second. Different bytes: [23, 30]

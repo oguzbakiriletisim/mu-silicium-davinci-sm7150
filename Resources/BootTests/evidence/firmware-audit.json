@@ -1,0 +1,194 @@
+{
+  "source": {
+    "regions": 65,
+    "ufs_resources": {
+      "ufshc@1d84000": [
+        "0x1d84000",
+        "0x3000",
+        "0x1d90000",
+        "0x8000"
+      ],
+      "ufsphy_mem@1d87000": [
+        "0x1d87000",
+        "0xddc"
+      ],
+      "ufsice@1d90000": [
+        "0x1d90000",
+        "0x8000"
+      ]
+    },
+    "cpu_topology": {
+      "0": "0x0",
+      "1": "0x100",
+      "2": "0x200",
+      "3": "0x300",
+      "4": "0x400",
+      "5": "0x500",
+      "6": "0x600",
+      "7": "0x700"
+    },
+    "framebuffer": {
+      "width": 1080,
+      "height": 2340,
+      "base": "0x9c000000",
+      "reserved_bytes": 25165824
+    },
+    "ufs_sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1",
+    "ufs_iommu_bypass_retained": true,
+    "architected_timer_from_dts": [
+      [
+        17,
+        2
+      ],
+      [
+        18,
+        2
+      ],
+      [
+        19,
+        2
+      ],
+      [
+        16,
+        2
+      ]
+    ],
+    "ufs_depex": "SMEM",
+    "binary_dependency_expressions": {
+      "UFSDxe.depex": {
+        "expression": "f4e5c7d0-d239-47cb-aacd-7f66ef763238",
+        "protocol_guids": [
+          "f4e5c7d0-d239-47cb-aacd-7f66ef763238"
+        ]
+      },
+      "HALIOMMUDxe.depex": {
+        "expression": "(665e3ff6-46cc-11d4-9a38-0090273fc14d AND (26baccb1-6f42-11d4-bce7-0080c73c8881 AND (26baccb2-6f42-11d4-bce7-0080c73c8881 AND (1da97072-bddc-4b30-99f1-72a0b56fff2a AND (27cfac87-46cc-11d4-9a38-0090273fc14d AND (27cfac88-46cc-11d4-9a38-0090273fc14d AND (b7dfb4e1-052f-449f-87be-9818fc91b733 AND (a46423e3-4617-49f1-b9ff-d1bfa9115839 AND (26baccb3-6f42-11d4-bce7-0080c73c8881 AND (6441f818-6362-4e44-b570-7dba31dd2453 AND (1e5668e2-8481-11d4-bcf1-0080c73c8881 AND 665e3ff5-46cc-11d4-9a38-0090273fc14d)))))))))))",
+        "protocol_guids": [
+          "1da97072-bddc-4b30-99f1-72a0b56fff2a",
+          "1e5668e2-8481-11d4-bcf1-0080c73c8881",
+          "26baccb1-6f42-11d4-bce7-0080c73c8881",
+          "26baccb2-6f42-11d4-bce7-0080c73c8881",
+          "26baccb3-6f42-11d4-bce7-0080c73c8881",
+          "27cfac87-46cc-11d4-9a38-0090273fc14d",
+          "27cfac88-46cc-11d4-9a38-0090273fc14d",
+          "6441f818-6362-4e44-b570-7dba31dd2453",
+          "665e3ff5-46cc-11d4-9a38-0090273fc14d",
+          "665e3ff6-46cc-11d4-9a38-0090273fc14d",
+          "a46423e3-4617-49f1-b9ff-d1bfa9115839",
+          "b7dfb4e1-052f-449f-87be-9818fc91b733"
+        ]
+      },
+      "ClockDxe.depex": {
+        "expression": "(ae37b942-457f-4c91-a196-d9669fd347a3 AND b0760469-970c-487a-a4b5-28db7b45cef1)",
+        "protocol_guids": [
+          "ae37b942-457f-4c91-a196-d9669fd347a3",
+          "b0760469-970c-487a-a4b5-28db7b45cef1"
+        ]
+      },
+      "SmemDxe.depex": {
+        "expression": "TRUE",
+        "protocol_guids": []
+      },
+      "ScmDxeLA.depex": {
+        "expression": "964e5b21-6459-11d2-8e39-00a0c969723b",
+        "protocol_guids": [
+          "964e5b21-6459-11d2-8e39-00a0c969723b"
+        ]
+      },
+      "TzDxeLA.depex": {
+        "expression": "964e5b21-6459-11d2-8e39-00a0c969723b",
+        "protocol_guids": [
+          "964e5b21-6459-11d2-8e39-00a0c969723b"
+        ]
+      }
+    },
+    "apriori_bypasses_depex": true,
+    "psci_conduit": "smc",
+    "physical_validation": false
+  },
+  "firmware": {
+    "fd_sha256": "af82208de2c01347369ab85d0bd5550f4ea3d8c439cfea349ec135aee06e5442",
+    "efi_components": {
+      "373cccf6-9a82-4fd9-ab08-0dac61afc9da": "cee33322858ac191d9ae787d0a78cacf005f7459a4378c54f75d8d3e90488495",
+      "a856730a-dc76-49d8-bf79-82e62070c61a": "da9ca89c4ea5c49cb9bf361abc536536b7eec201ab7ad23fb48fb01a3ab14519",
+      "0d35cd8e-97ea-4f9a-96af-0f0d89f76567": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1"
+    },
+    "acpi_raw_tables": [
+      {
+        "signature": "APIC",
+        "length": 724,
+        "checksum_mod256": 0,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "CSRT",
+        "length": 27457,
+        "checksum_mod256": 161,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "DBG2",
+        "length": 348,
+        "checksum_mod256": 43,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "FACP",
+        "length": 276,
+        "checksum_mod256": 200,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "FACS",
+        "length": 64,
+        "checksum_mod256": null,
+        "oem_id": null,
+        "checksum_applicable": false
+      },
+      {
+        "signature": "GTDT",
+        "length": 156,
+        "checksum_mod256": 0,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "IORT",
+        "length": 3627,
+        "checksum_mod256": 0,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "MCFG",
+        "length": 108,
+        "checksum_mod256": 0,
+        "oem_id": "QCOM"
+      },
+      {
+        "signature": "PPTT",
+        "length": 414,
+        "checksum_mod256": 0,
+        "oem_id": "QCOM"
+      }
+    ],
+    "apriori_audit_before_ufs": true,
+    "apriori_audit_after_ufs": true,
+    "ufs_depex_smem_confirmed": true,
+    "acpi_consistency": {
+      "madt_pptt_cpu_ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "fadt_flags": "0x300000",
+      "fadt_arm_boot_arch": 1,
+      "raw_checksums_valid": false,
+      "pre_installation_only": true
+    },
+    "note": "Raw ACPI checksums may be recalculated by InstallAcpiTable; no runtime evidence."
+  }
+}

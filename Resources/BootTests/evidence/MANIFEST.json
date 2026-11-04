@@ -1,0 +1,137 @@
+{
+  "original_size": 134217728,
+  "original_sha256": "a25d36cb56d8ee3cc110dece98fee39e4ce9729c8eeeb0d007e8faf1723f2cda",
+  "header": {
+    "kernel_size": 15720488,
+    "kernel_addr": 32768,
+    "ramdisk_size": 0,
+    "ramdisk_addr": 16777216,
+    "second_size": 0,
+    "second_addr": 15728640,
+    "tags_addr": 256,
+    "page_size": 4096,
+    "header_version": 1,
+    "os_version_raw": 335544661,
+    "os_version": "10.0.0",
+    "os_patch_level": "2021-05",
+    "header_size": 1648
+  },
+  "original_kernel": {
+    "gzip_member_size": 13246098,
+    "decompressed_size": 40265744,
+    "arm64_text_offset": 524288
+  },
+  "appended_dtbs": [
+    {
+      "offset": 0,
+      "size": 33269,
+      "sha256": "073fb1995bc30c53d9db6f0a702b8c9e61a1bf626cea7e23f33a5d7a29db5c42"
+    },
+    {
+      "offset": 33269,
+      "size": 390716,
+      "sha256": "d47bc3425cbec6b673afbfa17abac6d6ab5efdf09355dc484db0a925486f1d0b"
+    },
+    {
+      "offset": 423985,
+      "size": 390720,
+      "sha256": "342f33021f0d3996128ff4b0fd28f54a395dcf970f1b220e319447e307614baf"
+    },
+    {
+      "offset": 814705,
+      "size": 4753,
+      "sha256": "aef4a1c033c98c54dfc3dbe54d18c13babe7573eb6aa04862ee7af1070832151"
+    },
+    {
+      "offset": 819458,
+      "size": 5306,
+      "sha256": "daac83fa3cf8e5ca0bc4a387cb830dd3021151197f9d60ea438c53ac546dd640"
+    },
+    {
+      "offset": 824764,
+      "size": 369463,
+      "sha256": "8392eb2743c1994404183f5f654fc45096cf03c641408f24e893b3f6344d17d2"
+    },
+    {
+      "offset": 1194227,
+      "size": 356610,
+      "sha256": "7044aa37a2664a7b50e62c78d3b233082b07a91ba02a71a707663812c52468c0"
+    },
+    {
+      "offset": 1550837,
+      "size": 27379,
+      "sha256": "1cb26c9a5b46ce04f4d750f2442770eca00cddf365df96cbe220640e338acc3a"
+    },
+    {
+      "offset": 1578216,
+      "size": 46749,
+      "sha256": "75df380a33f37803e360c7c25f181ae57a4dacdd6e1e22061470edbef0f76b97"
+    },
+    {
+      "offset": 1624965,
+      "size": 4065,
+      "sha256": "c870adec605c0109630d34f4f5207655c09bdb58f382278f5891587faa8955c6"
+    },
+    {
+      "offset": 1629030,
+      "size": 395222,
+      "sha256": "1e0613b129290b0f14581394ccd3f06fe94b2bd9a855e63411318ba40c353dfe"
+    },
+    {
+      "offset": 2024252,
+      "size": 395222,
+      "sha256": "b29b7969b0f9f269cd666b78ac6771eebd4997b358ed82ea9fd2fb30ed44d0af"
+    },
+    {
+      "offset": 2419474,
+      "size": 54743,
+      "sha256": "b9157f69ca534ee022aeab18f00fc61b345c06372189af7cad1c7bf84ece04c1"
+    },
+    {
+      "offset": 2474217,
+      "size": 173,
+      "sha256": "3b76ff35b66cef9ebe358c3b2540ff4a32d58a67ce625e6789c067f435394d44"
+    }
+  ],
+  "appended_dtb_sha256": "80343237651179447d50c2d0cefa08a398c3b50e3428a12415ce87f1638d5ec2",
+  "avb": {
+    "footer_present": true,
+    "original_image_size": 15728640,
+    "vbmeta_offset": 15728640,
+    "vbmeta_size": 704,
+    "algorithm_type": 0,
+    "hash_descriptors": [
+      {
+        "partition_name": "boot",
+        "image_size": 15728640,
+        "digest_verified": true
+      }
+    ]
+  },
+  "physical_boot_verified": false,
+  "image_size": 4182016,
+  "image_sha256": "f1db62fc7a0f1bb98687e41b8b3d8257b4820126d00209c3540dce6ff76a5123",
+  "kernel_payload_size": 4175092,
+  "bootshim_sha256": "53d8b901cb9818850207c6ab30ce184212fd78d7a8eca029500ded9e84ab0adc",
+  "fd_sha256": "af82208de2c01347369ab85d0bd5550f4ea3d8c439cfea349ec135aee06e5442",
+  "preserved_header_bytes_except": [
+    "kernel_size [8:12]",
+    "image_id [576:608]"
+  ],
+  "new_avb_footer_present": false,
+  "new_image_avb_signed": false,
+  "purpose": "TEMPORARY FASTBOOT BOOT EXPERIMENT ONLY; NO FLASH",
+  "expected_behavior": "PrePi marker then deliberate halt BEFORE DXE/storage",
+  "fastboot_boot_support_verified": false,
+  "source_base_commit": "690adcc46fd9ed08735351e64858aecce9639283",
+  "first_boot_profile_commit": "7a50755486b2e1224c7c3013ebe36e05e102981c",
+  "packaging_commit": "9171bf7e7d8d4819becab80cd5442daf0ef6adf7",
+  "gzip_mtime": 0,
+  "gzip_os_byte": 255,
+  "python_version": "Python 3.12.14",
+  "zlib_version": "1.3.2",
+  "stock_dtb_file_offset": 13250194,
+  "experimental_dtb_file_offset": 1704798,
+  "first_hardware_test_executed": false,
+  "fd_entry_branch_offset": 13424
+}

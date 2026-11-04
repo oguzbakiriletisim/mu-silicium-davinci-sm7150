@@ -1,0 +1,14 @@
+test_fd_without_a_valid_entry_branch_is_rejected (test_davinci_boot_image.BootImageTests.test_fd_without_a_valid_entry_branch_is_rejected) ... ok
+test_fdt_extent_and_truncation_are_rejected (test_davinci_boot_image.BootImageTests.test_fdt_extent_and_truncation_are_rejected) ... ok
+test_full_debug_fd_without_halt_marker_is_rejected (test_davinci_boot_image.BootImageTests.test_full_debug_fd_without_halt_marker_is_rejected) ... ok
+test_generated_kernel_round_trips_shim_fd_and_original_dtb (test_davinci_boot_image.BootImageTests.test_generated_kernel_round_trips_shim_fd_and_original_dtb) ... ok
+test_preserves_all_observed_header_fields_except_kernel_size_and_id (test_davinci_boot_image.BootImageTests.test_preserves_all_observed_header_fields_except_kernel_size_and_id) ... ok
+test_rejects_bad_original_header_id_and_avb_hash (test_davinci_boot_image.BootImageTests.test_rejects_bad_original_header_id_and_avb_hash) ... ok
+test_rejects_unreviewed_layout_or_shim (test_davinci_boot_image.BootImageTests.test_rejects_unreviewed_layout_or_shim) ... ok
+test_actual_shim_relocates_payload_and_preserves_dtb_register (test_davinci_boot_image.BootShimExecutionTests.test_actual_shim_relocates_payload_and_preserves_dtb_register) ... ok
+test_compiled_entry_ends_in_unconditional_deadloop_cycle (test_davinci_boot_image.FirstBootHaltCodeTests.test_compiled_entry_ends_in_unconditional_deadloop_cycle) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.138s
+
+OK
