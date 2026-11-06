@@ -1,0 +1,18 @@
+{
+  "host_tests": 96,
+  "host_tests_passed": 96,
+  "debug_build": "PASS",
+  "fd_sha256": "b8cb3545acecf46258c5d75cd0a96abcdd867318107542af34aeac7257a64d21",
+  "fd_bytes": 3145728,
+  "compiled_profile": "DEBUG PREFINAL=1 PHOTO=1 PHOTO_PHASE_TEST=0 STOP=0",
+  "new_boot_img_produced": false,
+  "reason_no_physical_test_image": "No justified functional UFS fix; a policy-blocked image would only repeat the already stable pre-UFS boundary",
+  "new_physical_tests_recommended": false,
+  "native_ufs_binary_modified": false,
+  "known_native_ffu_entry_blocked": true,
+  "ufs_block_io_observed": false,
+  "gpt_observed": false,
+  "windows_kernel_observed": false,
+  "real_storufs_files_examined": false,
+  "phone_accessed": false
+}

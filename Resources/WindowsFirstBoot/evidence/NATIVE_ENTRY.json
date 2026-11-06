@@ -1,0 +1,734 @@
+{
+  "sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1",
+  "native_main_entry_rva": "0x2abc",
+  "conditional_ffu_call_rva": "0x2e70",
+  "ffu_entry_rva": "0x2694",
+  "disassembly": {
+    "0x2e38": [
+      [
+        "0x2e38",
+        "bl",
+        "#0x7124"
+      ],
+      [
+        "0x2e3c",
+        "add",
+        "x0, sp, #0x60"
+      ],
+      [
+        "0x2e40",
+        "bl",
+        "#0x4dc8"
+      ],
+      [
+        "0x2e44",
+        "mov",
+        "w21, w28"
+      ],
+      [
+        "0x2e48",
+        "ldr",
+        "x28, [sp, #0x48]"
+      ],
+      [
+        "0x2e4c",
+        "cbnz",
+        "x22, #0x2e98"
+      ],
+      [
+        "0x2e50",
+        "ldr",
+        "w10, [sp, #0x60]"
+      ],
+      [
+        "0x2e54",
+        "sub",
+        "w11, w10, #0x2d"
+      ],
+      [
+        "0x2e58",
+        "cmp",
+        "w11, #2"
+      ],
+      [
+        "0x2e5c",
+        "b.lo",
+        "#0x2e98"
+      ],
+      [
+        "0x2e60",
+        "adrp",
+        "x5, #0x11c000"
+      ],
+      [
+        "0x2e64",
+        "add",
+        "x5, x5, #0x470"
+      ],
+      [
+        "0x2e68",
+        "ldp",
+        "x1, x2, [sp, #0x38]"
+      ],
+      [
+        "0x2e6c",
+        "ldr",
+        "x0, [x5, #0x10]"
+      ],
+      [
+        "0x2e70",
+        "bl",
+        "#0x2694"
+      ],
+      [
+        "0x2e74",
+        "mov",
+        "w8, w0"
+      ],
+      [
+        "0x2e78",
+        "cbz",
+        "w8, #0x2e98"
+      ],
+      [
+        "0x2e7c",
+        "adrp",
+        "x1, #0x116000"
+      ],
+      [
+        "0x2e80",
+        "mov",
+        "w0, #-0x80000000"
+      ],
+      [
+        "0x2e84",
+        "add",
+        "x1, x1, #0xa68"
+      ],
+      [
+        "0x2e88",
+        "mov",
+        "w2, w8"
+      ],
+      [
+        "0x2e8c",
+        "bl",
+        "#0x7020"
+      ],
+      [
+        "0x2e90",
+        "b",
+        "#0x2e98"
+      ],
+      [
+        "0x2e94",
+        "strb",
+        "wzr, [x8, #5]"
+      ]
+    ],
+    "0x29c0": [
+      [
+        "0x29c0",
+        "ldr",
+        "w1, [x19]"
+      ],
+      [
+        "0x29c4",
+        "mov",
+        "w2, wzr"
+      ],
+      [
+        "0x29c8",
+        "ldur",
+        "x3, [x19, #-8]"
+      ],
+      [
+        "0x29cc",
+        "ldr",
+        "x0, [sp, #0x18]"
+      ],
+      [
+        "0x29d0",
+        "bl",
+        "#0xd44c"
+      ],
+      [
+        "0x29d4",
+        "ldr",
+        "w3, [x19]"
+      ],
+      [
+        "0x29d8",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x29dc",
+        "ldur",
+        "x4, [x19, #-8]"
+      ],
+      [
+        "0x29e0",
+        "mov",
+        "w19, w0"
+      ],
+      [
+        "0x29e4",
+        "add",
+        "x2, x2, #0x8fa"
+      ],
+      [
+        "0x29e8",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x29ec",
+        "mov",
+        "x1, x24"
+      ],
+      [
+        "0x29f0",
+        "bl",
+        "#0x9074"
+      ],
+      [
+        "0x29f4",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x29f8",
+        "bl",
+        "#0xc178"
+      ],
+      [
+        "0x29fc",
+        "cbz",
+        "w19, #0x2a20"
+      ],
+      [
+        "0x2a00",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x2a04",
+        "mov",
+        "w1, #0x50"
+      ],
+      [
+        "0x2a08",
+        "add",
+        "x2, x2, #0x97b"
+      ],
+      [
+        "0x2a0c",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a10",
+        "bl",
+        "#0x9074"
+      ],
+      [
+        "0x2a14",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a18",
+        "bl",
+        "#0xc178"
+      ],
+      [
+        "0x2a1c",
+        "b",
+        "#0x2944"
+      ],
+      [
+        "0x2a20",
+        "ldp",
+        "x0, x1, [sp, #8]"
+      ],
+      [
+        "0x2a24",
+        "bl",
+        "#0x13f8c"
+      ],
+      [
+        "0x2a28",
+        "cbz",
+        "x0, #0x2a48"
+      ],
+      [
+        "0x2a2c",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x2a30",
+        "mov",
+        "w1, #0x50"
+      ],
+      [
+        "0x2a34",
+        "add",
+        "x2, x2, #0x915"
+      ],
+      [
+        "0x2a38",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a3c",
+        "bl",
+        "#0x9074"
+      ],
+      [
+        "0x2a40",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a44",
+        "bl",
+        "#0xc178"
+      ],
+      [
+        "0x2a48",
+        "mov",
+        "w20, #0x50"
+      ],
+      [
+        "0x2a4c",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x2a50",
+        "add",
+        "x2, x2, #0x931"
+      ],
+      [
+        "0x2a54",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a58",
+        "mov",
+        "x1, x20"
+      ],
+      [
+        "0x2a5c",
+        "bl",
+        "#0x9074"
+      ],
+      [
+        "0x2a60",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a64",
+        "bl",
+        "#0xc178"
+      ],
+      [
+        "0x2a68",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x2a6c",
+        "add",
+        "x2, x2, #0x948"
+      ],
+      [
+        "0x2a70",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a74",
+        "mov",
+        "x1, x20"
+      ],
+      [
+        "0x2a78",
+        "bl",
+        "#0x9074"
+      ],
+      [
+        "0x2a7c",
+        "add",
+        "x0, sp, #0x48"
+      ],
+      [
+        "0x2a80",
+        "bl",
+        "#0xc178"
+      ],
+      [
+        "0x2a84",
+        "mov",
+        "w0, wzr"
+      ],
+      [
+        "0x2a88",
+        "mov",
+        "x1, xzr"
+      ],
+      [
+        "0x2a8c",
+        "mov",
+        "x2, xzr"
+      ],
+      [
+        "0x2a90",
+        "mov",
+        "x3, xzr"
+      ],
+      [
+        "0x2a94",
+        "bl",
+        "#0x13e78"
+      ],
+      [
+        "0x2a98",
+        "adrp",
+        "x2, #0x116000"
+      ],
+      [
+        "0x2a9c",
+        "add",
+        "x2, x2, #0x965"
+      ]
+    ],
+    "0xd44c": [
+      [
+        "0xd44c",
+        "mov",
+        "w9, w2"
+      ],
+      [
+        "0xd450",
+        "mov",
+        "w8, w1"
+      ],
+      [
+        "0xd454",
+        "cbz",
+        "x0, #0xd498"
+      ],
+      [
+        "0xd458",
+        "ldrb",
+        "w10, [x0, #8]"
+      ],
+      [
+        "0xd45c",
+        "cmp",
+        "w10, #0xf0"
+      ],
+      [
+        "0xd460",
+        "b.ne",
+        "#0xd498"
+      ],
+      [
+        "0xd464",
+        "ldr",
+        "w10, [x0, #0xc]"
+      ],
+      [
+        "0xd468",
+        "mov",
+        "w11, #0x89ab"
+      ],
+      [
+        "0xd46c",
+        "movk",
+        "w11, #0x1051, lsl #16"
+      ],
+      [
+        "0xd470",
+        "cmp",
+        "w10, w11"
+      ],
+      [
+        "0xd474",
+        "b.ne",
+        "#0xd498"
+      ],
+      [
+        "0xd478",
+        "ldr",
+        "x10, [x0]"
+      ],
+      [
+        "0xd47c",
+        "cbz",
+        "x10, #0xd498"
+      ],
+      [
+        "0xd480",
+        "mov",
+        "w2, #0xe"
+      ],
+      [
+        "0xd484",
+        "mov",
+        "x1, x3"
+      ],
+      [
+        "0xd488",
+        "mov",
+        "w3, wzr"
+      ],
+      [
+        "0xd48c",
+        "mov",
+        "w4, w9"
+      ],
+      [
+        "0xd490",
+        "mov",
+        "w5, w8"
+      ],
+      [
+        "0xd494",
+        "b",
+        "#0xdc88"
+      ],
+      [
+        "0xd498",
+        "mov",
+        "w0, #-0x16"
+      ],
+      [
+        "0xd49c",
+        "ret",
+        ""
+      ]
+    ],
+    "0x13f28": [
+      [
+        "0x13f28",
+        "cmp",
+        "w21, #1"
+      ],
+      [
+        "0x13f2c",
+        "b.eq",
+        "#0x13f48"
+      ],
+      [
+        "0x13f30",
+        "cmp",
+        "w21, #3"
+      ],
+      [
+        "0x13f34",
+        "b.eq",
+        "#0x13f50"
+      ],
+      [
+        "0x13f38",
+        "cmp",
+        "w21, #2"
+      ],
+      [
+        "0x13f3c",
+        "b.ne",
+        "#0x13f64"
+      ],
+      [
+        "0x13f40",
+        "mov",
+        "w0, #2"
+      ],
+      [
+        "0x13f44",
+        "b",
+        "#0x13f68"
+      ],
+      [
+        "0x13f48",
+        "mov",
+        "w0, wzr"
+      ],
+      [
+        "0x13f4c",
+        "b",
+        "#0x13f68"
+      ],
+      [
+        "0x13f50",
+        "mov",
+        "x0, x20"
+      ],
+      [
+        "0x13f54",
+        "mov",
+        "x1, x19"
+      ],
+      [
+        "0x13f58",
+        "bl",
+        "#0x13db0"
+      ],
+      [
+        "0x13f5c",
+        "cbnz",
+        "x0, #0x13f70"
+      ],
+      [
+        "0x13f60",
+        "b",
+        "#0x13efc"
+      ],
+      [
+        "0x13f64",
+        "mov",
+        "w0, #1"
+      ],
+      [
+        "0x13f68",
+        "bl",
+        "#0x15054"
+      ],
+      [
+        "0x13f6c",
+        "cbz",
+        "x0, #0x13efc"
+      ],
+      [
+        "0x13f70",
+        "adrp",
+        "x0, #0x11a000"
+      ],
+      [
+        "0x13f74",
+        "adrp",
+        "x2, #0x11a000"
+      ],
+      [
+        "0x13f78",
+        "add",
+        "x0, x0, #0xcdd"
+      ],
+      [
+        "0x13f7c",
+        "mov",
+        "w1, #0x19b"
+      ],
+      [
+        "0x13f80",
+        "add",
+        "x2, x2, #0xcee"
+      ],
+      [
+        "0x13f84",
+        "bl",
+        "#0x7124"
+      ]
+    ]
+  },
+  "cases": {
+    "matching_old_revision": {
+      "inquiry_fixture": [
+        "MICRON",
+        "128GB-UFS-MT",
+        "9QSQ"
+      ],
+      "calls": [
+        {
+          "service": "FFU_UPDATE_MOCK_ONLY",
+          "device": "0x200000",
+          "bytes": 565248,
+          "payload": "0x17240"
+        },
+        {
+          "service": "RESET_INITIALIZE_MOCK_ONLY"
+        },
+        {
+          "service": "PRIVATE_RESET_MOCK_ONLY",
+          "reset_type": 0
+        }
+      ],
+      "return": 0,
+      "external_services_mocked": true,
+      "physical_result": false
+    },
+    "matching_samsung_fixture": {
+      "inquiry_fixture": [
+        "SAMSUNG",
+        "KM8B8001JM-BC01",
+        "0100"
+      ],
+      "calls": [
+        {
+          "service": "FFU_UPDATE_MOCK_ONLY",
+          "device": "0x200000",
+          "bytes": 479232,
+          "payload": "0xa1240"
+        },
+        {
+          "service": "RESET_INITIALIZE_MOCK_ONLY"
+        },
+        {
+          "service": "PRIVATE_RESET_MOCK_ONLY",
+          "reset_type": 0
+        }
+      ],
+      "return": 0,
+      "external_services_mocked": true,
+      "physical_result": false
+    },
+    "already_target_revision": {
+      "inquiry_fixture": [
+        "MICRON",
+        "128GB-UFS-MT",
+        "9QSV"
+      ],
+      "calls": [],
+      "return": 0,
+      "external_services_mocked": true,
+      "physical_result": false
+    },
+    "unmatched_vendor": {
+      "inquiry_fixture": [
+        "UNKNOWN",
+        "128GB-UFS-MT",
+        "9QSQ"
+      ],
+      "calls": [],
+      "return": 0,
+      "external_services_mocked": true,
+      "physical_result": false
+    },
+    "update_failure": {
+      "inquiry_fixture": [
+        "MICRON",
+        "128GB-UFS-MT",
+        "9QSQ"
+      ],
+      "calls": [
+        {
+          "service": "FFU_UPDATE_MOCK_ONLY",
+          "device": "0x200000",
+          "bytes": 565248,
+          "payload": "0x17240"
+        }
+      ],
+      "return": 1,
+      "external_services_mocked": true,
+      "physical_result": false
+    }
+  },
+  "conclusion": "Native StartImage is not a reviewed read-only operation. Fixture matches are NOT observations of this phone."
+}
