@@ -1,0 +1,6 @@
+{
+  "roundtrip": true,
+  "original_dtbs_preserved": true,
+  "deterministic_packaging": true,
+  "physical_test_performed": false
+}

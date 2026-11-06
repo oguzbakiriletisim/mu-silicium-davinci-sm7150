@@ -1,0 +1,16 @@
+{
+  "platform": "QEMU ARM64, not phone",
+  "bootmgfw_sha256": "fae47d78487e781aa06466775cb461adeb7ff7f887fe2c15295bb2eb4f4954e1",
+  "requested_address": "0x102000",
+  "type": 2,
+  "memory_type": 2,
+  "pages": 1,
+  "status": "0x800000000000000e",
+  "memory_output_on_failure": "0x0000000000102000",
+  "failure_does_not_allocate_requested_address": true,
+  "caller_rva": "0x3e25c",
+  "caller_inside_microsoft_image": true,
+  "recovery_ui_visually_verified": true,
+  "screenshot_sha256": "2897074fd5c343c17e71612cc6e08914e32b4451b18b8b4a82a814e5ce892123",
+  "phone_execution_of_current_image_tested": false
+}

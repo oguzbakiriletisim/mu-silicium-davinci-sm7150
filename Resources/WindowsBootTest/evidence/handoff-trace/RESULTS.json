@@ -1,0 +1,19 @@
+{
+  "implementation_commit": "3bc34bb650227a440c97bf5cb69d4bc2c7524680",
+  "physical_input_image": "davinci-target-a-prepi-fix.img",
+  "physical_new_image_tested": false,
+  "physical_microsoft_recovery_verified": false,
+  "new_api_observer_forwards_original_arguments_and_status": true,
+  "host_tests_passed": 118,
+  "debug_build_passed": true,
+  "real_ms_low_102000_probe_reproduced_in_arm64_qemu": true,
+  "same_probe_failure_followed_by_recovery_ui_in_qemu": true,
+  "actual_acpi_storage_contains_existing_dsdt_fadt_gtdt": true,
+  "installed_acpi_inventory_added": true,
+  "acpi_platform_entry_return_observer_added": true,
+  "map_and_hardware_addresses_changed": false,
+  "native_ufs_ffu_guards_preserved": true,
+  "image_sha256": "215de3a9fec55063d41412570701a5b584edf742ea63c4505c776ea1d5786ef6",
+  "image_bytes": 4145152,
+  "fd_sha256": "b9319ddc7391b18e32f2cbfd4e2143dd20ffe5959fa7211af76b0f76e6bb8106"
+}
