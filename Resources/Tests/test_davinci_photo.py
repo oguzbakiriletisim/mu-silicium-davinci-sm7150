@@ -17,6 +17,31 @@ class PhotoTests(unittest.TestCase):
                 str(ROOT/'Resources/Tests/davinci_photo_host.c'),'-o',str(p/'photo')],check=True)
             subprocess.run([str(p/'photo')],check=True)
 
+    def test_phase_ceiling_and_both_documented_delays(self):
+        for delay in [0,1000000]:
+            with self.subTest(delay=delay), tempfile.TemporaryDirectory() as tmp:
+                p=Path(tmp)
+                for n in ['Protocol/Cpu.h','Library/ArmLib.h','Library/PrintLib.h','Library/TimerLib.h']:
+                    h=p/n;h.parent.mkdir(parents=True,exist_ok=True);h.write_text('// host declarations\n')
+                cmd=['cc','-std=c11','-Wall','-Wextra','-Werror','-Wno-unused-function','-I',str(p),
+                  '-I',str(ROOT/'Silicon/Silicium/SiliciumPkg/Include'),'-DDAVINCI_PHOTO_PHASE_TEST=1',
+                  '-DDAVINCI_PHOTO_MAX_NATIVE=0','-DDAVINCI_PHOTO_DELAY_US='+str(delay),
+                  str(ROOT/'Resources/Tests/davinci_photo_host.c'),'-o',str(p/'photo')]
+                subprocess.run(cmd,check=True);subprocess.run([str(p/'photo')],check=True)
+
+    def test_phase_configuration_cannot_authorize_hal_or_unknown_delay(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)
+            for n in ['Protocol/Cpu.h','Library/ArmLib.h','Library/PrintLib.h','Library/TimerLib.h']:
+                h=p/n;h.parent.mkdir(parents=True,exist_ok=True);h.write_text('// host declarations\n')
+            base=['cc','-std=c11','-I',str(p),'-I',str(ROOT/'Silicon/Silicium/SiliciumPkg/Include'),
+                  '-DDAVINCI_PHOTO_PHASE_TEST=1',str(ROOT/'Resources/Tests/davinci_photo_host.c'),'-o',str(p/'bad')]
+            for flags in [['-DDAVINCI_PHOTO_MAX_NATIVE=11'],['-DDAVINCI_PHOTO_MAX_NATIVE=13'],
+                          ['-DDAVINCI_PHOTO_MAX_NATIVE=12'],
+                          ['-DDAVINCI_PHOTO_MAX_NATIVE=9','-DDAVINCI_PHOTO_DELAY_US=30000000']]:
+                result=subprocess.run(base+flags,capture_output=True,text=True)
+                self.assertNotEqual(result.returncode,0);self.assertIn('DUU3',result.stderr)
+
     def test_raster_clips_invalid_coordinates_and_keeps_canaries(self):
         with tempfile.TemporaryDirectory() as tmp:
             p=Path(tmp);header=ROOT/'Platforms/Xiaomi/davinciPkg/Drivers/PreFinalDxe/PhotoRaster.h'

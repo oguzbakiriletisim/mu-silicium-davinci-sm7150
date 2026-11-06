@@ -1,0 +1,1310 @@
+{
+  "PdcDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/PdcDxe/PdcDxe.efi",
+    "sha256": "0b022201920bd6d102407efcfd5ae3c3b50cf3af05bf212c4c7c0e6970f40ccd",
+    "bytes": 36864,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer.",
+    "status_protocol_guid_at_7080": "urn:uuid:d2b2b828-0826-48a7-b3df-983c006024f0",
+    "assert_and_service_evidence": {
+      "assert_rva_1454": [
+        [
+          "0x1454",
+          "stp",
+          "x28, x21, [sp, #-0x30]!"
+        ],
+        [
+          "0x1458",
+          "stp",
+          "x20, x19, [sp, #0x10]"
+        ],
+        [
+          "0x145c",
+          "stp",
+          "x29, x30, [sp, #0x20]"
+        ],
+        [
+          "0x1460",
+          "add",
+          "x29, sp, #0x20"
+        ],
+        [
+          "0x1464",
+          "sub",
+          "sp, sp, #0x210"
+        ],
+        [
+          "0x1468",
+          "adrp",
+          "x8, #0x7000"
+        ],
+        [
+          "0x146c",
+          "mov",
+          "x19, x2"
+        ],
+        [
+          "0x1470",
+          "mov",
+          "x20, x1"
+        ],
+        [
+          "0x1474",
+          "ldr",
+          "x8, [x8, #0x2f0]"
+        ],
+        [
+          "0x1478",
+          "mov",
+          "x21, x0"
+        ],
+        [
+          "0x147c",
+          "stur",
+          "x8, [x29, #-0x28]"
+        ],
+        [
+          "0x1480",
+          "bl",
+          "#0x2748"
+        ],
+        [
+          "0x1484",
+          "bl",
+          "#0x2758"
+        ],
+        [
+          "0x1488",
+          "and",
+          "w8, w0, #0xff"
+        ],
+        [
+          "0x148c",
+          "cbz",
+          "w8, #0x14a4"
+        ],
+        [
+          "0x1490",
+          "mov",
+          "w1, #7"
+        ],
+        [
+          "0x1494",
+          "movk",
+          "w1, #0x300, lsl #16"
+        ],
+        [
+          "0x1498",
+          "mov",
+          "w0, #2"
+        ],
+        [
+          "0x149c",
+          "bl",
+          "#0x2778"
+        ],
+        [
+          "0x14a0",
+          "b",
+          "#0x14a8"
+        ],
+        [
+          "0x14a4",
+          "bl",
+          "#0x2768"
+        ],
+        [
+          "0x14a8",
+          "bl",
+          "#0x288c"
+        ],
+        [
+          "0x14ac",
+          "bl",
+          "#0x28d0"
+        ],
+        [
+          "0x14b0",
+          "adrp",
+          "x2, #0x4000"
+        ],
+        [
+          "0x14b4",
+          "add",
+          "x2, x2, #0x9d3"
+        ],
+        [
+          "0x14b8",
+          "add",
+          "x0, sp, #8"
+        ],
+        [
+          "0x14bc",
+          "mov",
+          "w1, #0x200"
+        ],
+        [
+          "0x14c0",
+          "mov",
+          "x3, x21"
+        ],
+        [
+          "0x14c4",
+          "mov",
+          "x4, x20"
+        ],
+        [
+          "0x14c8",
+          "mov",
+          "x5, x19"
+        ],
+        [
+          "0x14cc",
+          "bl",
+          "#0x2a68"
+        ],
+        [
+          "0x14d0",
+          "add",
+          "x0, sp, #8"
+        ],
+        [
+          "0x14d4",
+          "bl",
+          "#0x1558"
+        ],
+        [
+          "0x14d8",
+          "mov",
+          "x1, x0"
+        ],
+        [
+          "0x14dc",
+          "add",
+          "x0, sp, #8"
+        ],
+        [
+          "0x14e0",
+          "bl",
+          "#0x27cc"
+        ],
+        [
+          "0x14e4",
+          "bl",
+          "#0x288c"
+        ],
+        [
+          "0x14e8",
+          "adrp",
+          "x0, #0x4000"
+        ],
+        [
+          "0x14ec",
+          "add",
+          "x0, x0, #0x9e6"
+        ],
+        [
+          "0x14f0",
+          "mov",
+          "w1, #1"
+        ],
+        [
+          "0x14f4",
+          "bl",
+          "#0x27cc"
+        ],
+        [
+          "0x14f8",
+          "bl",
+          "#0x288c"
+        ],
+        [
+          "0x14fc",
+          "bl",
+          "#0x3dec"
+        ],
+        [
+          "0x1500",
+          "bl",
+          "#0x1530"
+        ],
+        [
+          "0x1504",
+          "adrp",
+          "x9, #0x7000"
+        ],
+        [
+          "0x1508",
+          "ldur",
+          "x8, [x29, #-0x28]"
+        ],
+        [
+          "0x150c",
+          "ldr",
+          "x9, [x9, #0x2f0]"
+        ],
+        [
+          "0x1510",
+          "sub",
+          "x9, x9, x8"
+        ],
+        [
+          "0x1514",
+          "cbnz",
+          "x9, #0x152c"
+        ],
+        [
+          "0x1518",
+          "add",
+          "sp, sp, #0x210"
+        ],
+        [
+          "0x151c",
+          "ldp",
+          "x29, x30, [sp, #0x20]"
+        ],
+        [
+          "0x1520",
+          "ldp",
+          "x20, x19, [sp, #0x10]"
+        ],
+        [
+          "0x1524",
+          "ldp",
+          "x28, x21, [sp], #0x30"
+        ],
+        [
+          "0x1528",
+          "ret",
+          ""
+        ],
+        [
+          "0x152c",
+          "bl",
+          "#0x2614"
+        ],
+        [
+          "0x1530",
+          "sub",
+          "sp, sp, #0x20"
+        ],
+        [
+          "0x1534",
+          "stp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x1538",
+          "add",
+          "x29, sp, #0x10"
+        ],
+        [
+          "0x153c",
+          "bl",
+          "#0x3dec"
+        ],
+        [
+          "0x1540",
+          "str",
+          "xzr, [sp, #8]"
+        ],
+        [
+          "0x1544",
+          "ldr",
+          "x8, [sp, #8]"
+        ],
+        [
+          "0x1548",
+          "cbz",
+          "x8, #0x1544"
+        ],
+        [
+          "0x154c",
+          "ldp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x1550",
+          "add",
+          "sp, sp, #0x20"
+        ],
+        [
+          "0x1554",
+          "ret",
+          ""
+        ]
+      ],
+      "status_wrapper_rva_2630": [
+        [
+          "0x2630",
+          "str",
+          "x19, [sp, #-0x20]!"
+        ],
+        [
+          "0x2634",
+          "stp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x2638",
+          "add",
+          "x29, sp, #0x10"
+        ],
+        [
+          "0x263c",
+          "adrp",
+          "x19, #0x7000"
+        ],
+        [
+          "0x2640",
+          "ldr",
+          "x9, [x19, #0x6f0]"
+        ],
+        [
+          "0x2644",
+          "cbz",
+          "x9, #0x2654"
+        ],
+        [
+          "0x2648",
+          "ldp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x264c",
+          "ldr",
+          "x19, [sp], #0x20"
+        ],
+        [
+          "0x2650",
+          "ret",
+          ""
+        ],
+        [
+          "0x2654",
+          "adrp",
+          "x9, #0x7000"
+        ],
+        [
+          "0x2658",
+          "ldr",
+          "x8, [x9, #0x308]"
+        ],
+        [
+          "0x265c",
+          "cbz",
+          "x8, #0x2648"
+        ],
+        [
+          "0x2660",
+          "ldr",
+          "x8, [x8, #0x140]"
+        ],
+        [
+          "0x2664",
+          "cbz",
+          "x8, #0x2648"
+        ],
+        [
+          "0x2668",
+          "adrp",
+          "x0, #0x7000"
+        ],
+        [
+          "0x266c",
+          "adrp",
+          "x2, #0x7000"
+        ],
+        [
+          "0x2670",
+          "add",
+          "x0, x0, #0x80"
+        ],
+        [
+          "0x2674",
+          "add",
+          "x2, x2, #0x6f0"
+        ],
+        [
+          "0x2678",
+          "mov",
+          "x1, xzr"
+        ],
+        [
+          "0x267c",
+          "blr",
+          "x8"
+        ],
+        [
+          "0x2680",
+          "tbz",
+          "x0, #0x3f, #0x2648"
+        ],
+        [
+          "0x2684",
+          "str",
+          "xzr, [x19, #0x6f0]"
+        ],
+        [
+          "0x2688",
+          "b",
+          "#0x2648"
+        ],
+        [
+          "0x268c",
+          "stp",
+          "x24, x23, [sp, #-0x40]!"
+        ],
+        [
+          "0x2690",
+          "stp",
+          "x22, x21, [sp, #0x10]"
+        ],
+        [
+          "0x2694",
+          "stp",
+          "x20, x19, [sp, #0x20]"
+        ],
+        [
+          "0x2698",
+          "stp",
+          "x29, x30, [sp, #0x30]"
+        ],
+        [
+          "0x269c",
+          "add",
+          "x29, sp, #0x30"
+        ],
+        [
+          "0x26a0",
+          "mov",
+          "w22, w0"
+        ],
+        [
+          "0x26a4",
+          "mov",
+          "x19, x4"
+        ],
+        [
+          "0x26a8",
+          "mov",
+          "x20, x3"
+        ],
+        [
+          "0x26ac",
+          "mov",
+          "w21, w2"
+        ],
+        [
+          "0x26b0",
+          "mov",
+          "w23, w1"
+        ],
+        [
+          "0x26b4",
+          "and",
+          "w24, w22, #0xff"
+        ],
+        [
+          "0x26b8",
+          "cmp",
+          "w24, #1"
+        ],
+        [
+          "0x26bc",
+          "b.ne",
+          "#0x26cc"
+        ],
+        [
+          "0x26c0",
+          "adrp",
+          "x9, #0x4000"
+        ],
+        [
+          "0x26c4",
+          "ldrb",
+          "w8, [x9, #0x995]"
+        ],
+        [
+          "0x26c8",
+          "tbnz",
+          "w8, #0, #0x26f4"
+        ],
+        [
+          "0x26cc",
+          "bl",
+          "#0x2758"
+        ],
+        [
+          "0x26d0",
+          "cmp",
+          "w24, #2"
+        ],
+        [
+          "0x26d4",
+          "b.ne",
+          "#0x26e0"
+        ],
+        [
+          "0x26d8",
+          "and",
+          "w8, w0, #0xff"
+        ],
+        [
+          "0x26dc",
+          "cbnz",
+          "w8, #0x26f4"
+        ],
+        [
+          "0x26e0",
+          "bl",
+          "#0x2768"
+        ],
+        [
+          "0x26e4",
+          "cmp",
+          "w24, #3"
+        ],
+        [
+          "0x26e8",
+          "b.ne",
+          "#0x2730"
+        ]
+      ],
+      "notes": "0x149c calls 0x2778: status-code type2/value0x03000007, not proof of a reset. Indirect callback behavior remains unknown. 0x1530 contains a software wait loop."
+    }
+  },
+  "ClockDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/ClockDxe/ClockDxe.efi",
+    "sha256": "82ed4ba23567fccbe911fcbb6406690780fa2c779b998a521ee00af0fdf7db5a",
+    "bytes": 278528,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer."
+  },
+  "RpmhDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/RpmhDxe/RpmhDxe.efi",
+    "sha256": "be623f5c754c06cf75f342012bbea46396b319f5a689bd89116f900605607113",
+    "bytes": 65536,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer."
+  },
+  "NpaDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/NpaDxe/NpaDxe.efi",
+    "sha256": "80fca4d39a18583fdf6915752fc93bd1f3e6751cc2ca0062786cec38d19e35cb",
+    "bytes": 81920,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer."
+  },
+  "EnvDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/EnvDxe/EnvDxe.efi",
+    "sha256": "aebae63cee6ba24ee35e0022cee20513c64b56c1374178c69dc9ef7ffd175ba9",
+    "bytes": 65536,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [
+      "0x3070",
+      "0x3090",
+      "0x30b0",
+      "0x30d4",
+      "0x30f8",
+      "0x3140"
+    ],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer."
+  },
+  "UFSDxe": {
+    "path": "Binaries/davinci/QcomPkg/Drivers/UFSDxe/UFSDxe.efi",
+    "sha256": "0576f04f94f267d24736fdfe889d0c29c43330a996a599c40955506aa38ddee1",
+    "bytes": 1183744,
+    "machine": "0xaa64",
+    "entry_rva": "0x1000",
+    "direct_smc_hvc_linear_scan": [
+      "0x15df8",
+      "0x15e18",
+      "0x15e38",
+      "0x15e5c",
+      "0x15e80",
+      "0x15ec8",
+      "0xbdc54",
+      "0xd2e80",
+      "0xd5bc0",
+      "0xe486c",
+      "0x10bdb0",
+      "0x110a10"
+    ],
+    "timeout_text_neighborhood": "sources\u0000Volume Corrupt\u0000Volume Full\u0000No Media\u0000Media changed\u0000Not Found\u0000Access Denied\u0000No Response\u0000No mapping\u0000Time out\u0000Not started\u0000Already started\u0000Aborted\u0000ICMP Error\u0000TFTP Error\u0000Protocol Error\u0000Incompatible Versi",
+    "conclusion": "Linear scan/text do not establish runtime call paths, reset absence, or a 30-second timer.",
+    "entry_evidence": {
+      "wrapper": [
+        [
+          "0x1000",
+          "b",
+          "#0x1040"
+        ],
+        [
+          "0x1004",
+          "stp",
+          "x20, x19, [sp, #-0x20]!"
+        ],
+        [
+          "0x1008",
+          "stp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x100c",
+          "add",
+          "x29, sp, #0x10"
+        ],
+        [
+          "0x1010",
+          "mov",
+          "x20, x0"
+        ],
+        [
+          "0x1014",
+          "bl",
+          "#0x14d4"
+        ],
+        [
+          "0x1018",
+          "mov",
+          "x19, x0"
+        ],
+        [
+          "0x101c",
+          "tbnz",
+          "x19, #0x3f, #0x1030"
+        ],
+        [
+          "0x1020",
+          "adrp",
+          "x8, #0x11d000"
+        ],
+        [
+          "0x1024",
+          "mov",
+          "x0, x20"
+        ],
+        [
+          "0x1028",
+          "ldr",
+          "x1, [x8, #0x4f8]"
+        ],
+        [
+          "0x102c",
+          "bl",
+          "#0x13f0"
+        ],
+        [
+          "0x1030",
+          "ldp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x1034",
+          "mov",
+          "x0, x19"
+        ],
+        [
+          "0x1038",
+          "ldp",
+          "x20, x19, [sp], #0x20"
+        ],
+        [
+          "0x103c",
+          "ret",
+          ""
+        ],
+        [
+          "0x1040",
+          "str",
+          "x21, [sp, #-0x30]!"
+        ],
+        [
+          "0x1044",
+          "stp",
+          "x20, x19, [sp, #0x10]"
+        ],
+        [
+          "0x1048",
+          "stp",
+          "x29, x30, [sp, #0x20]"
+        ],
+        [
+          "0x104c",
+          "add",
+          "x29, sp, #0x20"
+        ],
+        [
+          "0x1050",
+          "adrp",
+          "x8, #0x17000"
+        ],
+        [
+          "0x1054",
+          "mov",
+          "x19, x1"
+        ],
+        [
+          "0x1058",
+          "mov",
+          "x20, x0"
+        ],
+        [
+          "0x105c",
+          "ldr",
+          "w8, [x8, #0x22c]"
+        ],
+        [
+          "0x1060",
+          "cbz",
+          "w8, #0x107c"
+        ],
+        [
+          "0x1064",
+          "ldr",
+          "w9, [x19, #8]"
+        ],
+        [
+          "0x1068",
+          "cmp",
+          "w9, w8"
+        ],
+        [
+          "0x106c",
+          "b.hs",
+          "#0x107c"
+        ],
+        [
+          "0x1070",
+          "mov",
+          "x21, #0x19"
+        ],
+        [
+          "0x1074",
+          "movk",
+          "x21, #0x8000, lsl #48"
+        ],
+        [
+          "0x1078",
+          "b",
+          "#0x1118"
+        ],
+        [
+          "0x107c",
+          "mov",
+          "x0, x20"
+        ],
+        [
+          "0x1080",
+          "mov",
+          "x1, x19"
+        ],
+        [
+          "0x1084",
+          "bl",
+          "#0x112c"
+        ],
+        [
+          "0x1088",
+          "adrp",
+          "x9, #0x17000"
+        ],
+        [
+          "0x108c",
+          "ldrb",
+          "w10, [x9, #0x230]"
+        ],
+        [
+          "0x1090",
+          "cbz",
+          "w10, #0x10f8"
+        ],
+        [
+          "0x1094",
+          "adrp",
+          "x10, #0x11d000"
+        ],
+        [
+          "0x1098",
+          "adrp",
+          "x1, #0x11c000"
+        ],
+        [
+          "0x109c",
+          "add",
+          "x1, x1, #0x280"
+        ],
+        [
+          "0x10a0",
+          "ldr",
+          "x11, [x10, #0x500]"
+        ],
+        [
+          "0x10a4",
+          "add",
+          "x2, sp, #8"
+        ],
+        [
+          "0x10a8",
+          "mov",
+          "x0, x20"
+        ],
+        [
+          "0x10ac",
+          "ldr",
+          "x9, [x11, #0x98]"
+        ],
+        [
+          "0x10b0",
+          "blr",
+          "x9"
+        ],
+        [
+          "0x10b4",
+          "mov",
+          "x8, x0"
+        ],
+        [
+          "0x10b8",
+          "tbz",
+          "x8, #0x3f, #0x10e8"
+        ],
+        [
+          "0x10bc",
+          "adrp",
+          "x1, #0x17000"
+        ],
+        [
+          "0x10c0",
+          "add",
+          "x1, x1, #0x1ac"
+        ],
+        [
+          "0x10c4",
+          "mov",
+          "w0, #-0x80000000"
+        ],
+        [
+          "0x10c8",
+          "mov",
+          "x2, x8"
+        ],
+        [
+          "0x10cc",
+          "bl",
+          "#0x7020"
+        ],
+        [
+          "0x10d0",
+          "adrp",
+          "x0, #0x17000"
+        ],
+        [
+          "0x10d4",
+          "adrp",
+          "x2, #0x17000"
+        ],
+        [
+          "0x10d8",
+          "add",
+          "x0, x0, #0x1cd"
+        ],
+        [
+          "0x10dc",
+          "add",
+          "x2, x2, #0x1e0"
+        ],
+        [
+          "0x10e0",
+          "mov",
+          "w1, #0x7e"
+        ],
+        [
+          "0x10e4",
+          "bl",
+          "#0x7124"
+        ],
+        [
+          "0x10e8",
+          "ldr",
+          "x12, [sp, #8]"
+        ],
+        [
+          "0x10ec",
+          "adrp",
+          "x10, #0x1000"
+        ],
+        [
+          "0x10f0",
+          "add",
+          "x10, x10, #4"
+        ],
+        [
+          "0x10f4",
+          "str",
+          "x10, [x12, #0x58]"
+        ],
+        [
+          "0x10f8",
+          "mov",
+          "x0, x20"
+        ],
+        [
+          "0x10fc",
+          "mov",
+          "x1, x19"
+        ],
+        [
+          "0x1100",
+          "bl",
+          "#0x14d0"
+        ],
+        [
+          "0x1104",
+          "mov",
+          "x21, x0"
+        ],
+        [
+          "0x1108",
+          "tbz",
+          "x21, #0x3f, #0x1118"
+        ],
+        [
+          "0x110c",
+          "mov",
+          "x0, x20"
+        ],
+        [
+          "0x1110",
+          "mov",
+          "x1, x19"
+        ],
+        [
+          "0x1114",
+          "bl",
+          "#0x13f0"
+        ],
+        [
+          "0x1118",
+          "ldp",
+          "x29, x30, [sp, #0x20]"
+        ],
+        [
+          "0x111c",
+          "ldp",
+          "x20, x19, [sp, #0x10]"
+        ],
+        [
+          "0x1120",
+          "mov",
+          "x0, x21"
+        ],
+        [
+          "0x1124",
+          "ldr",
+          "x21, [sp], #0x30"
+        ],
+        [
+          "0x1128",
+          "ret",
+          ""
+        ],
+        [
+          "0x112c",
+          "stp",
+          "x20, x19, [sp, #-0x20]!"
+        ],
+        [
+          "0x1130",
+          "stp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x1134",
+          "add",
+          "x29, sp, #0x10"
+        ],
+        [
+          "0x1138",
+          "mov",
+          "x19, x1"
+        ],
+        [
+          "0x113c",
+          "mov",
+          "x20, x0"
+        ],
+        [
+          "0x1140",
+          "bl",
+          "#0x81d0"
+        ],
+        [
+          "0x1144",
+          "mov",
+          "x8, x0"
+        ],
+        [
+          "0x1148",
+          "tbz",
+          "x8, #0x3f, #0x1178"
+        ]
+      ],
+      "constructor_calls": [
+        [
+          "0x1140",
+          "#0x81d0"
+        ],
+        [
+          "0x115c",
+          "#0x7020"
+        ],
+        [
+          "0x1174",
+          "#0x7124"
+        ],
+        [
+          "0x1180",
+          "#0x833c"
+        ],
+        [
+          "0x119c",
+          "#0x7020"
+        ],
+        [
+          "0x11b4",
+          "#0x7124"
+        ],
+        [
+          "0x11c0",
+          "#0x8414"
+        ],
+        [
+          "0x11dc",
+          "#0x7020"
+        ],
+        [
+          "0x11f4",
+          "#0x7124"
+        ],
+        [
+          "0x1200",
+          "#0x8454"
+        ],
+        [
+          "0x121c",
+          "#0x7020"
+        ],
+        [
+          "0x1234",
+          "#0x7124"
+        ],
+        [
+          "0x1240",
+          "#0x862c"
+        ],
+        [
+          "0x125c",
+          "#0x7020"
+        ],
+        [
+          "0x1274",
+          "#0x7124"
+        ],
+        [
+          "0x1280",
+          "#0x8748"
+        ],
+        [
+          "0x129c",
+          "#0x7020"
+        ],
+        [
+          "0x12b4",
+          "#0x7124"
+        ],
+        [
+          "0x12c0",
+          "#0x8880"
+        ],
+        [
+          "0x12dc",
+          "#0x7020"
+        ],
+        [
+          "0x12f4",
+          "#0x7124"
+        ],
+        [
+          "0x1300",
+          "#0x8b38"
+        ],
+        [
+          "0x131c",
+          "#0x7020"
+        ],
+        [
+          "0x1334",
+          "#0x7124"
+        ],
+        [
+          "0x1338",
+          "#0x8df4"
+        ],
+        [
+          "0x1354",
+          "#0x7020"
+        ],
+        [
+          "0x136c",
+          "#0x7124"
+        ],
+        [
+          "0x1370",
+          "#0x8f98"
+        ],
+        [
+          "0x138c",
+          "#0x7020"
+        ],
+        [
+          "0x13a4",
+          "#0x7124"
+        ],
+        [
+          "0x13a8",
+          "#0xaf90"
+        ]
+      ],
+      "module_entry_prefix": [
+        [
+          "0x13f0",
+          "stp",
+          "x20, x19, [sp, #-0x20]!"
+        ],
+        [
+          "0x13f4",
+          "stp",
+          "x29, x30, [sp, #0x10]"
+        ],
+        [
+          "0x13f8",
+          "add",
+          "x29, sp, #0x10"
+        ],
+        [
+          "0x13fc",
+          "mov",
+          "x19, x1"
+        ],
+        [
+          "0x1400",
+          "mov",
+          "x20, x0"
+        ],
+        [
+          "0x1404",
+          "bl",
+          "#0xb9cc"
+        ],
+        [
+          "0x1408",
+          "mov",
+          "x8, x0"
+        ],
+        [
+          "0x140c",
+          "tbz",
+          "x8, #0x3f, #0x143c"
+        ],
+        [
+          "0x1410",
+          "adrp",
+          "x1, #0x17000"
+        ],
+        [
+          "0x1414",
+          "add",
+          "x1, x1, #0x1ac"
+        ],
+        [
+          "0x1418",
+          "mov",
+          "w0, #-0x80000000"
+        ],
+        [
+          "0x141c",
+          "mov",
+          "x2, x8"
+        ],
+        [
+          "0x1420",
+          "bl",
+          "#0x7020"
+        ],
+        [
+          "0x1424",
+          "adrp",
+          "x0, #0x17000"
+        ],
+        [
+          "0x1428",
+          "adrp",
+          "x2, #0x17000"
+        ],
+        [
+          "0x142c",
+          "add",
+          "x0, x0, #0x1fb"
+        ],
+        [
+          "0x1430",
+          "mov",
+          "w1, #0x2a7"
+        ],
+        [
+          "0x1434",
+          "add",
+          "x2, x2, #0x1e0"
+        ],
+        [
+          "0x1438",
+          "bl",
+          "#0x7124"
+        ],
+        [
+          "0x143c",
+          "mov",
+          "x0, x20"
+        ]
+      ],
+      "existing_iommu_stub": [
+        [
+          "0x24f8",
+          "mov",
+          "w0, #0"
+        ],
+        [
+          "0x24fc",
+          "ret",
+          ""
+        ]
+      ],
+      "notes": "B0C6 precedes CoreStartImage including constructors, entry and callbacks. No inner native routine is identified by this checkpoint; the existing binary stub is unchanged."
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "new_debug_builds": 3,
+  "host_tests": {
+    "run": 93,
+    "passed": 93
+  },
+  "android_repack": "PASS exact bytes from original backup, shim and per-profile FD",
+  "fv_audit": "PASS ARM64 PE, 13 native images unchanged FREEFORM, DEPEX intact, not auto-dispatched",
+  "mandatory_ufs_entry_barrier": "Host-executed no-return test PASS; required compiled marker verified in all 3 coordinator PE files",
+  "target_device": "davinci SM7150-AA only",
+  "new_images_physically_tested": false,
+  "original_backup_modified": false,
+  "phone_accessed": false,
+  "new_binary_patch": false,
+  "new_mmio_or_dma_register_writes": false,
+  "original_iommu_security_guards_changed": false,
+  "ufs_startimage_allowed_in_new_profiles": false,
+  "ufs_block_io_gpt_success": false,
+  "reset_cause": "UNRESOLVED",
+  "latest_reached_checkpoint_reported_by_user": "B0C6",
+  "artifact_check_initial_failure": {
+    "reason": "Validator expected generic ceiling message at max12; optimizer removes the unreachable index>12 branch",
+    "resolution": "Check mandatory UFS-entry barrier marker at max12; actual barrier also executes in host RAM tests",
+    "subsequent_validation": "PASS"
+  }
+}

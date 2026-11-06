@@ -59,6 +59,7 @@ static EFI_GUID gEfiCpuArchProtocolGuid,gEfiLoadedImageProtocolGuid;
 static jmp_buf Park;
 static unsigned RegisterCount,CallsWfi,Delays,CacheCalls;
 static UINT32 FakeWdt;
+static UINT64 FakeCounter=1000000000ULL;
 static UINT8 *Frame;
 static EFI_STATUS RegStatus,WatchdogStatus;
 static HANDLER Handlers[4];
@@ -71,8 +72,8 @@ static EFI_STATUS Handle(EFI_HANDLE H,EFI_GUID *G,VOID **P) {(void)H;(void)G;(vo
 static EFI_STATUS Watchdog(UINTN N,UINT64 C,UINTN S,VOID *P) {assert(N==0&&C==0&&S==0&&P==NULL);return WatchdogStatus;}
 static EFI_BOOT_SERVICES Bs={Locate,Handle,Watchdog};static EFI_BOOT_SERVICES *gBS=&Bs;
 static VOID ArmCallWFI(VOID) {CallsWfi++;longjmp(Park,1);}
-static VOID MicroSecondDelay(UINTN N) {assert(N==1000000);Delays++;}
-static UINT64 GetPerformanceCounter(VOID) {return 1000000000ULL;}
+static VOID MicroSecondDelay(UINTN N) {assert(N==1000000);Delays++;FakeCounter+=(UINT64)N*1000;}
+static UINT64 GetPerformanceCounter(VOID) {return FakeCounter;}
 static UINT64 GetTimeInNanoSecond(UINT64 N) {return N;}
 static EFI_STATUS LocateMemoryMapAreaByName(CHAR8 *N,ARM_MEMORY_REGION_DESCRIPTOR_EX *R) {
  if(!strcmp(N,"Display Reserved")){R->Address=(UINTN)Frame;R->Length=1080U*2340U*4U+0x108;return 0;}
@@ -100,7 +101,7 @@ int main(void) {
  assert(Rt.ResetSystem==PhotoReset);UINT32 Saved=Rt.Hdr.CRC32;Rt.Hdr.CRC32=0;assert(Crc((UINT8 *)&Rt,sizeof Rt)==Saved);Rt.Hdr.CRC32=Saved;
  assert(*(UINT64 *)(Frame+1080U*2340U*4U+0x100)==0x445550324d555445ULL);
  assert(CacheCalls>0 && Frame[Bytes]==0 && Frame[Bytes+31]==0);
- mPhotoStopped=FALSE;PhotoCheckpoint(0xb0b6,"HAL START",EFI_NOT_STARTED,TRUE);assert(Delays==1 && mPhotoCode==0xb0b6);
+ mPhotoStopped=FALSE;PhotoCheckpoint(0xb0b6,"HAL START",EFI_NOT_STARTED,TRUE);assert(Delays==(DAVINCI_PHOTO_DELAY_US?1U:0U) && mPhotoCode==0xb0b6);
  EFI_SYSTEM_CONTEXT_AARCH64 A={0x1234,0x96000000,0x15000000,0x5678};EFI_SYSTEM_CONTEXT C={&A};
  if(setjmp(Park)==0){PhotoException(0,C);assert(0);}
  assert(mPhotoFatal && mPhotoStopped && mPhotoCode==0xb0b6 && mPhotoPending);
@@ -112,5 +113,19 @@ int main(void) {
  mPhotoFatal=FALSE;RegStatus=EFI_ALREADY_STARTED;mPhotoStopped=FALSE;Rt.Hdr.HeaderSize=sizeof Rt;
  if(setjmp(Park)==0){PhotoInit(&St);assert(0);}
  assert(mPhotoSync==EFI_ALREADY_STARTED && mPhotoSError==EFI_ALREADY_STARTED && RegisterCount==4);
+ mPhotoHistoryCount=mPhotoHistoryNext=0;
+ for(UINT32 I=0;I<12;++I) {FakeCounter+=10000000;PhotoCheckpoint(0x5000+I,"history",I,FALSE);}
+ assert(mPhotoHistoryCount==8 && mPhotoHistoryNext==4);
+ assert(mPhotoHistory[4].Code==0x5004 && mPhotoHistory[3].Code==0x500b);
+ assert(mPhotoHistory[3].Millis>mPhotoHistory[4].Millis);
+#if DAVINCI_PHOTO_PHASE_TEST
+ mPhotoStopped=FALSE;
+ if(setjmp(Park)==0) {PhotoModule(1,4,EFI_NOT_STARTED,TRUE);assert(0);}
+ assert(mPhotoStopped && mPhotoCode==0xdffe && mPhotoHistory[(mPhotoHistoryNext+7)%8].Code==0xdffe);
+ // Even with a different requested stop, the UFS entry barrier cannot return.
+ mPhotoStopped=FALSE;
+ if(setjmp(Park)==0) {PhotoModule(ARRAY_SIZE(mNative)-1,6,EFI_NOT_STARTED,TRUE);assert(0);}
+ assert(mPhotoStopped && mPhotoCode==0xb0c6 && mPhotoPending && mPhotoLastStatus==EFI_NOT_STARTED);
+#endif
  free(Frame);return 0;
 }

@@ -13,9 +13,31 @@
 #ifndef DAVINCI_PHOTO_STOP
 #define DAVINCI_PHOTO_STOP 0
 #endif
+#ifndef DAVINCI_PHOTO_DELAY_US
+#define DAVINCI_PHOTO_DELAY_US 1000000
+#endif
+#ifndef DAVINCI_PHOTO_PHASE_TEST
+#define DAVINCI_PHOTO_PHASE_TEST 0
+#endif
+#ifndef DAVINCI_PHOTO_MAX_NATIVE
+#define DAVINCI_PHOTO_MAX_NATIVE 255
+#endif
+#if DAVINCI_PHOTO_PHASE_TEST && (DAVINCI_PHOTO_MAX_NATIVE > 12 || DAVINCI_PHOTO_MAX_NATIVE < 0 || DAVINCI_PHOTO_MAX_NATIVE == 11)
+#error DUU3 permits dependency ceilings or the guarded before-UFS-entry profile
+#endif
+#if DAVINCI_PHOTO_PHASE_TEST && DAVINCI_PHOTO_MAX_NATIVE == 12 && DAVINCI_PHOTO_STOP != 0xB0C4 && DAVINCI_PHOTO_STOP != 0xB0C5 && DAVINCI_PHOTO_STOP != 0xB0C6
+#error DUU3 UFS profiles must stop before UFS entry
+#endif
+#if DAVINCI_PHOTO_PHASE_TEST && DAVINCI_PHOTO_DELAY_US != 0 && DAVINCI_PHOTO_DELAY_US != 1000000
+#error DUU3 permits only the two documented timing conditions
+#endif
 #define PHOTO_STRING_1(X) #X
 #define PHOTO_STRING(X) PHOTO_STRING_1(X)
+#if DAVINCI_PHOTO_PHASE_TEST
+STATIC CONST CHAR8 mPhotoProfile[]="DUU3_STOP=" PHOTO_STRING(DAVINCI_PHOTO_STOP) "_DELAY=" PHOTO_STRING(DAVINCI_PHOTO_DELAY_US) "_MAX=" PHOTO_STRING(DAVINCI_PHOTO_MAX_NATIVE);
+#else
 STATIC CONST CHAR8 mPhotoProfile[]="DUU2_STOP=" PHOTO_STRING(DAVINCI_PHOTO_STOP);
+#endif
 STATIC UINT32 *mPhotoPixels;
 STATIC EFI_RUNTIME_SERVICES *mPhotoRt;
 STATIC EFI_STATUS mPhotoSync=EFI_NOT_STARTED,mPhotoSError=EFI_NOT_STARTED,mPhotoResetHook=EFI_NOT_STARTED;
@@ -25,6 +47,8 @@ STATIC volatile UINT64 mPhotoMmio;
 STATIC UINT32 mPhotoRegMask;
 STATIC UINT8 mPhotoBankValid[128];
 STATIC UINT64 mPhotoStartCounter,mPhotoElapsed;
+STATIC struct {UINT64 Millis; EFI_STATUS Status; UINT32 Code; BOOLEAN Pending;} mPhotoHistory[8];
+STATIC UINTN mPhotoHistoryCount,mPhotoHistoryNext;
 STATIC EFI_GUID mPhotoWinGuid,mPhotoEspGuid,mPhotoDiskGuid,mPhotoMissingProtocol;
 STATIC BOOLEAN mPhotoMissingSeen;
 STATIC BOOLEAN mPhotoWinSeen,mPhotoEspSeen,mPhotoDiskSeen;
@@ -47,7 +71,7 @@ STATIC VOID PhotoRender (VOID) {
   CHAR8 B[128];UINTN I;UINT32 Bank=0xffffffffU;
   if (!mPhotoPixels) { return; }
   ZeroMem(mPhotoPixels,1080U*2340U*4U);
-  AsciiSPrint(B,sizeof B,"DUU2 PHOTO  STOP=%04x  %a",(UINT32)DAVINCI_PHOTO_STOP,mPhotoStopped?"HALTED":"AUTO");PhotoLine(0,B,0xff80ffffU);
+  AsciiSPrint(B,sizeof B,DAVINCI_PHOTO_PHASE_TEST?"DUU3 PHASE/TIME STOP=%04x %a":"DUU2 PHOTO  STOP=%04x  %a",(UINT32)DAVINCI_PHOTO_STOP,mPhotoStopped?"HALTED":"AUTO");PhotoLine(0,B,0xff80ffffU);
   AsciiSPrint(B,sizeof B,"CP=%04x %a",mPhotoCode,mPhotoLabel);PhotoLine(1,B,0xffffff00U);
   PhotoLine(2,mPhotoPending?"CALL PENDING: return/success NOT observed":"CHECKPOINT RETURN / CONTROLLED STOP",0xffffffffU);
   PhotoStatus(3,"LAST EFI",mPhotoLastStatus);PhotoLine(4,mPhotoResult,0xffffffffU);
@@ -100,6 +124,14 @@ STATIC VOID PhotoRender (VOID) {
   if(mPhotoDiskSeen) {AsciiSPrint(B,sizeof B,"DISK %g",&mPhotoDiskGuid);PhotoLine(42,B,0xffffffffU);}
   if(mPhotoMissingSeen) {AsciiSPrint(B,sizeof B,"DEPEX MISSING %g",&mPhotoMissingProtocol);PhotoLine(43,B,0xffff8080U);}
   PhotoLine(44,mPhotoProfile,0xff80ffffU);
+#if DAVINCI_PHOTO_PHASE_TEST
+  for(I=0;I<mPhotoHistoryCount;++I) {
+    UINTN Slot=(mPhotoHistoryNext+8-mPhotoHistoryCount+I)%8;
+    AsciiSPrint(B,sizeof B,"%Lu ms %04x %a EFI=%016Lx",mPhotoHistory[Slot].Millis,mPhotoHistory[Slot].Code,
+      mPhotoHistory[Slot].Pending?"CALL":"RET",(UINT64)mPhotoHistory[Slot].Status);
+    PhotoLine(45+I,B,0xffffffffU);
+  }
+#endif
   WriteBackInvalidateDataCacheRange(mPhotoPixels,1080U*2340U*4U);
 }
 STATIC VOID EFIAPI PhotoException (EFI_EXCEPTION_TYPE Type, EFI_SYSTEM_CONTEXT Context) {
@@ -129,7 +161,14 @@ STATIC VOID PhotoArmResetHook (VOID) {
 STATIC VOID PhotoCheckpoint (UINT32 Code, CHAR8 *Label, EFI_STATUS Status, BOOLEAN Pending) {
   ARM_MEMORY_REGION_DESCRIPTOR_EX R;
   mPhotoCode=Code;mPhotoPending=Pending;mPhotoLastStatus=Status;
-  mPhotoElapsed=GetTimeInNanoSecond(GetPerformanceCounter()-mPhotoStartCounter)/1000000000ULL;
+  {
+    UINT64 Stamp=GetTimeInNanoSecond(GetPerformanceCounter()-mPhotoStartCounter);
+    mPhotoElapsed=Stamp/1000000000ULL;
+    mPhotoHistory[mPhotoHistoryNext].Millis=Stamp/1000000ULL;
+    mPhotoHistory[mPhotoHistoryNext].Status=Status;mPhotoHistory[mPhotoHistoryNext].Code=Code;
+    mPhotoHistory[mPhotoHistoryNext].Pending=Pending;
+    mPhotoHistoryNext=(mPhotoHistoryNext+1)%8;if(mPhotoHistoryCount<8) {++mPhotoHistoryCount;}
+  }
   AsciiSPrint(mPhotoLabel,sizeof mPhotoLabel,"%a",Label);
   if(!EFI_ERROR(LocateMemoryMapAreaByName("APSS_WDT_TMR1",&R)) && R.Address==0x17c10000 && R.Length>=12) {
     mPhotoWdt=MmioRead32((UINTN)R.Address+8);
@@ -137,8 +176,8 @@ STATIC VOID PhotoCheckpoint (UINT32 Code, CHAR8 *Label, EFI_STATUS Status, BOOLE
   }
   PhotoArmResetHook();PhotoRender();
   if(Code==DAVINCI_PHOTO_STOP && DAVINCI_PHOTO_STOP!=0) {mPhotoStopped=TRUE;PhotoRender();PhotoPark();}
-  // One-second bounded pre-call window for video/photo. No watchdog feeding.
-  if(Pending) {MicroSecondDelay(1000000);}
+  // Only the documented 0/1-second timing condition changes. No watchdog feeding.
+  if(Pending && DAVINCI_PHOTO_DELAY_US!=0) {MicroSecondDelay(DAVINCI_PHOTO_DELAY_US);}
 }
 STATIC VOID PhotoNewCapture (VOID) {mPhotoRegMask=0;ZeroMem(mPhotoBankValid,sizeof mPhotoBankValid);}
 STATIC VOID PhotoRegsDone (UINT32 Bits) {mPhotoRegMask|=Bits;}
@@ -154,6 +193,21 @@ STATIC VOID PhotoModule (UINTN Index, UINT32 Stage, EFI_STATUS Status, BOOLEAN P
   STATIC CHAR8 *Stages[]={"DEPEX CALL","DEPEX RET","FV READ","FV RET","LOAD CALL","LOAD RET","START CALL","START RET"};
   CHAR8 B[64];
   if(Index>=ARRAY_SIZE(mNative) || Stage>=8) {return;}
+#if DAVINCI_PHOTO_PHASE_TEST
+  // Mandatory second barrier, independent of the requested checkpoint. Native
+  // HAL still requires the existing ownership/readback guards in PreFinalDxe.c.
+  // This test must NEVER enter UFSDxe or issue its DMA / disk requests.
+  if(Index==ARRAY_SIZE(mNative)-1 && Stage>=6) {
+    mPhotoStopped=TRUE;
+    PhotoCheckpoint(0xB0C6,"UFSDxe START FORBIDDEN / CONTROLLED STOP",EFI_NOT_STARTED,TRUE);
+    PhotoPark();
+  }
+  if(Index>DAVINCI_PHOTO_MAX_NATIVE) {
+    mPhotoStopped=TRUE;
+    PhotoCheckpoint(0xDFFE,"MODULE CEILING / HAL-UFS DISALLOWED",EFI_NOT_STARTED,FALSE);
+    PhotoPark();
+  }
+#endif
   AsciiSPrint(B,sizeof B,"%a %a",mNative[Index].Name,Stages[Stage]);
   PhotoCheckpoint(0xB000U+((UINT32)Index<<4)+Stage,B,Status,Pending);
 }

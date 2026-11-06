@@ -1,0 +1,46 @@
+{
+  "source": "User transcription of IMG_0986.mov; original video not attached or independently viewed",
+  "video_seconds": 78.5,
+  "fps_approx": 59.94,
+  "baseline_d010_hold_seconds": null,
+  "fastboot_video_seconds_range": [
+    0,
+    1
+  ],
+  "panel_video_seconds_range": [
+    4,
+    5
+  ],
+  "B0C4_approx_seconds": 39,
+  "B0C6_approx_seconds": 40,
+  "black_screen_approx_seconds": 40.5,
+  "MI_logo_approx_seconds": 62,
+  "MIUI_logo_approx_seconds": 73,
+  "last_checkpoint": "B0C6",
+  "UfsLoadImage": "0x0",
+  "UfsStartImage": "0x8000000000000013",
+  "elapsed_frozen_seconds": 34,
+  "iommu_path": "0x0",
+  "identity_readback": "0x0",
+  "reads": 0,
+  "blocks": 0,
+  "gpt_luns": 0,
+  "reset_cause": "unknown",
+  "UFSDxe_StartImage_return_observed": false,
+  "smmu": {
+    "base": "0x15000000",
+    "IDR0": "0x4C017E4F",
+    "IDR1": "0x6000003D",
+    "CR0": "0x00200406",
+    "CR0NS": "0x0",
+    "SMR": "0x800F0300",
+    "S2CR": "0x2",
+    "TYPE": 0,
+    "CB": 2,
+    "CBAR": "0x0001F000",
+    "CBA2R": "0x1",
+    "SCTLR": "0xE0",
+    "M": 0,
+    "IOC": 0
+  }
+}
