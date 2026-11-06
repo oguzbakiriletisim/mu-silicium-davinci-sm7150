@@ -1,0 +1,8 @@
+{
+  "same_fvmain_as_previous_test": true,
+  "shim_fd_gzip_roundtrip": true,
+  "original_dtb_verified": true,
+  "deterministic_repackage_matches": true,
+  "phone_boot_test_performed": false,
+  "image_sha256": "439736272d3a740fc32befac28c8efd589368d8fe2e4fa75fa9061acf341e251"
+}

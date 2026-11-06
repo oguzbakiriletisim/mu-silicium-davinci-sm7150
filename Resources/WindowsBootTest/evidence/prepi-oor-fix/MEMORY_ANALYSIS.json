@@ -1,0 +1,42 @@
+{
+  "old": {
+    "fd_sha256": "5092905551b96e96d5336da37ffdff9a5c33e339790c48175b1899fc5ba87e59",
+    "outer_header_bytes": 4,
+    "inner_header_bytes": 8,
+    "compressed_section_bytes": 1637681,
+    "decoded_section_bytes": 43057160,
+    "fv_bytes": 43057152,
+    "fv_alignment": 8,
+    "scratch_pages": 16,
+    "destination_pages": 10514,
+    "second_alignment_copy_pages_if_unaligned": 10513,
+    "old_peak_bytes_excluding_other_allocations": 86192128,
+    "fixed_peak_bytes_excluding_other_allocations": 43130880
+  },
+  "new": {
+    "fd_sha256": "2b57835cc29cfcb407fd6af7b3fe7c4720705af0ee93123298af272cf4dd24a4",
+    "outer_header_bytes": 4,
+    "inner_header_bytes": 8,
+    "compressed_section_bytes": 1637681,
+    "decoded_section_bytes": 43057160,
+    "fv_bytes": 43057152,
+    "fv_alignment": 8,
+    "scratch_pages": 16,
+    "destination_pages": 10514,
+    "second_alignment_copy_pages_if_unaligned": 10513,
+    "old_peak_bytes_excluding_other_allocations": 86192128,
+    "fixed_peak_bytes_excluding_other_allocations": 43130880
+  },
+  "memory": {
+    "dxe_heap_base": "0x97700000",
+    "dxe_heap_bytes": 72351744,
+    "initial_free_top_before_other_allocations": "0x9bbc0000",
+    "initial_free_top_formula": "heap_base + heap_size - stack_size(0x40000)",
+    "actual_stack_base_pcd": "0x9ff90000",
+    "stack_bytes": 262144,
+    "prepi_hob_virtual_stack_reservation_at_heap_top": true,
+    "memory_map_changed": false,
+    "fd_size_changed": false,
+    "phone_failure_allocation_address_observed": false
+  }
+}

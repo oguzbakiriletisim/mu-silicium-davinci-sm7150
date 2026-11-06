@@ -1,0 +1,22 @@
+{
+  "base_commit": "66278c1a457db4952237bab1720909e5b8a5eb28",
+  "fix_commit": "b23115b44b8a41621e26fd0254801ff12eb9e924",
+  "original_error_source": "user-reported physical Assert PrePi.c:189 EFI_OUT_OF_RESOURCES",
+  "old_allocation_failure_reproduced_in_host_harness": true,
+  "fixed_allocation_and_alignment_passed_in_host_harness": true,
+  "codec_in_host_harness": "mocked; actual FD LZMA independently decoded by audit",
+  "tests_passed": 116,
+  "tests_skipped": 0,
+  "debug_build_passed": true,
+  "custom_library_link_verified": true,
+  "fvmain_unchanged_byte_for_byte": true,
+  "memory_map_changed": false,
+  "fd_size_changed": false,
+  "phone_test_of_fix_performed": false,
+  "dxe_on_phone_after_fix_verified": false,
+  "image_sha256": "439736272d3a740fc32befac28c8efd589368d8fe2e4fa75fa9061acf341e251",
+  "image_bytes": 4145152,
+  "fd_sha256": "2b57835cc29cfcb407fd6af7b3fe7c4720705af0ee93123298af272cf4dd24a4",
+  "phone_disks_accessed": false,
+  "native_ufs_ffu_gate_preserved": true
+}
