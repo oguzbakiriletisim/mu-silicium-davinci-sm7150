@@ -1,0 +1,28 @@
+{
+  "source": "User-transcribed DISM and INF output; actual SYS/INF/CAT unavailable",
+  "windows_edition": "Windows 11 Pro",
+  "architecture": "ARM64",
+  "image_version": "10.0.26300.9457",
+  "wim_index": 3,
+  "host_dism_version": "10.0.19041.3636",
+  "applied_vhd_gb": 48,
+  "driver_ver": "06/21/2006,10.0.26100.9278",
+  "sys_bytes": 125944,
+  "machine": "0xAA64",
+  "arm64_model": "ACPI\\QCOM24A5",
+  "qualcomm_install_section": "UfsQualcomm8996Install",
+  "FeatureFlags": "0x40000000",
+  "HSSeries": 2,
+  "generic_models": [
+    "PCI\\CC_010901",
+    "ACPI\\CC_010901"
+  ],
+  "service": "storufs",
+  "StartType": 0,
+  "ServiceType": 1,
+  "ErrorControl": 1,
+  "Include_directives_reported": false,
+  "Needs_directives_reported": false,
+  "physical_sm7150_compatibility_verified": false,
+  "sys_or_inf_modified": false
+}

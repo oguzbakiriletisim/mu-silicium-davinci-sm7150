@@ -35,6 +35,11 @@ normal DXE profili daha çok native donanım yazması içerdiği için hazır ç
 
 ## Microsoft storufs.sys: sürücü varlığı artık olumlu bir veri
 
+Güncelleme: tam build/INF metni sonradan kullanıcı tarafından paylaşıldı.
+Aşağıdaki ilk değerlendirmeyi tamamlayan sonuç STORUFS_SM7150_TR.md içindedir.
+Gerçek SYS/INF/CAT dosyaları hâlâ bu ortama verilmedi.
+
+
 Kullanıcı bildirimi: ARM64/0xAA64,125944 bayt; INF genel UFS ve QCOM24A5 içeriyor.
 Bu oturumda gerçek SYS/INF/CAT dosyaları ve tam Windows build'i verilmedi;
 Microsoft imzası, dosya sürümü, seçilen ARM64 kurulum bölümleri ve registry servis
