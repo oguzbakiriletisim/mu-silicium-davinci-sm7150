@@ -88,6 +88,9 @@ def prepare(staging,bcd=None):
   if d.is_dir():
    for p in sorted(d.rglob('*')):
     if p.is_file():
+     # A Latin/en-US Target-A candidate, not the entire multilingual boot-font
+     # set. Copying every CJK font would exceed the fixed 3MiB compressed FD.
+     if sub=='Windows/Boot/Fonts' and p.name.lower() not in {'wgl4_boot.ttf','segoe_slboot.ttf','segoen_slboot.ttf','segmono_boot.ttf'}:continue
      p=WIN.contained_file(staging,str(p.relative_to(staging)));files[target+'/'+str(p.relative_to(d)).replace('\\','/')]=p.read_bytes()
  if bcd:WIN.hive_header(bcd);files['EFI/Microsoft/Boot/BCD']=bcd.read_bytes()
  return files

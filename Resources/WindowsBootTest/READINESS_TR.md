@@ -71,7 +71,7 @@ korunur; payload sığmazsa build başarısız olmalı, FD/memory adresleri büy
 Prepare-TargetA.ps1, bilgisayarda mevcut staging'den şunları alır:
 
 - EFI/Microsoft/Boot/bootmgfw.efi; EFI/Boot/bootaa64.efi aynı dosyanın kopyası.
-- Varsa Windows/Boot/Fonts, EFI/en-US MUI ve Boot/Resources dosyaları uygun
+- Varsa wgl4_boot/segoe_slboot/segoen_slboot/segmono_boot fontları, EFI/en-US MUI ve Boot/Resources dosyaları uygun
   EFI/Microsoft/Boot alt dizinlerine kopyalanır. Dosyalar değiştirilmez.
 - BCD isteğe bağlıdır; verilirse sadece header doğrulanıp kopyalanır. İlk
   Target A denemesinde BCD yokluğu Microsoft'un gerçek hata ekranı adayıdır;

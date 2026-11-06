@@ -22,7 +22,7 @@ ZIP'i çıkarın. Windows staging VHD'niz W: ise, PowerShell'de paket kökünden
 .\Resources\WindowsBootTest\Prepare-TargetA.ps1 -Staging 'W:\' -OutputDirectory "$env:USERPROFILE\Desktop\davinci-target-a"
 ```
 
-Python3 gerekir (`python --version`). Başka harfteyse yalnız -Staging'i gerçek
+Python3.9 veya üstü gerekir (`python --version`). Başka harfteyse yalnız -Staging'i gerçek
 staging köküne göre değiştirin. Çıktı klasörü yeni olmalı; betik üzerine yazmaz.
 Yalnız bilgisayarınızdaki dosyalar okunur, USERPROFILE altında yeni dosyalar
 oluşturulur. Disk bağlama, bölümleme, formatlama, registry/system-BCD veya
@@ -30,7 +30,7 @@ telefon komutu yoktur. PowerShell çalıştırma politikası burada değiştiril
 
 Betik gerçek bootmgfw.efi için Microsoft Authenticode Valid ister, ARM64 PE'yi
 kontrol eder, hash'i FAT'a kopyalanan dosyanın hash'iyle eşler. Aynı input'tan
-bootaa64.efi kopyası, varsa boot font/MUI/resource dosyaları eklenir. Hiçbir SYS/
+bootaa64.efi kopyası, varsa Latin/en-US boot font/MUI/resource dosyaları eklenir. Hiçbir SYS/
 INF dosyası değiştirilmez. Varsayılan BCD yoktur; ilk hedef için Windows'un
 kendi BCD hatası olası sonuçtur, garanti değildir. Mevcut host-VHD BCD'sini
 telefona aitmiş gibi kullanmaz. İstenirse -Bcd yalnız kopyalar; GUID'leri düzeltmez.

@@ -105,6 +105,6 @@ test_mocked_storage_inventory (test_davinci_windows_scripts.PowerShellScriptTest
 test_script_syntax (test_davinci_windows_scripts.PowerShellScriptTests.test_script_syntax) ... ok
 
 ----------------------------------------------------------------------
-Ran 105 tests in 5.011s
+Ran 105 tests in 4.421s
 
 OK
