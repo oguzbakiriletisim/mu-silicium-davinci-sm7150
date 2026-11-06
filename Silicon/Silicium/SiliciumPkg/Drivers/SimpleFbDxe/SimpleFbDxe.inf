@@ -16,6 +16,7 @@
   SiliciumPkg/SiliciumPkg.dec
 
 [LibraryClasses]
+  CacheMaintenanceLib
   DebugLib
   FrameBufferBltLib
   UefiBootServicesTableLib

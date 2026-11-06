@@ -5,6 +5,7 @@
 #include <Library/MemoryMapHelperLib.h>
 #include <Library/BaseMemoryLib.h>
 #include <Library/PcdLib.h>
+#include <Library/CacheMaintenanceLib.h>
 
 #include <Configuration/BootDevices.h>
 
@@ -24,6 +25,13 @@ DisplayQueryMode (
 {
   EFI_STATUS Status;
 
+  if (This == NULL || This->Mode == NULL || This->Mode->Info == NULL ||
+      SizeOfInfo == NULL || Info == NULL) {
+    return EFI_INVALID_PARAMETER;
+  }
+  *Info = NULL;
+  if (ModeNumber >= This->Mode->MaxMode) { return EFI_INVALID_PARAMETER; }
+
   // Allocate Memory
   Status = gBS->AllocatePool (EfiBootServicesData, sizeof (EFI_GRAPHICS_OUTPUT_MODE_INFORMATION), (VOID *)Info);
   if (EFI_ERROR (Status)) {
@@ -33,11 +41,7 @@ DisplayQueryMode (
 
   // Pass Infos
   *SizeOfInfo                   = sizeof (EFI_GRAPHICS_OUTPUT_MODE_INFORMATION);
-  (*Info)->Version              = This->Mode->Info->Version;
-  (*Info)->HorizontalResolution = This->Mode->Info->HorizontalResolution;
-  (*Info)->VerticalResolution   = This->Mode->Info->VerticalResolution;
-  (*Info)->PixelFormat          = This->Mode->Info->PixelFormat;
-  (*Info)->PixelsPerScanLine    = This->Mode->Info->PixelsPerScanLine;
+  CopyMem (*Info, This->Mode->Info, sizeof (**Info));
 
   return EFI_SUCCESS;
 }
@@ -47,6 +51,16 @@ DisplaySetMode (
   IN EFI_GRAPHICS_OUTPUT_PROTOCOL *This,
   IN UINT32                        ModeNumber)
 {
+  if (This == NULL || This->Mode == NULL || This->Mode->Info == NULL) {
+    return EFI_INVALID_PARAMETER;
+  }
+  if (ModeNumber >= This->Mode->MaxMode) { return EFI_UNSUPPORTED; }
+  if (This->Mode->FrameBufferBase == 0 || This->Mode->FrameBufferSize == 0) {
+    return EFI_NOT_READY;
+  }
+  SetMem ((VOID *)(UINTN)This->Mode->FrameBufferBase, This->Mode->FrameBufferSize, 0);
+  WriteBackInvalidateDataCacheRange ((VOID *)(UINTN)This->Mode->FrameBufferBase, This->Mode->FrameBufferSize);
+  This->Mode->Mode = ModeNumber;
   return EFI_SUCCESS;
 }
 
@@ -65,12 +79,18 @@ DisplayBlt (
 {
   EFI_STATUS Status;
   EFI_TPL    Tpl;
+  if (This == NULL || This->Mode == NULL || This->Mode->Info == NULL) {
+    return EFI_INVALID_PARAMETER;
+  }
 
   // Raise TPL Level
   Tpl = gBS->RaiseTPL (TPL_NOTIFY);
 
   // Draw to Frame Buffer
   Status = FrameBufferBlt (FrameBufferConfiguration, BltBuffer, BltOperation, SourceX, SourceY, DestinationX, DestinationY, Width, Height, Delta);
+  if (!EFI_ERROR (Status)) {
+    WriteBackInvalidateDataCacheRange ((VOID *)(UINTN)This->Mode->FrameBufferBase, This->Mode->FrameBufferSize);
+  }
 
   // Restore TPL Level
   gBS->RestoreTPL (Tpl);
@@ -149,7 +169,7 @@ InitDisplay (
   mDisplay.Mode->Mode                                    = 0;
   mDisplay.Mode->SizeOfInfo                              = sizeof (EFI_GRAPHICS_OUTPUT_MODE_INFORMATION);
   mDisplay.Mode->FrameBufferBase                         = Address;
-  mDisplay.Mode->FrameBufferSize                         = Width * Height * (ColorDepth / 8);
+  mDisplay.Mode->FrameBufferSize                         = (UINTN)Width * Height * (ColorDepth / 8);
   mDisplay.Mode->Info->Version                           = 0;
   mDisplay.Mode->Info->HorizontalResolution              = Width;
   mDisplay.Mode->Info->VerticalResolution                = Height;
@@ -226,9 +246,12 @@ RegisterDisplays (
   UINT32                          ColorDepth;
 
   // Locate "Display Reserved" Memory Region
-  Status  = LocateMemoryMapAreaByName ("Display Reserved", &DisplayMemoryRegion);
-  Status |= LocateMemoryMapAreaByName ("Display_Reserved", &DisplayMemoryRegion);
-  if (EFI_ERROR (Status) && !DisplayMemoryRegion.Address) {
+  ZeroMem (&DisplayMemoryRegion, sizeof (DisplayMemoryRegion));
+  Status = LocateMemoryMapAreaByName ("Display Reserved", &DisplayMemoryRegion);
+  if (EFI_ERROR (Status)) {
+    Status = LocateMemoryMapAreaByName ("Display_Reserved", &DisplayMemoryRegion);
+  }
+  if (EFI_ERROR (Status)) {
     DEBUG ((EFI_D_ERROR, "Failed to Locate 'Display Reserved' Memory Region! Status = %r\n", Status));
     return Status;
   }
@@ -237,6 +260,11 @@ RegisterDisplays (
   Width      = FixedPcdGet32 (PcdPrimaryFrameBufferWidth);
   Height     = FixedPcdGet32 (PcdPrimaryFrameBufferHeight);
   ColorDepth = FixedPcdGet32 (PcdPrimaryFrameBufferColorDepth);
+  if (Width == 0 || Height == 0 || (ColorDepth != 24 && ColorDepth != 32) ||
+      (UINT64)Width > DisplayMemoryRegion.Length / Height / (ColorDepth / 8) ||
+      DisplayMemoryRegion.Address == 0) {
+    return EFI_UNSUPPORTED;
+  }
 
   // Init Primary Display
   Status = InitDisplay (DisplayMemoryRegion.Address, Width, Height, ColorDepth);
