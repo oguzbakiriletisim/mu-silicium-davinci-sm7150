@@ -18,6 +18,7 @@
 #define EFI_INVALID_PARAMETER ERR(2)
 #define EFI_UNSUPPORTED ERR(3)
 #define EFI_DEVICE_ERROR ERR(7)
+#define EFI_WRITE_PROTECTED ERR(8)
 #define EFI_OUT_OF_RESOURCES ERR(9)
 #define EFI_NOT_FOUND ERR(14)
 #define EFI_NOT_STARTED ERR(19)
@@ -97,6 +98,14 @@ static VOID ReportedFixture(VOID) {
 }
 int main(void) {
  Services.LoadImage=FakeLoad;Services.StartImage=FakeStart;
+ mLoadStatus[ARRAY_SIZE(mNative)-1]=mStartStatus[ARRAY_SIZE(mNative)-1]=EFI_NOT_STARTED;
+ // Exercise the real entry selector: no loader/entry service may be reached
+ // for the native FFU-capable provider, even when all mocked services succeed.
+ assert(StartNative(ARRAY_SIZE(mNative)-1)==EFI_WRITE_PROTECTED);
+ assert(LoadCalls==0 && StartCalls==0);
+ assert(mLoadStatus[ARRAY_SIZE(mNative)-1]==EFI_NOT_STARTED && mStartStatus[ARRAY_SIZE(mNative)-1]==EFI_NOT_STARTED);
+ assert(StartNative(ARRAY_SIZE(mNative))==EFI_INVALID_PARAMETER);
+ assert(LoadCalls==0 && StartCalls==0);
  mLoadStatus[0]=mStartStatus[0]=EFI_NOT_STARTED;
  assert(StartNative(0)==EFI_NOT_FOUND && LoadCalls==0 && StartCalls==0);
  SectionMode=1;FakeLoadStatus=EFI_DEVICE_ERROR;

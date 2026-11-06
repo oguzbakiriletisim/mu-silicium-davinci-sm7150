@@ -282,6 +282,19 @@ STATIC EFI_STATUS Depex (EFI_GUID *Guid) {
 STATIC EFI_STATUS StartNative (UINTN Index) {
   VOID *B = NULL; UINTN N = 0; EFI_HANDLE H = NULL;
   EFI_STATUS S;
+  if (Index >= ARRAY_SIZE (mNative)) { return EFI_INVALID_PARAMETER; }
+  if (Index == ARRAY_SIZE (mNative)-1) {
+    // This profile promises read-only storage access, including driver entry.
+    // Pinned UFSDxe SHA0576f04f...: entry RVA2ABC -> conditional BL at2E70
+    // to FFU routine2694; its matching-device path calls D44C (update) and
+    // 13E78 (private reset). Calling only ReadBlocks AFTER entry is not enough.
+    // Do not patch the image or spoof chip/vendor/revision to evade this path.
+    // A reviewed read-only UFS provider is required before enabling its entry.
+    S = EFI_WRITE_PROTECTED;
+    Result ("UFS ENTRY REFUSED: NATIVE FFU/RESET", S);
+    PhotoCheckpoint(0xC0F0,"UFS ENTRY POLICY / FFU-RESET BLOCKED",S,FALSE);
+    return S;
+  }
   PhotoModule(Index,0,EFI_NOT_STARTED,FALSE);
   S = Depex (&mNative[Index].Guid);
   PhotoModule(Index,1,S,FALSE);
