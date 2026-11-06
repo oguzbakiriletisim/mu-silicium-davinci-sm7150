@@ -1,3 +1,5 @@
+> Güncel gerçek Microsoft entegrasyonu ve ARM64 yürütme kanıtı: [TARGET_A_REAL_TR.md](TARGET_A_REAL_TR.md). Aşağıdaki metin önceki fixture aşamasının tarihsel durumudur.
+
 # Windows First Boot Readiness — TARGET A
 
 Sonuç: **Gerçek Microsoft Boot Manager henüz çalıştırılmadı.** Kaynakta ayrı,

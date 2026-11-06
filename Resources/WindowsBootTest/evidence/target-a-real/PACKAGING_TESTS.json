@@ -1,0 +1,9 @@
+{
+  "android_header_original_except_size_and_id": true,
+  "gzip_roundtrip_shim_fd_exact": true,
+  "original_dtbs_exact": true,
+  "image_id_verified": true,
+  "deterministic_repackage_matches": true,
+  "backup_unchanged_sha256": "a25d36cb56d8ee3cc110dece98fee39e4ce9729c8eeeb0d007e8faf1723f2cda",
+  "hardware_or_bootloader_behavior_verified": false
+}

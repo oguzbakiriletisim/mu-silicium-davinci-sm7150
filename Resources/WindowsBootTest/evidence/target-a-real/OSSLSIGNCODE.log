@@ -1,0 +1,111 @@
+40C7E454477F0000:error:05880106:x509 certificate routines:X509at_get_attr:passed invalid argument:../crypto/x509/x509_att.c:63:
+40C7E454477F0000:error:058C0102:x509 certificate routines:X509_ATTRIBUTE_get0_type:passed a null parameter:../crypto/x509/x509_att.c:442:
+40C7E454477F0000:error:17000064:CMS routines:cms_signerinfo_verify_cert:certificate verify error:../crypto/cms/cms_smime.c:290:Verify error: unable to get local issuer certificate
+PE checksum   : 002FEC1A
+
+Signature Index: 0  (Primary Signature)
+
+Message digest algorithm  : SHA256
+Current message digest    : 1EEECB67540832DC5F243F364E40FC5A79A23713D4BE6D58200EB437A5133F81 
+Calculated message digest : 1EEECB67540832DC5F243F364E40FC5A79A23713D4BE6D58200EB437A5133F81 
+
+Signer's certificate:
+	------------------
+	Signer #0:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows Production PCA 2011
+		Serial : 3300000543FB75B7DD47B45B95000000000543
+		Certificate expiration date:
+			notBefore : Oct 16 18:02:07 2025 GMT
+			notAfter : Oct 17 18:02:07 2026 GMT
+
+Message digest algorithm: SHA256
+
+Authenticated attributes:
+	Microsoft Individual Code Signing purpose
+	Message digest: 3AA3A8F8670FD16899DBCF817B28DB6EC24D915DF6DC379136727EA55F2315FB 
+	URL description: http://www.microsoft.com/windows
+	Text description: Microsoft Windows
+
+Countersignatures:
+	Timestamp time: Aug 18 00:55:20 2026 GMT
+	Signing time: N/A
+	Hash Algorithm: sha256
+	Issuer: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Time-Stamp PCA 2010
+	Serial: 33000002243B8421B02CAC6422000100000224
+
+CAfile: /etc/ssl/certs/ca-certificates.crt
+TSA's certificates file: /etc/ssl/certs/ca-certificates.crt
+
+Timestamp verified using:
+	------------------
+	Signer #1:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Time-Stamp PCA 2010
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Root Certificate Authority 2010
+		Serial : 3300000015C5E76B9E029B4999000000000015
+		Certificate expiration date:
+			notBefore : Sep 30 18:22:25 2021 GMT
+			notAfter : Sep 30 18:32:25 2030 GMT
+
+	Error: unable to get local issuer certificate
+
+CMS_verify error
+
+Failed timestamp certificate chain retrieved from the signature:
+	------------------
+	Signer #0:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/OU=Microsoft America Operations/OU=nShield TSS ESN:DC00-05E0-D947/CN=Microsoft Time-Stamp Service
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Time-Stamp PCA 2010
+		Serial : 33000002243B8421B02CAC6422000100000224
+		Certificate expiration date:
+			notBefore : Feb 19 19:39:59 2026 GMT
+			notAfter : May 17 19:39:59 2027 GMT
+
+	------------------
+	Signer #1:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Time-Stamp PCA 2010
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Root Certificate Authority 2010
+		Serial : 3300000015C5E76B9E029B4999000000000015
+		Certificate expiration date:
+			notBefore : Sep 30 18:22:25 2021 GMT
+			notAfter : Sep 30 18:32:25 2030 GMT
+
+
+Timestamp Server Signature verification: failed
+Signing certificate chain verified using:
+	------------------
+	Signer #1:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows Production PCA 2011
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Root Certificate Authority 2010
+		Serial : 61077656000000000008
+		Certificate expiration date:
+			notBefore : Oct 19 18:41:42 2011 GMT
+			notAfter : Oct 19 18:51:42 2026 GMT
+
+	Error: unable to get local issuer certificate
+
+PKCS7_verify error
+Failed signing certificate chain retrieved from the signature:
+	------------------
+	Signer #0:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows Production PCA 2011
+		Serial : 3300000543FB75B7DD47B45B95000000000543
+		Certificate expiration date:
+			notBefore : Oct 16 18:02:07 2025 GMT
+			notAfter : Oct 17 18:02:07 2026 GMT
+
+	------------------
+	Signer #1:
+		Subject: /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Windows Production PCA 2011
+		Issuer : /C=US/ST=Washington/L=Redmond/O=Microsoft Corporation/CN=Microsoft Root Certificate Authority 2010
+		Serial : 61077656000000000008
+		Certificate expiration date:
+			notBefore : Oct 19 18:41:42 2011 GMT
+			notAft40C7E454477F0000:error:10800075:PKCS7 routines:PKCS7_verify:certificate verify error:../crypto/pkcs7/pk7_smime.c:298:Verify error: unable to get local issuer certificate
+er : Oct 19 18:51:42 2026 GMT
+
+Signature verification: failed
+
+Number of verified signatures: 1
+Failed

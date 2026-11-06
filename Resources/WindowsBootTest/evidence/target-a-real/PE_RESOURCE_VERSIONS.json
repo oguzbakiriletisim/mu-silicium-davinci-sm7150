@@ -1,0 +1,32 @@
+[
+  {
+    "path": "EFI/Boot/bootaa64.efi",
+    "machine": "0xaa64",
+    "file_version": "10.0.28000.367"
+  },
+  {
+    "path": "EFI/Microsoft/Boot/bootmgfw.efi",
+    "machine": "0xaa64",
+    "file_version": "10.0.28000.367"
+  },
+  {
+    "path": "EFI/Microsoft/Boot/Resources/bootres.dll",
+    "machine": "0xaa64",
+    "file_version": "10.0.26100.8655"
+  },
+  {
+    "path": "EFI/Microsoft/Boot/en-US/bootmgfw.efi.mui",
+    "machine": "0x14c",
+    "file_version": "10.0.28000.342"
+  },
+  {
+    "path": "EFI/Microsoft/Boot/en-US/bootmgr.efi.mui",
+    "machine": "0x14c",
+    "file_version": "10.0.28000.342"
+  },
+  {
+    "path": "EFI/Microsoft/Boot/Resources/tr-TR/bootres.dll.mui",
+    "machine": "0x14c",
+    "file_version": "10.0.26100.8655"
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "host": "QEMU ARM64, not phone",
+  "fat32_sha256": "c077c62fdb2a6619680f243cdb16de67b01f6e9e66a7c19d6d5d96e553e63ded",
+  "bootmgfw_sha256": "fae47d78487e781aa06466775cb461adeb7ff7f887fe2c15295bb2eb4f4954e1",
+  "entry_reached": true,
+  "physical_test_ready": false,
+  "entry": "0x7b273130",
+  "pc": "0x7b273130",
+  "stop_reply": "T05thread:p01.01;",
+  "screendump": {
+    "return": {}
+  },
+  "microsoft_ui_automatically_verified": false
+}

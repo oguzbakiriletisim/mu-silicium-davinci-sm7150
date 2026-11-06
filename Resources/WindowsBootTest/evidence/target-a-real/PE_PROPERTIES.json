@@ -1,0 +1,11 @@
+{
+  "sha256": "fae47d78487e781aa06466775cb461adeb7ff7f887fe2c15295bb2eb4f4954e1",
+  "bytes": 3120648,
+  "machine": "0xaa64",
+  "optional_magic": "0x20b",
+  "subsystem": 10,
+  "entry_rva": "0x3e130",
+  "size_of_image": 3411968,
+  "file_version": "10.0.28000.367",
+  "certificate_directory_bytes": 9736
+}

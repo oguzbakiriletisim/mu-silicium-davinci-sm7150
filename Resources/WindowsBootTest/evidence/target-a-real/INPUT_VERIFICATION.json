@@ -1,0 +1,13 @@
+{
+  "zip_sha256": "0571383771c0575ca7508cddb416d07d5132533498a4de682c99aec5a99a4af0",
+  "fat32_sha256": "c077c62fdb2a6619680f243cdb16de67b01f6e9e66a7c19d6d5d96e553e63ded",
+  "image_bytes": 37748736,
+  "efi_file_count": 9,
+  "all_manifest_file_hashes_verified": true,
+  "bootmgfw_sha256": "fae47d78487e781aa06466775cb461adeb7ff7f887fe2c15295bb2eb4f4954e1",
+  "pe_machine": "0xAA64",
+  "authenticode_windows_report": "Valid",
+  "authenticode_independent_trust_chain_verified": false,
+  "bcd_present": false,
+  "physical_boot_verified": false
+}

@@ -1,3 +1,5 @@
+> Güncel gerçek Microsoft entegrasyonu ve ARM64 yürütme kanıtı: [TARGET_A_REAL_TR.md](TARGET_A_REAL_TR.md). Aşağıdaki metin önceki fixture aşamasının tarihsel durumudur.
+
 # Windows Boot Manager — geliştirme teslimatı
 
 **Telefon test paketi değildir.** Bu ZIP'teki firmware FD ve FAT32 yalnız host
