@@ -1,0 +1,533 @@
+/workspace/work/uefi-venv/lib/python3.12/site-packages/edk2toolext/edk2_invocable.py:30: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+INFO - Log Started: Friday, November 06, 2026 12:48PM
+SECTION - Init Self Describing Environment
+INFO - Computing path for Mu-Basetools located at /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep on Host(os='Linux', arch='x86', bit='64')
+INFO - /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep/Linux-x86 was found!
+INFO - Computing path for Mu-Basetools located at /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep on Host(os='Linux', arch='x86', bit='64')
+INFO - /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep/Linux-x86 was found!
+INFO - Computing path for Mu-Basetools located at /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep on Host(os='Linux', arch='x86', bit='64')
+INFO - /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep/Linux-x86 was found!
+SECTION - Loading Plugins
+INFO - PLUGIN DESCRIPTOR:Rust Package Helper
+INFO - PLUGIN DESCRIPTOR:Edk2Tool Helper Functions
+INFO - PLUGIN DESCRIPTOR:Windows Capsule Support Helper Functions
+SECTION - Start Invocable Tool
+INFO - Running Python version: sys.version_info(major=3, minor=12, micro=14, releaselevel='final', serial=0)
+INFO - capstone version: 5.0.9
+INFO - future version: 1.0.0
+INFO - pefile version: 2024.8.26
+INFO - uefi-firmware version: 1.16
+INFO - unicorn version: 2.1.4
+INFO - antlr4-python3-runtime version: 4.13.2
+INFO - cffi version: 2.1.1
+INFO - chardet version: 5.2.0
+INFO - cloudpickle version: 3.1.2
+INFO - cryptography version: 50.0.2
+INFO - edk2-pytool-extensions version: 0.27.12
+INFO - edk2-pytool-library version: 0.21.12
+INFO - et-xmlfile version: 2.0.0
+INFO - gitdb version: 4.0.12
+INFO - gitpython version: 3.2.1
+INFO - joblib version: 1.6.0
+INFO - markdown-it-py version: 4.2.0
+INFO - mdurl version: 0.1.2
+INFO - openpyxl version: 3.1.5
+INFO - pip version: 25.0.1
+INFO - pyasn1 version: 0.6.5
+INFO - pyasn1-modules version: 0.4.2
+INFO - pycparser version: 3.12
+INFO - pygments version: 2.21.0
+INFO - pygount version: 3.2.0
+INFO - pyyaml version: 6.0.3
+INFO - regex version: 2024.11.6
+INFO - rich version: 15.0.0
+INFO - semantic-version version: 2.10.0
+INFO - setuptools version: 80.9.0
+INFO - smmap version: 5.0.3
+INFO - sqlalchemy version: 2.1.8
+INFO - typing-extensions version: 4.16.0
+INFO - xlsxwriter version: 3.3.1
+INFO - autocommand version: 2.2.2
+INFO - backports.tarfile version: 1.2.0
+INFO - importlib-metadata version: 8.0.0
+INFO - inflect version: 7.3.1
+INFO - jaraco.collections version: 5.1.0
+INFO - jaraco.context version: 5.3.0
+INFO - jaraco.functools version: 4.0.1
+INFO - jaraco.text version: 3.12.1
+INFO - more-itertools version: 10.3.0
+INFO - packaging version: 24.2
+INFO - platformdirs version: 4.2.2
+INFO - tomli version: 2.0.1
+INFO - typeguard version: 4.3.0
+INFO - wheel version: 0.45.1
+INFO - zipp version: 3.19.2
+INFO - cargo version: N/A
+INFO - cargo make version: N/A
+INFO - rustc version: N/A
+SECTION - Loading Plugins
+INFO - PLUGIN DESCRIPTOR:Rust Package Helper
+INFO - PLUGIN DESCRIPTOR:Edk2Tool Helper Functions
+INFO - PLUGIN DESCRIPTOR:Windows Capsule Support Helper Functions
+SECTION - Kicking off build
+PROGRESS - Start time: 2026-11-06 12:48:11.806064
+PROGRESS - Setting up the Environment
+PROGRESS - Running Pre Build
+INFO - Writing BuildToolsReports to /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/BUILD_TOOLS_REPORT
+INFO - Cmd to run is: /workspace/work/build-tools/usr/lib/llvm-19/bin/clang --version
+INFO - ------------------------------------------------
+INFO - --------------Cmd Output Starting---------------
+INFO - ------------------------------------------------
+INFO - Debian clang version 19.1.7 (3+b1)
+INFO - Target: x86_64-pc-linux-gnu
+INFO - Thread model: posix
+INFO - InstalledDir: /workspace/work/build-tools/usr/lib/llvm-19/bin
+INFO - ------------------------------------------------
+INFO - --------------Cmd Output Finished---------------
+INFO - --------- Running Time (mm:ss): 00:00 ----------
+INFO - ----------- Return Code: 0x00000000 ------------
+INFO - ------------------------------------------------
+INFO - ---------------------------------------------------------------------
+INFO - --------------Override/Deprecation Validation Starting---------------
+INFO - ---------------------------------------------------------------------
+CRITICAL - Override Log file at /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/OVERRIDELOG.TXT
+INFO - ----------------------------------------------------------------------
+INFO - --------------Override/Deprecation Validation Finished----------------
+INFO - -------------- Running Time (mm:ss): 00:00 -------------
+INFO - ----------------------------------------------------------------------
+PROGRESS - Checking DEBUG Macros
+INFO - Checking Debug Macros in directory: /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg
+
+INFO - Gathering the overall file list. This might take awhile.
+
+INFO - Getting git ignore files...
+INFO - Ignoring git ignore files...
+INFO -   1 files are ignored by git
+INFO -   0 files after removing ignored files
+INFO - 
+Starting macro check on 0 files.
+PROGRESS - Running Build DEBUG
+INFO - Cmd to run is: build -p davinciPkg/davinci.dsc -b DEBUG -t CLANGPDB -a AARCH64 -y /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/BUILD_REPORT.TXT -Y PCD -Y DEPEX -Y FLASH -Y BUILD_FLAGS -Y LIBRARY -Y FIXED_ADDRESS -Y HASH -D SHARED_CRYPTO_PATH=/workspace/work/davinci-uefi/Mu_Basecore/CryptoPkg/Binaries/edk2-basecrypto-driver-bin_extdep -D BUILDID_STRING=Unknown -D MEMORY_PROTECTION=TRUE -D SHIP_MODE=FALSE -D FD_BASE=0x9FC00000 -D FD_SIZE=0x00300000 -D FD_BLOCKS=0x300 -D WINDOWS_BOOT_TEST=1 -D WINDOWS_BOOT_SMOKE=1 -D WINDOWS_FAT_IMAGE=/workspace/work/target-a-dxe-fv2-fixed/ram-disk.img -D DAVINCI_ACPI_STORAGE_DEV=1 -D DAVINCI_CPU_ONLY_ACPI=1 -D DAVINCI_PREFINAL=0 -D DAVINCI_PHOTO_DIAG=0 -D DAVINCI_FIRST_BOOT_HALT=0
+INFO - ------------------------------------------------
+INFO - --------------Cmd Output Starting---------------
+INFO - ------------------------------------------------
+INFO - Build environment: Linux-6.18.57-x86_64-with-glibc2.41
+INFO - Build start time: 12:48:12, Nov.06 2026
+INFO - 
+INFO - WORKSPACE        = /workspace/work/davinci-uefi
+INFO - PACKAGES_PATH    = /workspace/work/davinci-uefi:/workspace/work/davinci-uefi/Platforms/Xiaomi:/workspace/work/davinci-uefi/Common/Mu:/workspace/work/davinci-uefi/Common/Mu_OEM_Sample:/workspace/work/davinci-uefi/Common/Mu_Tiano_Plus:/workspace/work/davinci-uefi/Features/DFCI:/workspace/work/davinci-uefi/Mu_Basecore:/workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano:/workspace/work/davinci-uefi/Silicon/Qualcomm:/workspace/work/davinci-uefi/Silicon/Silicium:/workspace/work/davinci-uefi/Silicium-ACPI/Platforms/Xiaomi:/workspace/work/davinci-uefi/Silicium-ACPI/SoCs/Qualcomm
+INFO - EDK_TOOLS_PATH   = /workspace/work/davinci-uefi/Mu_Basecore/BaseTools
+INFO - EDK_TOOLS_BIN    = /workspace/work/davinci-uefi/Mu_Basecore/BaseTools/Bin/Mu-Basetools_extdep/Linux-x86
+INFO - CONF_PATH        = /workspace/work/davinci-uefi/Conf
+INFO - PYTHON_COMMAND   = /workspace/work/uefi-venv/bin/python3
+INFO - 
+INFO - 
+INFO - Processing meta-data .
+INFO - Architecture(s)  = AARCH64
+INFO - Build target     = DEBUG
+INFO - Toolchain        = CLANGPDB
+INFO - 
+INFO - Active Platform          = /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/davinci.dsc
+INFO - build...
+INFO - /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/davinci.dsc(...): warning: /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmPsciResetSystemLib/ArmPsciResetSystemLib.inf does not support LIBRARY_CLASS HwResetSystemLib
+INFO - .#.. done!
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/CompilerIntrinsicsLib/CompilerIntrinsicsLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DxeReportStatusCodeLib/DxeReportStatusCodeLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiDriverEntryPoint/UefiDriverEntryPoint.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiLib/UefiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/StackCheckLibNull/StackCheckLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiDevicePathLib/UefiDevicePathLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiRuntimeServicesTableLib/UefiRuntimeServicesTableLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiMemoryAllocationLib/UefiMemoryAllocationLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiBootServicesTableLib/UefiBootServicesTableLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseDebugLibSerialPort/BaseDebugLibSerialPort.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePrintLib/BasePrintLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/FrameBufferSerialPortLib/FrameBufferSerialPortLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseDebugPrintErrorLevelLib/BaseDebugPrintErrorLevelLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmCacheMaintenanceLib/ArmCacheMaintenanceLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/MemoryMapHelperLib/MemoryMapHelperLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmArchTimerLib/ArmArchTimerLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Library/DeviceMemoryMapLib/DeviceMemoryMapLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmGenericTimerPhyCounterLib/ArmGenericTimerPhyCounterLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmLib/ArmBaseLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseLib/BaseLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseMemoryLib/BaseMemoryLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxePcdLib/DxePcdLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/AcpiTables/StorageDev.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/CpuClockHandlerDxe/CpuClockHandlerDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/EmbeddedMonotonicCounter/EmbeddedMonotonicCounter.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/PcdDatabaseLoaderLib/Dxe/PcdDatabaseLoaderLibDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/DdrClockHandlerDxe/DdrClockHandlerDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/MemoryTypeInfoSecVarCheckLib/MemoryTypeInfoSecVarCheckLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/VariablePolicyLib/VariablePolicyLibRuntimeDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/BaseVariableFlashInfoLib/BaseVariableFlashInfoLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/AuthVariableLibNull/AuthVariableLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/TpmMeasurementLibNull/TpmMeasurementLibNull.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/VarCheckLib/VarCheckLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Pci/XhciDxe/XhciDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/DisplayReEnablerDxe/DisplayReEnablerDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Library/DxeDtPlatformDtbLoaderLibDefault/DxeDtPlatformDtbLoaderLibDefault.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseSynchronizationLib/BaseSynchronizationLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DxeSecurityManagementLib/DxeSecurityManagementLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/AcpiTables/Gtdt.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/SecurityLockAuditDebugMessageLib/SecurityLockAuditDebugMessageLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/ResetUtilityLib/ResetUtilityLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmPsciResetSystemLib/ArmPsciResetSystemLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmMonitorLib/ArmMonitorLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Library/TimeBaseLib/TimeBaseLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/RealTimeClockLibNull/RealTimeClockLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Library/MemoryProtectionLib/MemoryProtectionLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/PeiHobLib/PeiHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/MemoryInitPeiLib/MemoryInitPeiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/MooreaPkg/Library/PlatformPrePiLib/PlatformPrePiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/MooreaPkg/Library/SoCPlatformLib/SoCPlatformLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmMmuLib/ArmMmuPeiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Library/PrePiMemoryAllocationLib/PrePiMemoryAllocationLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Library/WindowsPrePiLib/PrePiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Library/PrePiExtractGuidedSectionLib/PrePiExtractGuidedSectionLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPlatformPkg/Library/PrePiHobListPointerLib/PrePiHobListPointerLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePcdLibNull/BasePcdLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Library/PlatformHobLib/PlatformHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Library/PrePiHobLib/PrePiHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Library/DeviceConfigurationMapLib/DeviceConfigurationMapLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Library/ConfigurationMapHelperLib/ConfigurationMapHelperLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Library/DeviceGuidLib/DeviceGuidLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Usb/UsbMassStorageDxe/UsbMassStorageDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/SimpleTextInOutSerial/SimpleTextInOutSerial.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseIoLibIntrinsic/BaseIoLibIntrinsic.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/RegisterFilterLibNull/RegisterFilterLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/AcpiTables/Fadt.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/PrintDxe/PrintDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/PeripheralInitDxe/PeripheralInitDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseCpuLib/BaseCpuLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/KernelErrataPatcherLib/KernelErrataPatcherLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/PlatformBootManagerLib/PlatformBootManagerLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/MsBootOptionsLib/MsBootOptionsLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Library/ResearchAcpiPlatformUpdateLib/ResearchAcpiPlatformUpdateLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/AcpiDeviceUpdateLibNull/AcpiDeviceUpdateLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DxeCapsuleLibNull/DxeCapsuleLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/AcpiTables/AcpiTables.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/FatPkg/EnhancedFatDxe/Fat.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiUsbLib/UefiUsbLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/PcBdsPkg/Library/GraphicsConsoleHelperLib/GraphicsConsoleHelper.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsGraphicsPkg/Library/BootGraphicsLib/BootGraphicsLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_OEM_Sample/OemPkg/Library/MsAltBootLib/MsAltBootLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_OEM_Sample/OemPkg/Library/MsBootManagerSettingsDxeLib/MsBootManagerSettingsDxeLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/PcBdsPkg/Library/MsNetworkDependencyLib/MsNetworkDependencyLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/MsBootPolicyLib/MsBootPolicyLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/UefiApplicationEntryPoint/UefiApplicationEntryPoint.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Library/BootGraphicsProviderLib/BootGraphicsProviderLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsGraphicsPkg/Library/ColorBarDisplayDeviceStateLib/ColorBarDisplayDeviceStateLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/BaseBmpSupportLib/BaseBmpSupportLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/UefiBootManagerLib/UefiBootManagerLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsGraphicsPkg/Library/BaseUiRectangleLib/BaseUiRectangleLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DeviceStateLib/DeviceStateLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/UefiHiiLib/UefiHiiLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/VariablePolicyHelperLib/VariablePolicyHelperLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsCorePkg/Library/MemoryTypeInformationChangeLib/MemoryTypeInformationChangeLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsGraphicsPkg/Library/FrameBufferMemDrawLib/FrameBufferMemDrawLibDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/UefiHiiServicesLib/UefiHiiServicesLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/MsWheaPkg/Library/MuTelemetryHelperLib/MuTelemetryHelperLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/FrameBufferBltLib/FrameBufferBltLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/UefiSortLib/UefiSortLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Library/RamPartitionTableLib/RamPartitionTableLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmMmuLib/ArmMmuBaseLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeServicesTableLib/DxeServicesTableLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeHobLib/DxeHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Drivers/MsButtonServiceDxe/MsButtonServiceDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/LzmaCustomDecompressLib/LzmaCustomDecompressLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DxeCrc32GuidedSectionExtractLib/DxeCrc32GuidedSectionExtractLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/MemoryProtectionHobLib/DxeMemoryProtectionHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseOrderedCollectionRedBlackTreeLib/BaseOrderedCollectionRedBlackTreeLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/ImagePropertiesRecordLib/ImagePropertiesRecordLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/ArmExceptionLib/ArmExceptionLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DebugAgentLibNull/DebugAgentLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeServicesLib/DxeServicesLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePeCoffLib/BasePeCoffLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePerformanceLibNull/BasePerformanceLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseUefiDecompressLib/BaseUefiDecompressLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeExtractGuidedSectionLib/DxeExtractGuidedSectionLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeCoreHobLib/DxeCoreHobLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Library/DefaultExceptionHandlerLib/DefaultExceptionHandlerLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePeCoffExtraActionLibNull/BasePeCoffExtraActionLibNull.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BaseSafeIntLib/BaseSafeIntLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/DxeCoreEntryPoint/DxeCoreEntryPoint.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/BasePeCoffGetEntryPointLib/BasePeCoffGetEntryPointLib.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Library/DxeCoreMemoryAllocationLib/DxeCoreMemoryAllocationLib.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Pci/EhciDxe/EhciDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Acpi/BootGraphicsResourceTableDxe/BootGraphicsResourceTableDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/SmbiosDxe/SmbiosDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Drivers/StorageAuditDxe/StorageAuditAfterUfsDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/SetupBrowserDxe/SetupBrowserDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Usb/UsbKbDxe/UsbKbDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Console/ConPlatformDxe/ConPlatformDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Applications/XenonGUI/XenonGUI.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/Drivers/SimpleFbDxe/SimpleFbDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/Drivers/DtPlatformDxe/DtPlatformDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/ReportStatusCodeRouter/RuntimeDxe/ReportStatusCodeRouterRuntimeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/StatusCodeHandler/RuntimeDxe/StatusCodeHandlerRuntimeDxe.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/ArmGicDxe/ArmGicDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Applications/MassStorage/MassStorage.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke.inf [AARCH64]
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Drivers/StorageAuditDxe/StorageAuditDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf [AARCH64]
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/clang" -MMD -MF /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/WindowsBootTestDxe.obj.deps -g -Os -fshort-wchar -fno-builtin -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -include AutoGen.h -fno-common -fstack-protector -Wno-parentheses-equality -Wno-tautological-compare -Wno-tautological-constant-out-of-range-compare -Wno-empty-body -Wno-unused-const-variable -Wno-varargs -Wno-unknown-warning-option -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unaligned-access -Wno-microsoft-enum-forward-reference -fno-stack-protector -funsigned-char -ftrap-function=undefined_behavior_has_been_optimized_away_by_clang -Wno-address -Wno-shift-negative-value -Wno-unknown-pragmas -Wno-incompatible-library-redeclaration -Wno-null-dereference -mno-implicit-float -mms-bitfields -mno-stack-arg-probe -fno-omit-frame-pointer -D __GNUC__=4 -D __GNUC_MINOR__=2 -D __GNUC_PATCHLEVEL__=1 -D __MINGW32__=1 -m64 -mcmodel=small -Oz -flto -target aarch64-unknown-windows-msvc -gcodeview -funwind-tables -Wno-unused-but-set-variable -Wno-deprecated-non-prototype -Wno-constant-conversion -Werror -DSOC_TYPE=0 -DHAS_BUILD_IN_KEYBOARD=0 -DDAVINCI_FIRST_BOOT_HALT=0 -DDAVINCI_PREFINAL=0 -DDAVINCI_PHOTO_DIAG=0 -march=armv8.2-a+crypto+rcpc -Wno-unused-const-variable -Wno-sometimes-uninitialized -Wno-unaligned-access -Wno-deprecated-non-prototype -D CLANG -D __DEPRECATED_AARCH64_4K_RUNTIME_GRANULARITY -D HAS_ACTLR_EL1_UNIMPLEMENTED_ERRATA=0 -D HAS_AMCNTENSET0_EL0_UNIMPLEMENTED_ERRATA=0 -D HAS_GIC_V3_WITHOUT_IRM_FLAG_SUPPORT_ERRATA=0 -D HAS_PSCI_MEMPROTECT_FAILING_ERRATA=1 -DWBT_CPU_ONLY_ACPI=1 -DWBT_PREFINAL=0 -c -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/./WindowsBootTestDxe.obj -I/workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe -I/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG -I/workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg -I/workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Test/UnitTest/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Test/Mock/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/library/include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Include/AArch64 -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Test/Mock/Include /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.c
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/CapsuleRuntimeDxe/CapsuleRuntimeDxe.inf [AARCH64]
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/clang" -MMD -MF /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/WindowsBootSmoke.obj.deps -g -Os -fshort-wchar -fno-builtin -fno-strict-aliasing -Wall -Werror -Wno-array-bounds -include AutoGen.h -fno-common -fstack-protector -Wno-parentheses-equality -Wno-tautological-compare -Wno-tautological-constant-out-of-range-compare -Wno-empty-body -Wno-unused-const-variable -Wno-varargs -Wno-unknown-warning-option -Wno-unused-but-set-variable -Wno-unused-const-variable -Wno-unaligned-access -Wno-microsoft-enum-forward-reference -fno-stack-protector -funsigned-char -ftrap-function=undefined_behavior_has_been_optimized_away_by_clang -Wno-address -Wno-shift-negative-value -Wno-unknown-pragmas -Wno-incompatible-library-redeclaration -Wno-null-dereference -mno-implicit-float -mms-bitfields -mno-stack-arg-probe -fno-omit-frame-pointer -D __GNUC__=4 -D __GNUC_MINOR__=2 -D __GNUC_PATCHLEVEL__=1 -D __MINGW32__=1 -m64 -mcmodel=small -Oz -flto -target aarch64-unknown-windows-msvc -gcodeview -funwind-tables -Wno-unused-but-set-variable -Wno-deprecated-non-prototype -Wno-constant-conversion -Werror -DSOC_TYPE=0 -DHAS_BUILD_IN_KEYBOARD=0 -DDAVINCI_FIRST_BOOT_HALT=0 -DDAVINCI_PREFINAL=0 -DDAVINCI_PHOTO_DIAG=0 -march=armv8.2-a+crypto+rcpc -Wno-unused-const-variable -Wno-sometimes-uninitialized -Wno-unaligned-access -Wno-deprecated-non-prototype -D CLANG -D __DEPRECATED_AARCH64_4K_RUNTIME_GRANULARITY -D HAS_ACTLR_EL1_UNIMPLEMENTED_ERRATA=0 -D HAS_AMCNTENSET0_EL0_UNIMPLEMENTED_ERRATA=0 -D HAS_GIC_V3_WITHOUT_IRM_FLAG_SUPPORT_ERRATA=0 -D HAS_PSCI_MEMPROTECT_FAILING_ERRATA=1 -DWBT_CPU_ONLY_ACPI=1 -DWBT_PREFINAL=0 -Wno-unused-function -c -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/./WindowsBootSmoke.obj -I/workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Applications/WindowsBootSmoke -I/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG -I/workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg -I/workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Test/UnitTest/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Test/Mock/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Library/MipiSysTLib/mipisyst/library/include -I/workspace/work/davinci-uefi/Mu_Basecore/MdePkg/Include/AArch64 -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Include -I/workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Test/Mock/Include /workspace/work/davinci-uefi/Platforms/Xiaomi/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke.c
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu_Tiano_Plus/EmbeddedPkg/RealTimeClockRuntimeDxe/RealTimeClockRuntimeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Silicium/SiliciumPkg/PrePi/PrePi.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/SmBiosTableDxe/SmBiosTableDxe.inf [AARCH64]
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/llvm-lib"  /OUT:/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/DavinciWindowsBootSmoke.lib @/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/object_files.lst
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/TimerDxe/TimerDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/CpuDxe/CpuDxe.inf [AARCH64]
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/lld-link" /OUT:/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG/DavinciWindowsBootSmoke.dll /NOLOGO /NODEFAULTLIB /IGNORE:4001 /WX /OPT:REF /OPT:ICF=10 /ALIGN:4096 /Machine:ARM64 /DLL /DRIVER /ENTRY:_ModuleEntryPoint /SUBSYSTEM:EFI_BOOT_SERVICE_DRIVER /SAFESEH:NO /BASE:0 /DEBUG:GHASH /MLLVM:-exception-model=wineh /lldmap /ALIGN:0x1000  @/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/static_library_files.lst
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Universal/BdsDxe/BdsDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Bus/Usb/UsbMouseAbsolutePointerDxe/UsbMouseAbsolutePointerDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Common/Mu/PcBdsPkg/MsBootPolicy/MsBootPolicy.inf [AARCH64]
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/llvm-lib"  /OUT:/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.lib @/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/object_files.lst
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - "/workspace/work/build-tools/usr/lib/llvm-19/bin/lld-link" /OUT:/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG/DavinciWindowsBootTestDxe.dll /NOLOGO /NODEFAULTLIB /IGNORE:4001 /WX /OPT:REF /OPT:ICF=10 /ALIGN:4096 /Machine:ARM64 /DLL /DRIVER /ENTRY:_ModuleEntryPoint /SUBSYSTEM:EFI_BOOT_SERVICE_DRIVER /SAFESEH:NO /BASE:0 /DEBUG:GHASH /MLLVM:-exception-model=wineh /lldmap /ALIGN:0x10000  @/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/static_library_files.lst
+INFO - Building ... /workspace/work/davinci-uefi/Silicon/Qualcomm/QcomPkg/Drivers/DynamicRamDxe/DynamicRamDxe.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - Building ... /workspace/work/davinci-uefi/Mu_Basecore/MdeModulePkg/Core/Dxe/DxeMain.inf [AARCH64]
+INFO - make: Nothing to be done for 'tbuild'.
+INFO - "GenFw" -e DXE_RUNTIME_DRIVER -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG/DavinciWindowsBootTestDxe.dll --keepexceptiontable
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/DavinciWindowsBootTestDxe.efi
+INFO - "GenFw" -e UEFI_APPLICATION -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/DavinciWindowsBootSmoke.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG/DavinciWindowsBootSmoke.dll --keepexceptiontable
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG/*.map /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/DEBUG/*.pdb /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/DavinciWindowsBootSmoke.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT/DavinciWindowsBootSmoke.efi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/DavinciWindowsBootSmoke.efi
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG/*.map /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT
+INFO - if [ -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.map ]; then cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.map /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91.map ;fi
+INFO - cp -p -f /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/DEBUG/*.pdb /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke/OUTPUT
+INFO - test -e /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.efi && GenSec -s EFI_SECTION_PE32 -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91SEC2.1.pe32 /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/AARCH64/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe/OUTPUT/DavinciWindowsBootTestDxe.efi
+INFO - GenFfs -t EFI_FV_FILETYPE_DRIVER -g 99B114CC-292F-413B-B556-6E7AE4866D91 -o /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91.ffs -oi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91SEC1.1.dpx -oi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91SEC2.1.pe32 -oi /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Ffs/99B114CC-292F-413B-B556-6E7AE4866D91DavinciWindowsBootTestDxe/99B114CC-292F-413B-B556-6E7AE4866D91SEC3.ui
+INFO - 
+INFO - Fd File Name:DAVINCI_UEFI (/workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/DAVINCI_UEFI.fd)
+INFO - 
+INFO - Generate Region at Offset 0x0
+INFO -    Region Size = 0x300000
+INFO -    Region Name = FV
+INFO - 
+INFO - Generating FVMAIN_COMPACT FV
+INFO - ###
+INFO - Generating FVMAIN FV
+INFO - ##############
+INFO - GUID cross reference file can be found at /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/FV/Guid.xref
+INFO - 
+INFO - FV Space Information
+INFO - FVMAIN [99%Full] 43061248 (0x2911000) total, 43058472 (0x2910528) used, 2776 (0xad8) free
+INFO - FVMAIN_COMPACT [54%Full] 3145728 (0x300000) total, 1717448 (0x1a34c8) used, 1428280 (0x15cb38) free
+INFO - Build report can be found at /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/BUILD_REPORT.TXT
+INFO - 
+INFO - - Done -
+INFO - Build end time: 12:48:23, Nov.06 2026
+INFO - Build total time: 00:00:11
+INFO - 
+INFO - ------------------------------------------------
+INFO - --------------Cmd Output Finished---------------
+INFO - --------- Running Time (mm:ss): 00:11 ----------
+INFO - ----------- Return Code: 0x00000000 ------------
+INFO - ------------------------------------------------
+PROGRESS - Running Post Build
+INFO - ---------------------------------------------------------
+INFO - -----------Postbuild Image Validation Starting-----------
+INFO - ---------------------------------------------------------
+INFO - ---------------------------------------------------------
+INFO - -----------Postbuild Image Validation Finished-----------
+INFO - ------------------0057 Images Verified-------------------
+INFO - -------------- Running Time (mm:ss): 00:00 --------------
+INFO - ---------------------------------------------------------
+INFO - Writing BuildToolsReports to /workspace/work/davinci-uefi/Build/davinciPkg/DEBUG_CLANGPDB/BUILD_TOOLS_REPORT
+CRITICAL - Copying Symbols to flat directory
+PROGRESS - End time: 2026-11-06 12:48:23.683642	 Total time Elapsed: 0:00:11
+SECTION - Log file is located at: /workspace/work/davinci-uefi/Build/BUILDLOG_davinciPkg.txt
+SECTION - Summary
+PROGRESS - Success

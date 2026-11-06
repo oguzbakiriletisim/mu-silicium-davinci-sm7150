@@ -1,0 +1,6 @@
+{
+  "shim_new_fd_roundtrip": true,
+  "original_dtbs_preserved": true,
+  "deterministic_repackage": true,
+  "physical_test_performed": false
+}
