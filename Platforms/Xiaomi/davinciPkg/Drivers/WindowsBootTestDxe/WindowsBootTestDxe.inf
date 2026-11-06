@@ -1,0 +1,42 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciWindowsBootTestDxe
+  FILE_GUID = 99B114CC-292F-413B-B556-6E7AE4866D91
+  MODULE_TYPE = DXE_RUNTIME_DRIVER
+  VERSION_STRING = 0.1
+  ENTRY_POINT = WindowsBootTestEntry
+[Sources]
+  WindowsBootTestDxe.c
+  RamChecks.h
+[Packages]
+  ArmPkg/ArmPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+[LibraryClasses]
+  UefiDriverEntryPoint
+  UefiBootServicesTableLib
+  UefiLib
+  BaseLib
+  ArmLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DevicePathLib
+  HobLib
+  DebugLib
+[Protocols]
+  gEfiBdsArchProtocolGuid
+  gEfiCapsuleArchProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiResetArchProtocolGuid
+  gEfiRealTimeClockArchProtocolGuid
+[Guids]
+  gEfiEndOfDxeEventGroupGuid
+  gEfiAcpi20TableGuid
+  gEfiFileInfoGuid
+  gEfiVirtualDiskGuid
+[Depex]
+  TRUE

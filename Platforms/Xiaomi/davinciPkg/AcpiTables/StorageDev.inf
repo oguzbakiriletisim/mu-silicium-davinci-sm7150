@@ -1,0 +1,10 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciStorageDevAcpi
+  FILE_GUID = 1B1961DE-831C-4699-A7A7-385EFC4E7706
+  MODULE_TYPE = USER_DEFINED
+  VERSION_STRING = 0.1
+[Sources]
+  StorageDev.asl
+[Packages]
+  MdePkg/MdePkg.dec

@@ -23,7 +23,14 @@
   BUILD_TARGETS                  = RELEASE|DEBUG
   SKUID_IDENTIFIER               = DEFAULT
   FLASH_DEFINITION               = davinciPkg/davinci.fdf
+!ifndef WINDOWS_BOOT_TEST
+  DEFINE WINDOWS_BOOT_TEST = 0
+!endif
+!if $(WINDOWS_BOOT_TEST) == 1
+  USE_CUSTOM_DISPLAY_DRIVER      = 0
+!else
   USE_CUSTOM_DISPLAY_DRIVER      = 1
+!endif
   HAS_BUILD_IN_KEYBOARD          = 0
 
 !ifndef DAVINCI_PREFINAL
@@ -49,6 +56,10 @@
 
 !ifndef DAVINCI_FIRST_BOOT_HALT
   DEFINE DAVINCI_FIRST_BOOT_HALT  = 0
+!endif
+
+!ifndef DAVINCI_ACPI_STORAGE_DEV
+  DEFINE DAVINCI_ACPI_STORAGE_DEV = 0
 !endif
 
 !ifndef DAVINCI_CPU_ONLY_ACPI
@@ -116,6 +127,15 @@
 !include MooreaPkg/MooreaPkg.dsc.inc
 
 [Components.common]
+!if $(DAVINCI_ACPI_STORAGE_DEV) == 1
+  davinciPkg/AcpiTables/StorageDev.inf
+!endif
+!if $(WINDOWS_BOOT_TEST) == 1
+  davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf {
+    <BuildOptions>
+      *_*_*_CC_FLAGS = -DWBT_CPU_ONLY_ACPI=$(DAVINCI_CPU_ONLY_ACPI) -DWBT_PREFINAL=$(DAVINCI_PREFINAL)
+  }
+!endif
 !if $(DAVINCI_CPU_ONLY_ACPI) == 1
   davinciPkg/AcpiTables/AcpiTables.inf
   davinciPkg/AcpiTables/Gtdt.inf

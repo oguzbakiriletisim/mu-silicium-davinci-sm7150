@@ -79,7 +79,9 @@ READ_STATUS        = TRUE
 READ_LOCK_CAP      = TRUE
 READ_LOCK_STATUS   = TRUE
 
-!if $(DAVINCI_PREFINAL) == 1
+!if $(WINDOWS_BOOT_TEST) == 1
+  !include Include/WINDOWS_BOOT_TEST.inc
+!elseif $(DAVINCI_PREFINAL) == 1
   !include Include/PREFINAL.inc
 !else
   !include Include/APRIORI.inc

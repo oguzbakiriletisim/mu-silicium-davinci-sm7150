@@ -34,3 +34,7 @@ FILE FREEFORM = 7E374E25-8E01-4FEE-87F2-390C23C606CD {
   INF RuleOverride = DAVINCI_ACPI davinciPkg/AcpiTables/Gtdt.inf
   INF RuleOverride = DAVINCI_ACPI davinciPkg/AcpiTables/Fadt.inf
 !endif
+
+!if $(DAVINCI_ACPI_STORAGE_DEV) == 1
+  INF RuleOverride = DAVINCI_ASL davinciPkg/AcpiTables/StorageDev.inf
+!endif
