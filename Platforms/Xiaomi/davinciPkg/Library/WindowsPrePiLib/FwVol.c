@@ -911,8 +911,11 @@ FfsProcessFvFile (
   BuildFvHob ((EFI_PHYSICAL_ADDRESS)(UINTN)FvImageInfo.FvStart, FvImageInfo.FvSize);
 
   // MU_CHANGE Start
+  ZeroMem (&ParentVolumeInfo, sizeof (ParentVolumeInfo));
   Status = FfsGetVolumeInfo (ParentVolumeHandle, &ParentVolumeInfo);
   ASSERT_EFI_ERROR (Status);
+  DEBUG ((DEBUG_ERROR, "WBT FV2 parent=%g file=%g base=%p size=%lu\n",
+    &ParentVolumeInfo.FvName, &(((EFI_FFS_FILE_HEADER *)FvFileHandle)->Name), FvImageInfo.FvStart, FvImageInfo.FvSize));
   // MU_CHANGE End
 
   //

@@ -19,6 +19,7 @@
 #include <Protocol/SimpleTextOut.h>
 #include <Protocol/Reset.h>
 #include <Protocol/RealTimeClock.h>
+#include <Protocol/LoadedImage.h>
 #include <Guid/Acpi.h>
 #include <Guid/FileInfo.h>
 #include <Guid/GlobalVariable.h>
@@ -152,9 +153,32 @@ STATIC EFI_STATUS MemoryMapCheck(VOID) {
  if(!EFI_ERROR(S) && !WbtMapValid((CONST UINT8 *)Map,Size,Stride)) {S=EFI_COMPROMISED_DATA;}
  FreePool(Map);return S; // This snapshot/Key is NOT reused for ExitBootServices.
 }
+// Read-only snapshot. No fixed-address allocation or changes to memory types.
+STATIC VOID MemorySnapshot(CONST CHAR16 *Name) {
+ UINTN Size=0,Key,Stride=0,I;UINT32 Version;EFI_STATUS S;UINT64 Free=0,Largest=0;
+ EFI_MEMORY_DESCRIPTOR *Map,*D;
+ S=gBS->GetMemoryMap(&Size,NULL,&Key,&Stride,&Version);
+ if(S!=EFI_BUFFER_TOO_SMALL || Stride<40 || Stride>256 || Size>1024*1024) {Stage(L"SNAPSHOT SIZE",S);return;}
+ Size+=8*Stride;Map=AllocatePool(Size);if(!Map) {Stage(L"SNAPSHOT ALLOC",EFI_OUT_OF_RESOURCES);return;}
+ S=gBS->GetMemoryMap(&Size,Map,&Key,&Stride,&Version);
+ if(!EFI_ERROR(S) && !WbtMapValid((CONST UINT8 *)Map,Size,Stride)) {S=EFI_COMPROMISED_DATA;}
+ if(!EFI_ERROR(S)) {
+  for(I=0;I<Size;I+=Stride) {
+   D=(EFI_MEMORY_DESCRIPTOR *)((UINT8 *)Map+I);
+   if(D->Type==EfiConventionalMemory) {Free+=D->NumberOfPages;if(D->NumberOfPages>Largest) {Largest=D->NumberOfPages;}}
+  }
+  Print(L"WBT MEM %s free-pages=%lu largest-pages=%lu\r\n",Name,Free,Largest);
+  // Full real map for comparing the reported ConvertPages address intervals.
+  for(I=0;I<Size;I+=Stride) {
+   D=(EFI_MEMORY_DESCRIPTOR *)((UINT8 *)Map+I);
+   Print(L"MAP T=%u %016lx-%016lx A=%016lx\r\n",D->Type,D->PhysicalStart,D->PhysicalStart+D->NumberOfPages*4096-1,D->Attribute);
+  }
+ } else {Stage(L"SNAPSHOT MAP",S);}
+ FreePool(Map);
+}
 STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
  EFI_STATUS S;EFI_HANDLE *Handles,Child;UINTN N,I,InfoSize,Size,ReadSize;EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *Fs;EFI_FILE_PROTOCOL *Root,*File,*Bcd;
- EFI_FILE_INFO *Info;VOID *Buffer,*Acpi;EFI_DEVICE_PATH_PROTOCOL *Path;EFI_GRAPHICS_OUTPUT_PROTOCOL *Gop;
+ EFI_FILE_INFO *Info;EFI_LOADED_IMAGE_PROTOCOL *Loaded;UINT64 ChildBase=0,ChildSize=0;VOID *Buffer,*Acpi;EFI_DEVICE_PATH_PROTOCOL *Path;EFI_GRAPHICS_OUTPUT_PROTOCOL *Gop;
  (VOID)This;
  EfiEventGroupSignal(&gEfiEndOfDxeEventGroupGuid);
  S=Console();if(EFI_ERROR(S)) {Fail(L"CONSOLE/GOP",S);}
@@ -189,13 +213,27 @@ STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
   S=MemoryMapCheck();Stage(L"MEMORY MAP STRUCTURAL CHECK ONLY",S);if(EFI_ERROR(S)) {Fail(L"MEMORY MAP",S);}
   Path=FileDevicePath(Handles[I],L"\\EFI\\Microsoft\\Boot\\bootmgfw.efi");if(!Path) {Fail(L"FILE DEVICE PATH",EFI_OUT_OF_RESOURCES);}
   S=SetBootContext(Path);Stage(L"RAM BOOT OPTION CONTEXT",S);if(EFI_ERROR(S)) {Fail(L"BOOT CONTEXT",S);}
+  MemorySnapshot(L"BEFORE LOAD");
   Stage(L"BOOTMGFW LoadImage CALL",EFI_NOT_STARTED);
   EfiSignalEventReadyToBoot();
   S=gBS->LoadImage(FALSE,mParentImage,Path,Buffer,Size,&Child);FreePool(Buffer);FreePool(Path);FreePool(Handles);
   Stage(L"BOOTMGFW LoadImage RETURN",S);if(EFI_ERROR(S)) {Fail(L"BOOTMGFW LOAD FAILED",S);}
+  S=gBS->HandleProtocol(Child,&gEfiLoadedImageProtocolGuid,(VOID **)&Loaded);
+  if(EFI_ERROR(S)) {Fail(L"LOADED IMAGE METADATA",S);}
+  ChildBase=(UINTN)Loaded->ImageBase;ChildSize=Loaded->ImageSize;
+  Print(L"WBT CHILD base=%016lx size=%lx parent=%p\r\n",ChildBase,ChildSize,Loaded->ParentHandle);
+  MemorySnapshot(L"BEFORE START");
   Print(L"Boot-time RAM reads=%u. RTC unavailable. Variables are RAM-only.\r\n",(UINT32)mReads);
   Stage(L"BOOTMGFW StartImage CALL / NOT A SUCCESS CLAIM",EFI_NOT_STARTED);
-  S=gBS->StartImage(Child,NULL,NULL);Stage(L"BOOTMGFW StartImage RETURN",S);Park();
+  S=gBS->StartImage(Child,NULL,NULL);
+  // StartImage may unload Child. Use saved scalar values, never stale metadata.
+  gST->ConOut->ClearScreen(gST->ConOut);
+  Stage(L"BOOTMGFW StartImage RETURN (OBSERVED)",S);
+  Print(L"RAW EFI STATUS=%016lx ERROR=%u\r\n",(UINT64)S,(UINT32)EFI_ERROR(S));
+  Print(L"SAVED CHILD base=%016lx size=%lx\r\n",ChildBase,ChildSize);
+  Print(L"API returned. This alone does not prove Microsoft UI/kernel.\r\n");
+  MemorySnapshot(L"AFTER START RETURN");
+  Print(L"FINAL: StartImage returned %016lx CHILD=%016lx\r\n",(UINT64)S,ChildBase);Park();
  }
  FreePool(Handles);Fail(L"OUR RAM FAT32 SFS HANDLE NOT FOUND",EFI_NOT_FOUND);
 }

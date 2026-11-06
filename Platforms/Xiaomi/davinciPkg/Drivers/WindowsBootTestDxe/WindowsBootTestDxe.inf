@@ -25,6 +25,7 @@
   HobLib
   DebugLib
 [Protocols]
+  gEfiLoadedImageProtocolGuid
   gEfiBdsArchProtocolGuid
   gEfiCapsuleArchProtocolGuid
   gEfiBlockIoProtocolGuid

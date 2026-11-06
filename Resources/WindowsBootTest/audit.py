@@ -7,6 +7,10 @@ FAT_GUID='0713cb3b-ea2e-4aa0-98ce-2e69902794d3'
 LAUNCHER='99b114cc-292f-413b-b556-6e7ae4866d91'
 def expanded_from_fd(fd):
  assert len(fd)==0x300000 and fd[40:44]==b'_FVH'
+ ext=struct.unpack_from('<H',fd,52)[0]
+ assert ext>=56 and ext+20<=len(fd), 'Missing/bad outer FV name; DXE FV2 dedup would fail'
+ assert fd[ext:ext+16]!=bytes(16), 'Zero outer FV name'
+ assert 20<=struct.unpack_from('<I',fd,ext+16)[0]<=len(fd)-ext
  end=struct.unpack_from('<Q',fd,32)[0];o=struct.unpack_from('<H',fd,48)[0]
  assert o>=56 and o<=end<=len(fd)
  while o+24<=end:
@@ -98,7 +102,7 @@ typedef uint8_t UINT8;typedef uint32_t UINT32;typedef uint64_t UINT64;typedef si
    data,n=fat,nf
   lib.WbtFatValid.argtypes=[ctypes.c_void_p,ctypes.c_size_t];assert lib.WbtFatValid(data,n.value)
  return {'fd_sha256':hashlib.sha256(fd).hexdigest(),'fd_bytes':len(fd),'expanded_fv_bytes':len(b),
- 'fat32_sha256':hashlib.sha256(image).hexdigest(),'fat32_bytes':len(image),'ram_disk_bytes':len(raw),'ram_disk_sha256':hashlib.sha256(raw).hexdigest(),'fd_decompressed_fv_matches_audited_fv':True,'zero_copy_fat_locator_host_verified':True,
+ 'fat32_sha256':hashlib.sha256(image).hexdigest(),'fat32_bytes':len(image),'ram_disk_bytes':len(raw),'ram_disk_sha256':hashlib.sha256(raw).hexdigest(),'outer_fv_name_guid':str(uuid.UUID(bytes_le=fd[struct.unpack_from('<H',fd,52)[0]:struct.unpack_from('<H',fd,52)[0]+16])),'fv2_parent_name_available':True,'fd_decompressed_fv_matches_audited_fv':True,'zero_copy_fat_locator_host_verified':True,
  'all_native_ufs_and_dependencies_absent':True,'env_binary_unchanged':True,'launcher_last_in_apriori':True,'files':files,'apriori':apriori,'acpi_tables':tables,
  'dxe_heap_bytes':0x4500000,'expanded_fv_fraction_of_dxe_heap':len(b)/0x4500000,
  'runtime_protocol_installation_tested':False,'microsoft_execution_measured_by_this_static_audit':False,'physical_test_ready':False}

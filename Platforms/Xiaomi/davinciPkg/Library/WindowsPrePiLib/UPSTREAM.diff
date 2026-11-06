@@ -48,3 +48,8 @@
 +  DEBUG ((DEBUG_ERROR, "WBT FV RESULT start=%p size=%lu alignment=%u\n", FvImageInfo.FvStart, FvImageInfo.FvSize, FvAlignment));
 @@ -873,0 +895 @@
 +    DEBUG ((DEBUG_ERROR, "WBT FV REALIGN requested size=%lu\n", FvImageInfo.FvSize));
+@@ -891,0 +914 @@
++  ZeroMem (&ParentVolumeInfo, sizeof (ParentVolumeInfo));
+@@ -893,0 +917,2 @@
++  DEBUG ((DEBUG_ERROR, "WBT FV2 parent=%g file=%g base=%p size=%lu\n",
++    &ParentVolumeInfo.FvName, &(((EFI_FFS_FILE_HEADER *)FvFileHandle)->Name), FvImageInfo.FvStart, FvImageInfo.FvSize));

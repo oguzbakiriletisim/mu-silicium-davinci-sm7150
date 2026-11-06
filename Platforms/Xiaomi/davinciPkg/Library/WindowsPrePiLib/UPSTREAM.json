@@ -4,5 +4,6 @@
   "upstream_path": "EmbeddedPkg/Library/PrePiLib",
   "scope": "WINDOWS_BOOT_TEST SEC only; original library/submodule untouched",
   "reason": "align decoded INNER header, not compressed OUTER header",
-  "line_endings": "LF normalized from upstream CRLF"
+  "line_endings": "LF normalized from upstream CRLF",
+  "fv2_identity_change": "Zero-initialize parent FV info and log actual FV2 parent/file identifiers; WBT outer FV now has an extension name"
 }
