@@ -21,8 +21,11 @@
 #include <Protocol/RealTimeClock.h>
 #include <Guid/Acpi.h>
 #include <Guid/FileInfo.h>
+#include <Guid/GlobalVariable.h>
 #include <Guid/EventGroup.h>
 #include "RamChecks.h"
+#include "RamGpt.h"
+STATIC CONST UINT8 *mFat;STATIC UINTN mFatBytes;
 #if !defined(WBT_CPU_ONLY_ACPI) || WBT_CPU_ONLY_ACPI != 1 || WBT_PREFINAL != 0
 #error WINDOWS_BOOT_TEST requires its separate CPU-only-ACPI profile and PREFINAL=0
 #endif
@@ -30,6 +33,7 @@ STATIC EFI_GUID mFatGuid={0x0713cb3b,0xea2e,0x4aa0,{0x98,0xce,0x2e,0x69,0x90,0x2
 STATIC CONST UINT8 *mDisk;STATIC UINTN mBytes;
 STATIC UINTN mReads;
 STATIC EFI_HANDLE mParentImage;
+STATIC EFI_HANDLE mDiskHandle;
 STATIC EFI_BLOCK_IO_MEDIA mMedia={.MediaId=0x57425431,.RemovableMedia=FALSE,.MediaPresent=TRUE,.LogicalPartition=TRUE,.ReadOnly=TRUE,.WriteCaching=FALSE,.BlockSize=512,.IoAlign=1};
 STATIC EFI_STATUS EFIAPI ResetDisk(EFI_BLOCK_IO_PROTOCOL *This,BOOLEAN Extended) {(VOID)This;(VOID)Extended;return EFI_SUCCESS;}
 STATIC EFI_STATUS EFIAPI ReadDisk(EFI_BLOCK_IO_PROTOCOL *This,UINT32 Id,EFI_LBA Lba,UINTN Bytes,VOID *Buffer) {
@@ -89,23 +93,55 @@ STATIC EFI_STATUS Console(VOID) {
  if(!Out || !gST->ConIn) {return EFI_NOT_READY;}
  gST->Hdr.CRC32=0;return gBS->CalculateCrc32(gST,gST->Hdr.HeaderSize,&gST->Hdr.CRC32);
 }
+STATIC EFI_STATUS PublishDisk(VOID) {
+ EFI_STATUS S;UINT64 Start,End;
+ if(!WbtGptValid(mDisk,mBytes,&mFat,&mFatBytes)) {return EFI_COMPROMISED_DATA;}
+ mMedia.LastBlock=mBytes/512-1;mMedia.LogicalPartition=FALSE;
+ ZeroMem(&mPath,sizeof mPath);mPath.Ram.Header.Type=MEDIA_DEVICE_PATH;mPath.Ram.Header.SubType=MEDIA_RAM_DISK_DP;
+ SetDevicePathNodeLength(&mPath.Ram.Header,sizeof mPath.Ram);CopyGuid(&mPath.Ram.TypeGuid,&gEfiVirtualDiskGuid);
+ Start=(UINTN)mDisk;End=Start+mBytes-1;CopyMem(mPath.Ram.StartingAddr,&Start,8);CopyMem(mPath.Ram.EndingAddr,&End,8);SetDevicePathEndNode(&mPath.End);
+ S=gBS->InstallMultipleProtocolInterfaces(&mDiskHandle,&gEfiBlockIoProtocolGuid,&mBlock,&gEfiDevicePathProtocolGuid,&mPath,NULL);
+ if(EFI_ERROR(S)) {return S;}
+ return gBS->ConnectController(mDiskHandle,NULL,NULL,TRUE);
+}
+// Accept only the GPT ESP child below our own virtual provider. No disk scan.
+STATIC BOOLEAN IsOurEsp(EFI_HANDLE H) {
+ EFI_DEVICE_PATH_PROTOCOL *P;HARDDRIVE_DEVICE_PATH *Hd;UINTN N;
+ P=DevicePathFromHandle(H);if(!P) {return FALSE;} N=GetDevicePathSize(P);
+ if(N!=sizeof mPath.Ram+sizeof *Hd+sizeof(EFI_DEVICE_PATH_PROTOCOL) ||
+    CompareMem(P,&mPath.Ram,sizeof mPath.Ram)!=0) {return FALSE;}
+ Hd=(HARDDRIVE_DEVICE_PATH *)((UINT8 *)P+sizeof mPath.Ram);
+ return Hd->Header.Type==MEDIA_DEVICE_PATH && Hd->Header.SubType==MEDIA_HARDDRIVE_DP &&
+   DevicePathNodeLength(&Hd->Header)==sizeof *Hd && Hd->PartitionNumber==1 &&
+   Hd->PartitionStart==2048 && Hd->PartitionSize==mFatBytes/512 &&
+   Hd->MBRType==MBR_TYPE_EFI_PARTITION_TABLE_HEADER && Hd->SignatureType==SIGNATURE_TYPE_GUID &&
+   CompareMem(Hd->Signature,mDisk+1024+16,16)==0 && IsDevicePathEnd(NextDevicePathNode(&Hd->Header));
+}
 STATIC EFI_STATUS Disk(VOID) {
- VOID *Hob;EFI_PEI_HOB_POINTERS P;EFI_HANDLE H=NULL;EFI_STATUS S;UINT64 Start,End;
+ VOID *Hob;EFI_PEI_HOB_POINTERS P;
  Hob=GetFirstHob(EFI_HOB_TYPE_FV);
  while(Hob) {
   P.Raw=Hob;
   if(P.FirmwareVolume->Length<=64U*1024U*1024U &&
-     WbtRawFromFv((CONST UINT8 *)(UINTN)P.FirmwareVolume->BaseAddress,(UINTN)P.FirmwareVolume->Length,(CONST UINT8 *)&mFatGuid,&mDisk,&mBytes)) {break;}
+     WbtRawFromFv((CONST UINT8 *)(UINTN)P.FirmwareVolume->BaseAddress,(UINTN)P.FirmwareVolume->Length,(CONST UINT8 *)&mFatGuid,&mDisk,&mBytes)) {return PublishDisk();}
   Hob=GetNextHob(EFI_HOB_TYPE_FV,GET_NEXT_HOB(Hob));
  }
- if(!Hob || !WbtFatValid(mDisk,mBytes)) {return EFI_COMPROMISED_DATA;}
- mMedia.LastBlock=mBytes/512-1;
- ZeroMem(&mPath,sizeof mPath);mPath.Ram.Header.Type=MEDIA_DEVICE_PATH;mPath.Ram.Header.SubType=MEDIA_RAM_DISK_DP;
- SetDevicePathNodeLength(&mPath.Ram.Header,sizeof mPath.Ram);CopyGuid(&mPath.Ram.TypeGuid,&gEfiVirtualDiskGuid);
- Start=(UINTN)mDisk;End=Start+mBytes-1;CopyMem(mPath.Ram.StartingAddr,&Start,8);CopyMem(mPath.Ram.EndingAddr,&End,8);SetDevicePathEndNode(&mPath.End);
- S=gBS->InstallMultipleProtocolInterfaces(&H,&gEfiBlockIoProtocolGuid,&mBlock,&gEfiDevicePathProtocolGuid,&mPath,NULL);
+ return EFI_NOT_FOUND;
+}
+// Standard boot-option context, held in the profile's EmuNvMode variables.
+// No BootOrder change. BootCurrent is volatile; no phone NVRAM provider exists.
+STATIC EFI_STATUS SetBootContext(EFI_DEVICE_PATH_PROTOCOL *Path) {
+ CONST CHAR16 Description[]=L"Windows Boot Manager";
+ UINT16 Number=0x5742,PathBytes;UINT32 Active=1;UINT8 *Option;UINTN Bytes;EFI_STATUS S;
+ Bytes=GetDevicePathSize(Path);if(Bytes>0xffff) {return EFI_BAD_BUFFER_SIZE;} PathBytes=(UINT16)Bytes;
+ Bytes+=6+sizeof Description;Option=AllocateZeroPool(Bytes);if(!Option) {return EFI_OUT_OF_RESOURCES;}
+ CopyMem(Option,&Active,4);CopyMem(Option+4,&PathBytes,2);CopyMem(Option+6,Description,sizeof Description);
+ CopyMem(Option+6+sizeof Description,Path,PathBytes);
+ S=gST->RuntimeServices->SetVariable(L"Boot5742",&gEfiGlobalVariableGuid,
+   EFI_VARIABLE_NON_VOLATILE|EFI_VARIABLE_BOOTSERVICE_ACCESS|EFI_VARIABLE_RUNTIME_ACCESS,Bytes,Option);FreePool(Option);
  if(EFI_ERROR(S)) {return S;}
- return gBS->ConnectController(H,NULL,NULL,TRUE);
+ return gST->RuntimeServices->SetVariable(L"BootCurrent",&gEfiGlobalVariableGuid,
+   EFI_VARIABLE_BOOTSERVICE_ACCESS|EFI_VARIABLE_RUNTIME_ACCESS,sizeof Number,&Number);
 }
 STATIC EFI_STATUS MemoryMapCheck(VOID) {
  UINTN Size=0,Key,Stride=0;UINT32 Version;EFI_MEMORY_DESCRIPTOR *Map;EFI_STATUS S;
@@ -117,7 +153,7 @@ STATIC EFI_STATUS MemoryMapCheck(VOID) {
  FreePool(Map);return S; // This snapshot/Key is NOT reused for ExitBootServices.
 }
 STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
- EFI_STATUS S;EFI_HANDLE *Handles,Child;UINTN N,I,InfoSize,Size,ReadSize;EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *Fs;EFI_FILE_PROTOCOL *Root,*File;
+ EFI_STATUS S;EFI_HANDLE *Handles,Child;UINTN N,I,InfoSize,Size,ReadSize;EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *Fs;EFI_FILE_PROTOCOL *Root,*File,*Bcd;
  EFI_FILE_INFO *Info;VOID *Buffer,*Acpi;EFI_DEVICE_PATH_PROTOCOL *Path;EFI_GRAPHICS_OUTPUT_PROTOCOL *Gop;
  (VOID)This;
  EfiEventGroupSignal(&gEfiEndOfDxeEventGroupGuid);
@@ -131,13 +167,14 @@ STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
  S=Disk();if(EFI_ERROR(S)) {Fail(L"RAM FAT32 DRIVER CONNECT",S);}
  S=gBS->LocateHandleBuffer(ByProtocol,&gEfiSimpleFileSystemProtocolGuid,NULL,&N,&Handles);
  if(EFI_ERROR(S)) {Fail(L"SIMPLE FILE SYSTEM",S);}
- // Accept only the handle that owns OUR RAM BlockIo; never scan physical media.
+ // Accept only OUR generated ESP child; never select physical media.
  for(I=0;I<N;++I) {
-  EFI_BLOCK_IO_PROTOCOL *Io=NULL;
-  S=gBS->HandleProtocol(Handles[I],&gEfiBlockIoProtocolGuid,(VOID **)&Io);
-  if(EFI_ERROR(S) || Io!=&mBlock) {continue;}
+  if(!IsOurEsp(Handles[I])) {continue;}
   S=gBS->HandleProtocol(Handles[I],&gEfiSimpleFileSystemProtocolGuid,(VOID **)&Fs);if(EFI_ERROR(S)) {continue;}
   S=Fs->OpenVolume(Fs,&Root);if(EFI_ERROR(S)) {Fail(L"FAT32 OPEN VOLUME",S);}
+  S=Root->Open(Root,&Bcd,L"\\EFI\\Microsoft\\Boot\\BCD",EFI_FILE_MODE_READ,0);
+  Stage(L"BCD OPEN (PRESENCE ONLY)",S);if(!EFI_ERROR(S)) {Bcd->Close(Bcd);}
+  // Absence is recorded; Microsoft remains responsible for its own error UI.
   S=Root->Open(Root,&File,L"\\EFI\\Microsoft\\Boot\\bootmgfw.efi",EFI_FILE_MODE_READ,0);
   Root->Close(Root);if(EFI_ERROR(S)) {Fail(L"BOOTMGFW FILE ABSENT / NOT READABLE",S);}
   InfoSize=0;S=File->GetInfo(File,&gEfiFileInfoGuid,&InfoSize,NULL);
@@ -151,6 +188,7 @@ STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
   Stage(L"FAT32 FILE READ / ARM64 PE VALID",EFI_SUCCESS);
   S=MemoryMapCheck();Stage(L"MEMORY MAP STRUCTURAL CHECK ONLY",S);if(EFI_ERROR(S)) {Fail(L"MEMORY MAP",S);}
   Path=FileDevicePath(Handles[I],L"\\EFI\\Microsoft\\Boot\\bootmgfw.efi");if(!Path) {Fail(L"FILE DEVICE PATH",EFI_OUT_OF_RESOURCES);}
+  S=SetBootContext(Path);Stage(L"RAM BOOT OPTION CONTEXT",S);if(EFI_ERROR(S)) {Fail(L"BOOT CONTEXT",S);}
   Stage(L"BOOTMGFW LoadImage CALL",EFI_NOT_STARTED);
   EfiSignalEventReadyToBoot();
   S=gBS->LoadImage(FALSE,mParentImage,Path,Buffer,Size,&Child);FreePool(Buffer);FreePool(Path);FreePool(Handles);

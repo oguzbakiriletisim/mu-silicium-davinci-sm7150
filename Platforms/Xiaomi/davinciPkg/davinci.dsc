@@ -36,6 +36,9 @@
 !ifndef DAVINCI_PREFINAL
   DEFINE DAVINCI_PREFINAL = 0
 !endif
+!ifndef WINDOWS_BOOT_SMOKE
+  DEFINE WINDOWS_BOOT_SMOKE = 0
+!endif
 
 !ifndef DAVINCI_PHOTO_DIAG
   DEFINE DAVINCI_PHOTO_DIAG = 0
@@ -127,6 +130,14 @@
 !include MooreaPkg/MooreaPkg.dsc.inc
 
 [Components.common]
+!if $(WINDOWS_BOOT_SMOKE) == 1
+  davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke.inf {
+    <LibraryClasses>
+      DebugLib|MdePkg/Library/BaseDebugLibNull/BaseDebugLibNull.inf
+    <BuildOptions>
+      *_*_*_CC_FLAGS = -DWBT_CPU_ONLY_ACPI=1 -DWBT_PREFINAL=0 -Wno-unused-function
+  }
+!endif
 !if $(DAVINCI_ACPI_STORAGE_DEV) == 1
   davinciPkg/AcpiTables/StorageDev.inf
 !endif

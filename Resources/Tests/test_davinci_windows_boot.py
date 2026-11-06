@@ -95,7 +95,7 @@ static UINT8 data[1024],*mDisk=data;static UINTN mBytes=sizeof(data),mReads;
 #define CopyMem memcpy
 static jmp_buf Stop;static int Wfi;
 static void ArmCallWFI(void){Wfi++;longjmp(Stop,1);}
-#include "'''+str(ROOT/'Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/RamChecks.h')+'"\n'+callbacks+runtime+'''\nint main(void){EFI_BLOCK_IO_PROTOCOL io={0};UINT8 out[514];memset(out,0xA5,sizeof out);data[512]=42;
+#include "'''+str(ROOT/'Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/RamChecks.h')+'"\n#include "'+str(ROOT/'Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/RamGpt.h')+'"\n'+callbacks+runtime+'''\nint main(void){EFI_BLOCK_IO_PROTOCOL io={0};UINT8 out[514];memset(out,0xA5,sizeof out);data[512]=42;
 assert(ResetDisk(&io,0)==0&&FlushDisk(&io)==0);assert(ReadDisk(&io,7,1,512,out+1)==0);assert(out[1]==42&&out[0]==0xA5&&out[513]==0xA5&&mReads==1);
 assert(ReadDisk(&io,8,0,512,out)==13);assert(ReadDisk(&io,7,2,512,out)==2);assert(ReadDisk(&io,7,0,513,out)==4);assert(ReadDisk(&io,7,0,512,NULL)==2);assert(ReadDisk(&io,7,0,0,NULL)==0);
 mMedia.MediaPresent=0;assert(ReadDisk(&io,7,0,512,out)==12);assert(WriteDisk(&io,7,0,512,out)==8);assert(data[512]==42);

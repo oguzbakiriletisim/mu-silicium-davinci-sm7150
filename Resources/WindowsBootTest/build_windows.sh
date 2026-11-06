@@ -7,10 +7,11 @@ OUT=$(python3 -c 'import pathlib,sys;print(pathlib.Path(sys.argv[1]).resolve())'
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.."
 mkdir -- "$OUT"
 python3 Resources/WindowsBootTest/fat32.py "$@" --output "$OUT/efi-fat32.img" > "$OUT/FAT_MANIFEST.json"
-if command -v fallocate >/dev/null; then fallocate --dig-holes "$OUT/efi-fat32.img"; fi
+python3 Resources/WindowsBootTest/ram_gpt.py "$OUT/efi-fat32.img" "$OUT/ram-disk.img"
+if command -v fallocate >/dev/null; then fallocate --dig-holes "$OUT/efi-fat32.img" "$OUT/ram-disk.img"; fi
 python3 Platforms/Xiaomi/davinciPkg/DeviceBuild.py TARGET=DEBUG \
  FD_BASE=0x9FC00000 FD_SIZE=0x00300000 FD_BLOCKS=0x300 \
- BLD_DEBUG_WINDOWS_BOOT_TEST=1 BLD_DEBUG_WINDOWS_FAT_IMAGE="$OUT/efi-fat32.img" \
+ BLD_DEBUG_WINDOWS_BOOT_TEST=1 BLD_DEBUG_WINDOWS_FAT_IMAGE="$OUT/ram-disk.img" \
  BLD_DEBUG_DAVINCI_ACPI_STORAGE_DEV=1 BLD_DEBUG_DAVINCI_CPU_ONLY_ACPI=1 \
  BLD_DEBUG_DAVINCI_PREFINAL=0 BLD_DEBUG_DAVINCI_PHOTO_DIAG=0 BLD_DEBUG_DAVINCI_FIRST_BOOT_HALT=0 \
  PE_VALIDATION_PATH="$PWD/Resources/UfsUnblock/pe_validation.yaml" > "$OUT/build.log" 2>&1

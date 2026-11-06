@@ -8,6 +8,7 @@
 [Sources]
   WindowsBootTestDxe.c
   RamChecks.h
+  RamGpt.h
 [Packages]
   ArmPkg/ArmPkg.dec
   MdePkg/MdePkg.dec
@@ -34,6 +35,7 @@
   gEfiResetArchProtocolGuid
   gEfiRealTimeClockArchProtocolGuid
 [Guids]
+  gEfiGlobalVariableGuid
   gEfiEndOfDxeEventGroupGuid
   gEfiAcpi20TableGuid
   gEfiFileInfoGuid

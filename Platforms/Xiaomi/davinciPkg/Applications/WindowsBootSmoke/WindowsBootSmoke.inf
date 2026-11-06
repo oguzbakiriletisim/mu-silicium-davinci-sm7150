@@ -1,0 +1,46 @@
+[Defines]
+  INF_VERSION = 0x00010005
+  BASE_NAME = DavinciWindowsBootSmoke
+  FILE_GUID = 6C43EAC2-C349-4D2D-9718-05DF102937DD
+  MODULE_TYPE = UEFI_APPLICATION
+  VERSION_STRING = 0.1
+  ENTRY_POINT = UefiMain
+[Sources]
+  WindowsBootSmoke.c
+[Packages]
+  ArmPkg/ArmPkg.dec
+  MdePkg/MdePkg.dec
+  MdeModulePkg/MdeModulePkg.dec
+[LibraryClasses]
+  UefiApplicationEntryPoint
+  PrintLib
+  UefiBootServicesTableLib
+  UefiLib
+  BaseLib
+  ArmLib
+  BaseMemoryLib
+  MemoryAllocationLib
+  DevicePathLib
+  HobLib
+  DebugLib
+[Protocols]
+  gEfiSerialIoProtocolGuid
+  gEfiLoadedImageProtocolGuid
+  gEfiRngProtocolGuid
+  gEfiBdsArchProtocolGuid
+  gEfiCapsuleArchProtocolGuid
+  gEfiBlockIoProtocolGuid
+  gEfiDevicePathProtocolGuid
+  gEfiSimpleFileSystemProtocolGuid
+  gEfiGraphicsOutputProtocolGuid
+  gEfiSimpleTextOutProtocolGuid
+  gEfiResetArchProtocolGuid
+  gEfiRealTimeClockArchProtocolGuid
+[Guids]
+  gEfiGlobalVariableGuid
+  gEfiEndOfDxeEventGroupGuid
+  gEfiAcpi20TableGuid
+  gEfiFileInfoGuid
+  gEfiVirtualDiskGuid
+[Depex]
+  TRUE

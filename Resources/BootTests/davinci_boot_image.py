@@ -7,6 +7,7 @@ Supports the examined v1 layout only; refuses different component layouts.
 import argparse
 import gzip
 import hashlib
+import importlib.util
 import json
 from pathlib import Path
 import struct
@@ -142,7 +143,7 @@ def inspect(data):
     return report, tail
 
 
-def package(backup, shim, fd, profile="first-boot-halt"):
+def package(backup, shim, fd, profile="first-boot-halt", windows_folder=None):
     report, dtbs = inspect(backup)
     if len(shim) != 144 or shim[56:60] != b'ARMd' or struct.unpack_from('<QQ', shim, 8) != (0x9fc00000, 0x300000):
         raise ValueError('BootShim does not match the reviewed davinci configuration')
@@ -157,7 +158,17 @@ def package(backup, shim, fd, profile="first-boot-halt"):
         raise ValueError('FD does not start with an in-range AARCH64 branch to SEC')
     markers = {'first-boot-halt': b'DAVINCI FIRST BOOT: PREPI REACHED',
                'prefinal': b'PREPI: PASS; NEXT DXE (NOT YET VERIFIED)'}
-    if profile not in markers or markers[profile] not in fd:
+    if profile == 'windows-boot-test':
+        if windows_folder is None or (windows_folder/'WINDOWS_BOOT_TEST.fd').read_bytes()!=fd:
+            raise ValueError('WINDOWS_BOOT_TEST requires matching built private evidence folder')
+        path=Path(__file__).resolve().parents[1]/'WindowsBootTest/audit.py'
+        spec=importlib.util.spec_from_file_location('wbt_package_audit',path)
+        audit=importlib.util.module_from_spec(spec);spec.loader.exec_module(audit)
+        checked=audit.audit(windows_folder)
+        if not checked.get('ram_disk_bytes')==40*1024*1024:
+            raise ValueError('Expected audited contiguous virtual GPT RAM disk')
+        report['windows_firmware_audit']=checked
+    elif profile not in markers or markers[profile] not in fd:
         raise ValueError('FD does not contain the selected explicit profile marker')
     if profile == 'prefinal' and markers['first-boot-halt'] in fd:
         raise ValueError('Pre-final FD unexpectedly contains the first-entry halt profile')
@@ -178,14 +189,16 @@ def package(backup, shim, fd, profile="first-boot-halt"):
                   purpose='TEMPORARY FASTBOOT BOOT EXPERIMENT ONLY; NO FLASH',
                   profile=profile,
                   expected_behavior=('PrePi marker then deliberate halt BEFORE DXE/storage' if profile == 'first-boot-halt' else
-                                     'DXE HAL/UFS diagnostics; UFS requires verified native or inherited identity readback; read-only GPT then halt'),
+                                     ('RAM-only Microsoft Boot Manager experiment; no native UFS or phone disk access' if profile=='windows-boot-test' else
+                                     'DXE HAL/UFS diagnostics; UFS requires verified native or inherited identity readback; read-only GPT then halt')),
                   fastboot_boot_support_verified=False)
     return image, report
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--profile', choices=['first-boot-halt', 'prefinal'], default='first-boot-halt')
+    parser.add_argument('--profile', choices=['first-boot-halt', 'prefinal', 'windows-boot-test'], default='first-boot-halt')
+    parser.add_argument('--windows-folder', type=Path, help='Private built WBT folder; full FD/FV/RAW/ACPI audit required')
     parser.add_argument('--backup', type=Path, required=True)
     parser.add_argument('--shim', type=Path)
     parser.add_argument('--fd', type=Path)
@@ -195,7 +208,7 @@ def main():
     if args.output:
         if not args.shim or not args.fd:
             parser.error('--shim and --fd required with --output')
-        image, report = package(backup, args.shim.read_bytes(), args.fd.read_bytes(), args.profile)
+        image, report = package(backup, args.shim.read_bytes(), args.fd.read_bytes(), args.profile, args.windows_folder)
         # Exclusive creation, so even a mistaken input/output path cannot overwrite.
         with args.output.open('xb') as stream:
             stream.write(image)

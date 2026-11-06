@@ -71,6 +71,10 @@ class BootImageTests(unittest.TestCase):
         fd=bytearray(self.fd);fd[100:134]=bytes(34)
         with self.assertRaises(ValueError):boot.package(self.original,self.shim,fd)
 
+    def test_windows_profile_requires_built_private_evidence(self):
+        with self.assertRaisesRegex(ValueError, "matching built private evidence"):
+            boot.package(self.original,self.shim,self.fd,"windows-boot-test")
+
     def test_fd_without_a_valid_entry_branch_is_rejected(self):
         for instruction in [0,0x14000000,0x15ffffff]:
             fd=bytearray(self.fd);struct.pack_into('<I',fd,0,instruction)
