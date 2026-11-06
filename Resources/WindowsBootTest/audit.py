@@ -69,6 +69,7 @@ def audit(folder):
     if g=='1b1961de-831c-4699-a7a7-385efc4e7706':
      assert data[:4]==b'SSDT' and b'_STA\x00\xa4\x00' in data
      assert b'_HID' not in data and b'_CID' not in data and b'_CCA' not in data
+    row.setdefault('acpi_signatures',[]).append(data[:4].decode())
     tables.append({'signature':data[:4].decode(),'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'file_guid':g})
    s=(s+n+3)&~3
   files[g]=row;o=(o+length+7)&~7
@@ -76,6 +77,7 @@ def audit(folder):
  assert all(x['guid'].lower() not in files for x in lock),'Native dependency or UFS unexpectedly packaged'
  assert FAT_GUID in files and LAUNCHER in files and LAUNCHER==apriori[-1]
  assert {'DSDT','SSDT','FACP','APIC','GTDT','PPTT'}<={t['signature'] for t in tables}
+ assert {'DSDT','FACP','GTDT'}<=set(files['7e374e25-8e01-4fee-87f2-390c23c606cd'].get('acpi_signatures',[])), 'Required tables packaged but absent from actual AcpiPlatform storage file'
  assert not any(t['signature']=='IORT' for t in tables),'No guessed IORT mapping in this CPU-only test profile'
  env='90a49afd-422f-08ae-9611-e788d3804845'
  assert files[env]['pe_sha256']==hashlib.sha256((ROOT/'Binaries/davinci/QcomPkg/Drivers/EnvDxe/EnvDxe.efi').read_bytes()).hexdigest()

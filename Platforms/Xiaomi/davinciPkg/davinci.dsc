@@ -130,6 +130,9 @@
 !include MooreaPkg/MooreaPkg.dsc.inc
 
 !if $(WINDOWS_BOOT_TEST) == 1
+[PcdsFeatureFlag]
+  gEfiMdeModulePkgTokenSpaceGuid.PcdInstallAcpiSdtProtocol|TRUE
+
 [LibraryClasses.common.SEC]
   PrePiLib|davinciPkg/Library/WindowsPrePiLib/PrePiLib.inf
 !endif
@@ -147,6 +150,7 @@
   davinciPkg/AcpiTables/StorageDev.inf
 !endif
 !if $(WINDOWS_BOOT_TEST) == 1
+  davinciPkg/Drivers/AcpiPlatformTraceDxe/AcpiPlatformTrace.inf
   davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf {
     <BuildOptions>
       *_*_*_CC_FLAGS = -DWBT_CPU_ONLY_ACPI=$(DAVINCI_CPU_ONLY_ACPI) -DWBT_PREFINAL=$(DAVINCI_PREFINAL)

@@ -22,7 +22,7 @@ APRIORI DXE {
   INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
   INF FatPkg/EnhancedFatDxe/Fat.inf
   INF MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
-  INF MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf
+  INF davinciPkg/Drivers/AcpiPlatformTraceDxe/AcpiPlatformTrace.inf
   INF davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf
 }
 INF MdeModulePkg/Core/Dxe/DxeMain.inf
@@ -47,7 +47,7 @@ INF MdeModulePkg/Universal/Disk/PartitionDxe/PartitionDxe.inf
 INF MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf
 INF FatPkg/EnhancedFatDxe/Fat.inf
 INF MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf
-INF MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf
+INF davinciPkg/Drivers/AcpiPlatformTraceDxe/AcpiPlatformTrace.inf
 INF davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf
 
 !include Include/ACPI.inc

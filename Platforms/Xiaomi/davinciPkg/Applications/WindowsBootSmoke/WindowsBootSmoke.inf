@@ -24,6 +24,7 @@
   HobLib
   DebugLib
 [Protocols]
+  gEfiAcpiSdtProtocolGuid
   gEfiSerialIoProtocolGuid
   gEfiLoadedImageProtocolGuid
   gEfiRngProtocolGuid
@@ -37,6 +38,7 @@
   gEfiResetArchProtocolGuid
   gEfiRealTimeClockArchProtocolGuid
 [Guids]
+  gEfiEventExitBootServicesGuid
   gEfiGlobalVariableGuid
   gEfiEndOfDxeEventGroupGuid
   gEfiAcpi20TableGuid

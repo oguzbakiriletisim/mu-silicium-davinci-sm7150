@@ -1,5 +1,12 @@
 FILE FREEFORM = 7E374E25-8E01-4FEE-87F2-390C23C606CD {
   SECTION RAW = Moorea/APIC.aml
+!if $(WINDOWS_BOOT_TEST) == 1
+  // AcpiPlatform consumes RAW instances from this storage GUID only.
+  // These same CPU-only tables remain in their individual audited FFS files.
+  SECTION RAW = $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/AARCH64/davinciPkg/AcpiTables/AcpiTables/OUTPUT/Dsdt.aml
+  SECTION RAW = $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/AARCH64/davinciPkg/AcpiTables/Fadt/OUTPUT/Fadt.acpi
+  SECTION RAW = $(OUTPUT_DIRECTORY)/$(TARGET)_$(TOOL_CHAIN_TAG)/AARCH64/davinciPkg/AcpiTables/Gtdt/OUTPUT/Gtdt.acpi
+!endif
 !if $(DAVINCI_CPU_ONLY_ACPI) != 1
 # SECTION RAW = Moorea/BERT.aml
 # SECTION RAW = Moorea/BGRT.aml

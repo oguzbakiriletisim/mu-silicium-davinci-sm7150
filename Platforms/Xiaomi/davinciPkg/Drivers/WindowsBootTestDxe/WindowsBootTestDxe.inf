@@ -9,6 +9,7 @@
   WindowsBootTestDxe.c
   RamChecks.h
   RamGpt.h
+  HandoffTrace.h
 [Packages]
   ArmPkg/ArmPkg.dec
   MdePkg/MdePkg.dec
@@ -25,6 +26,7 @@
   HobLib
   DebugLib
 [Protocols]
+  gEfiAcpiSdtProtocolGuid
   gEfiLoadedImageProtocolGuid
   gEfiBdsArchProtocolGuid
   gEfiCapsuleArchProtocolGuid
@@ -36,6 +38,7 @@
   gEfiResetArchProtocolGuid
   gEfiRealTimeClockArchProtocolGuid
 [Guids]
+  gEfiEventExitBootServicesGuid
   gEfiGlobalVariableGuid
   gEfiEndOfDxeEventGroupGuid
   gEfiAcpi20TableGuid

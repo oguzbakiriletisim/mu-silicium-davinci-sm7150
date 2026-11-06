@@ -25,10 +25,17 @@ def run(a):
     if a.gpt_reference:
         files['EFI/Boot/bootaa64.efi']=a.efi.read_bytes()
         files['TEST/use-outer-fs.flag']=b'host-reference-only'
-        carrier.write_bytes(module('target_gpt',HERE/'ram_gpt.py').virtual_gpt(fat.create(files)))
+        carrier_data=module('target_gpt',HERE/'ram_gpt.py').virtual_gpt(fat.create(files))
     else:
         fat.SECTORS=131072
-        carrier.write_bytes(fat.create({'EFI/BOOT/BOOTAA64.EFI':a.efi.read_bytes(),'TEST/verified-ram-disk.img':module('target_gpt',HERE/'ram_gpt.py').virtual_gpt(image)}))
+        carrier_data=fat.create({'EFI/BOOT/BOOTAA64.EFI':a.efi.read_bytes(),'TEST/verified-ram-disk.img':module('target_gpt',HERE/'ram_gpt.py').virtual_gpt(image)})
+    # Avoid transiently writing 64 MiB of zeroes on small execution disks.
+    with carrier.open('xb') as f:
+        f.truncate(len(carrier_data))
+        for offset in range(0,len(carrier_data),1024*1024):
+            chunk=carrier_data[offset:offset+1024*1024]
+            if any(chunk):f.seek(offset);f.write(chunk)
+    del carrier_data
     subprocess.run(['fallocate','--dig-holes',str(carrier)],check=True)
     with socket.socket() as port:
         port.bind(('127.0.0.1',0));gdbport=port.getsockname()[1]

@@ -1,12 +1,22 @@
 // SPDX-License-Identifier: BSD-2-Clause-Patent
 // QEMU/host UEFI only. Reuses the actual phone RAM BlockIo/provider functions.
 // Does not call the phone's WindowsBootTestEntry or install its arch protocols.
+#include <Uefi.h>
+#include <Library/PrintLib.h>
+#include <Protocol/SerialIo.h>
+STATIC EFI_SERIAL_IO_PROTOCOL *mSerial;
+STATIC VOID SmokeTrace(UINTN Level,CONST CHAR8 *Format,...);
+#define WBT_TRACE(Args) SmokeTrace Args
 #include "../../Drivers/WindowsBootTestDxe/WindowsBootTestDxe.c"
 #include <Library/PrintLib.h>
 #include <Protocol/SerialIo.h>
 #include <Protocol/LoadedImage.h>
 #include <Protocol/Rng.h>
-STATIC EFI_SERIAL_IO_PROTOCOL *mSerial;
+STATIC VOID SmokeTrace(UINTN Level,CONST CHAR8 *Format,...) {
+ CHAR8 Buffer[1024];VA_LIST Marker;UINTN Bytes;(VOID)Level;
+ VA_START(Marker,Format);AsciiVSPrint(Buffer,sizeof Buffer,Format,Marker);VA_END(Marker);
+ if(mSerial) {Bytes=AsciiStrLen(Buffer);mSerial->Write(mSerial,&Bytes,Buffer);}
+}
 STATIC VOID Log(CHAR16 *Name,UINT64 Value) {
  CHAR16 W[256];CHAR8 A[256];UINTN N;
  UnicodeSPrint(W,sizeof W,L"HOST_SMOKE %s=%016lx\r\n",Name,Value);Print(L"%s",W);
@@ -53,9 +63,11 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE Image,EFI_SYSTEM_TABLE *SystemTable) {
  Log(L"RAM_READ_CALLS",mReads);
  Path=FileDevicePath(mDiskHandle,L"\\EFI\\Microsoft\\Boot\\bootmgfw.efi");if(!Path) {Stop(L"DEVICE_PATH",EFI_OUT_OF_RESOURCES);}
  S=SetBootContext(Path);Log(L"BOOT_CONTEXT",S);if(EFI_ERROR(S)) {Park();}
+ S=InstallHandoffTrace();Log(L"PAGE_API_OBSERVER",S);if(EFI_ERROR(S)) {Park();}mTracePhase=1;
  S=gBS->LoadImage(FALSE,Image,Path,Data,Bytes,&Child);Log(L"LOAD_RETURN",S);FreePool(Data);FreePool(Path);if(EFI_ERROR(S)) {Park();}
  S=gBS->HandleProtocol(Child,&gEfiLoadedImageProtocolGuid,(VOID **)&Loaded);if(EFI_ERROR(S)) {Stop(L"LOADED_IMAGE",S);}
  Pe=WbtLe32((CONST UINT8 *)Loaded->ImageBase+60);Entry=WbtLe32((CONST UINT8 *)Loaded->ImageBase+Pe+40);
+ mTraceChildBase=(UINTN)Loaded->ImageBase;mTraceChildSize=Loaded->ImageSize;mTracePhase=2;
  Log(L"IMAGE_BASE",(UINTN)Loaded->ImageBase);Log(L"IMAGE_SIZE",Loaded->ImageSize);Log(L"ENTRY_ADDRESS",(UINTN)Loaded->ImageBase+Entry);
  // Match phone test RTC behavior without claiming a functioning RTC. No fake date.
  gST->RuntimeServices->GetTime=NoTime;gST->RuntimeServices->SetTime=NoSetTime;
@@ -63,5 +75,5 @@ EFI_STATUS EFIAPI UefiMain(EFI_HANDLE Image,EFI_SYSTEM_TABLE *SystemTable) {
  gBS->CalculateCrc32(gST->RuntimeServices,gST->RuntimeServices->Hdr.HeaderSize,&gST->RuntimeServices->Hdr.CRC32);
  Log(L"PHONE_RTC_UNSUPPORTED_MODE",1);Log(L"START_CALL_NOT_SUCCESS",EFI_NOT_STARTED);
  gBS->Stall(5000000); // Host debugger can set an entry hardware breakpoint.
- S=gBS->StartImage(Child,NULL,NULL);Log(L"START_RETURN",S);Park();return S;
+ S=gBS->StartImage(Child,NULL,NULL);if(mBootServicesEnded) {Park();}RestoreHandoffTrace();Log(L"START_RETURN",S);Log(L"CALLER_IN_CHILD_COUNT",mChildApiCalls);Park();return S;
 }

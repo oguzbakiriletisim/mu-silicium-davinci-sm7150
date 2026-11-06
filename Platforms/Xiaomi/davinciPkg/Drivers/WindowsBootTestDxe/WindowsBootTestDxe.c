@@ -20,6 +20,7 @@
 #include <Protocol/Reset.h>
 #include <Protocol/RealTimeClock.h>
 #include <Protocol/LoadedImage.h>
+#include <Protocol/AcpiSystemDescriptionTable.h>
 #include <Guid/Acpi.h>
 #include <Guid/FileInfo.h>
 #include <Guid/GlobalVariable.h>
@@ -34,6 +35,7 @@ STATIC EFI_GUID mFatGuid={0x0713cb3b,0xea2e,0x4aa0,{0x98,0xce,0x2e,0x69,0x90,0x2
 STATIC CONST UINT8 *mDisk;STATIC UINTN mBytes;
 STATIC UINTN mReads;
 STATIC EFI_HANDLE mParentImage;
+STATIC BOOLEAN mBootServicesEnded;
 STATIC EFI_HANDLE mDiskHandle;
 STATIC EFI_BLOCK_IO_MEDIA mMedia={.MediaId=0x57425431,.RemovableMedia=FALSE,.MediaPresent=TRUE,.LogicalPartition=TRUE,.ReadOnly=TRUE,.WriteCaching=FALSE,.BlockSize=512,.IoAlign=1};
 STATIC EFI_STATUS EFIAPI ResetDisk(EFI_BLOCK_IO_PROTOCOL *This,BOOLEAN Extended) {(VOID)This;(VOID)Extended;return EFI_SUCCESS;}
@@ -57,7 +59,9 @@ STATIC VOID Stage(CHAR16 *Name,EFI_STATUS Status) {Print(L"WBT %s: %r\r\n",Name,
 STATIC VOID Fail(CHAR16 *Name,EFI_STATUS S) {Stage(Name,S);Print(L"TARGET A NOT REACHED. HOLD POWER TO RESTART.\r\n");Park();}
 // Runtime code, no BS/console/global-state calls after ExitBootServices.
 STATIC VOID EFIAPI TrapReset(EFI_RESET_TYPE Type,EFI_STATUS S,UINTN Bytes,VOID *Data) {
- (VOID)Type;(VOID)S;(VOID)Bytes;(VOID)Data;for(;;) {ArmCallWFI();}
+ (VOID)Type;(VOID)S;(VOID)Bytes;(VOID)Data;
+ // Preserve any Microsoft display: no console or Boot Services in reset trap.
+ for(;;) {ArmCallWFI();}
 }
 STATIC EFI_STATUS EFIAPI NoTime(EFI_TIME *T,EFI_TIME_CAPABILITIES *C) {(VOID)C;return T?EFI_UNSUPPORTED:EFI_INVALID_PARAMETER;}
 STATIC EFI_STATUS EFIAPI NoSetTime(EFI_TIME *T) {return T?EFI_UNSUPPORTED:EFI_INVALID_PARAMETER;}
@@ -176,6 +180,22 @@ STATIC VOID MemorySnapshot(CONST CHAR16 *Name) {
  } else {Stage(L"SNAPSHOT MAP",S);}
  FreePool(Map);
 }
+#include "HandoffTrace.h"
+STATIC VOID InstalledAcpiInventory(VOID) {
+ EFI_ACPI_SDT_PROTOCOL *Sdt;EFI_ACPI_SDT_HEADER *T;EFI_ACPI_TABLE_VERSION V;EFI_STATUS S;UINTN I,Key;
+ CHAR8 Signature[5];BOOLEAN Fadt=FALSE,Dsdt=FALSE,Gtdt=FALSE;
+ S=gBS->LocateProtocol(&gEfiAcpiSdtProtocolGuid,NULL,(VOID **)&Sdt);Stage(L"INSTALLED ACPI ENUM PROTOCOL",S);if(EFI_ERROR(S)) {return;}
+ for(I=0;I<32;++I) {
+  S=Sdt->GetAcpiTable(I,&T,&V,&Key);if(S==EFI_NOT_FOUND) {break;}
+  if(EFI_ERROR(S) || !T || T->Length<8 || T->Length>1024*1024) {Stage(L"INSTALLED ACPI ENUM ERROR",EFI_COMPROMISED_DATA);return;}
+  CopyMem(Signature,&T->Signature,4);Signature[4]=0;
+  Print(L"INSTALLED ACPI %a at=%p bytes=%u\r\n",Signature,T,T->Length);
+  if(T->Signature==SIGNATURE_32('F','A','C','P')) {Fadt=TRUE;}
+  if(T->Signature==SIGNATURE_32('D','S','D','T')) {Dsdt=TRUE;}
+  if(T->Signature==SIGNATURE_32('G','T','D','T')) {Gtdt=TRUE;}
+ }
+ Print(L"INSTALLED: FADT=%u DSDT=%u GTDT=%u (not kernel readiness)\r\n",Fadt,Dsdt,Gtdt);
+}
 STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
  EFI_STATUS S;EFI_HANDLE *Handles,Child;UINTN N,I,InfoSize,Size,ReadSize;EFI_SIMPLE_FILE_SYSTEM_PROTOCOL *Fs;EFI_FILE_PROTOCOL *Root,*File,*Bcd;
  EFI_FILE_INFO *Info;EFI_LOADED_IMAGE_PROTOCOL *Loaded;UINT64 ChildBase=0,ChildSize=0;VOID *Buffer,*Acpi;EFI_DEVICE_PATH_PROTOCOL *Path;EFI_GRAPHICS_OUTPUT_PROTOCOL *Gop;
@@ -213,7 +233,10 @@ STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
   S=MemoryMapCheck();Stage(L"MEMORY MAP STRUCTURAL CHECK ONLY",S);if(EFI_ERROR(S)) {Fail(L"MEMORY MAP",S);}
   Path=FileDevicePath(Handles[I],L"\\EFI\\Microsoft\\Boot\\bootmgfw.efi");if(!Path) {Fail(L"FILE DEVICE PATH",EFI_OUT_OF_RESOURCES);}
   S=SetBootContext(Path);Stage(L"RAM BOOT OPTION CONTEXT",S);if(EFI_ERROR(S)) {Fail(L"BOOT CONTEXT",S);}
+  InstalledAcpiInventory();
   MemorySnapshot(L"BEFORE LOAD");
+  S=InstallHandoffTrace();Stage(L"PAGE API OBSERVER INSTALL",S);if(EFI_ERROR(S)) {Fail(L"TRACE INSTALL",S);}
+  mTracePhase=1;
   Stage(L"BOOTMGFW LoadImage CALL",EFI_NOT_STARTED);
   EfiSignalEventReadyToBoot();
   S=gBS->LoadImage(FALSE,mParentImage,Path,Buffer,Size,&Child);FreePool(Buffer);FreePool(Path);FreePool(Handles);
@@ -221,17 +244,22 @@ STATIC VOID EFIAPI WindowsBdsEntry(EFI_BDS_ARCH_PROTOCOL *This) {
   S=gBS->HandleProtocol(Child,&gEfiLoadedImageProtocolGuid,(VOID **)&Loaded);
   if(EFI_ERROR(S)) {Fail(L"LOADED IMAGE METADATA",S);}
   ChildBase=(UINTN)Loaded->ImageBase;ChildSize=Loaded->ImageSize;
+  mTraceChildBase=ChildBase;mTraceChildSize=ChildSize;mTracePhase=2;
   Print(L"WBT CHILD base=%016lx size=%lx parent=%p\r\n",ChildBase,ChildSize,Loaded->ParentHandle);
   MemorySnapshot(L"BEFORE START");
   Print(L"Boot-time RAM reads=%u. RTC unavailable. Variables are RAM-only.\r\n",(UINT32)mReads);
   Stage(L"BOOTMGFW StartImage CALL / NOT A SUCCESS CLAIM",EFI_NOT_STARTED);
   S=gBS->StartImage(Child,NULL,NULL);
+  if(mBootServicesEnded) {Park();} // Never call Boot Services after ExitBootServices.
+  mTracePhase=3;
+  RestoreHandoffTrace();
   // StartImage may unload Child. Use saved scalar values, never stale metadata.
   gST->ConOut->ClearScreen(gST->ConOut);
   Stage(L"BOOTMGFW StartImage RETURN (OBSERVED)",S);
   Print(L"RAW EFI STATUS=%016lx ERROR=%u\r\n",(UINT64)S,(UINT32)EFI_ERROR(S));
   Print(L"SAVED CHILD base=%016lx size=%lx\r\n",ChildBase,ChildSize);
   Print(L"API returned. This alone does not prove Microsoft UI/kernel.\r\n");
+  Print(L"PAGE CALLS=%lu FREE CALLS=%lu CALLER IN CHILD=%lu\r\n",(UINT64)mPageCalls,(UINT64)mFreeCalls,(UINT64)mChildApiCalls);
   MemorySnapshot(L"AFTER START RETURN");
   Print(L"FINAL: StartImage returned %016lx CHILD=%016lx\r\n",(UINT64)S,ChildBase);Park();
  }
