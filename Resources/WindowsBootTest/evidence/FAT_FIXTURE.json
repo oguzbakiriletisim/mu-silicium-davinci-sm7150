@@ -1,0 +1,11 @@
+{
+  "image_bytes": 37748736,
+  "sha256": "70a887ab495081b76ed19278b0278a3d407bbd2232e2eae2d91566b15a6e4835",
+  "fat32": true,
+  "microsoft_payload_present": false,
+  "signature_verified": false,
+  "physical_boot_verified": false,
+  "files": {
+    "README.TXT": "e9954cf778efbc9979dbb0f7c4b42c8e0714223f3de92718a31726ef85637e92"
+  }
+}

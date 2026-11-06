@@ -1,0 +1,44 @@
+{
+  "source_base": "ad57cf46e26872e3325b99a251b71f4e5d58ace8",
+  "new_profile": "WINDOWS_BOOT_TEST",
+  "native_ufs_guard_changed": false,
+  "phone_accessed": false,
+  "gpt_or_ntfs_modified": false,
+  "host_tests": {
+    "ran": 105,
+    "passed": 105,
+    "includes_optional_mtools_integration": true
+  },
+  "windows_profile_debug_build": "PASS",
+  "prefinal_debug_regression": "PASS",
+  "ps_preparation_script": "Syntax checked; Windows Authenticode execution not run here",
+  "fixture_contains_microsoft_efi": false,
+  "real_bootmanager_executed": false,
+  "host_uefi_qemu_smoke": "NOT RUN",
+  "new_android_boot_img": "NOT PRODUCED",
+  "physical_ready": false,
+  "target_a": "NOT ACHIEVED",
+  "target_b": "NOT ACHIEVED",
+  "fd_sha256": "d55bf856f58b43af72ed469cac8f11fd40c7e86e7bf41b94aa557cd2e31d8271",
+  "fd_bytes": 3145728,
+  "fat32_bytes": 37748736,
+  "expanded_fv_bytes": 38821888,
+  "remaining_blockers": [
+    "Real Microsoft EFI asset input and signature/hash review",
+    "ARM64 UEFI integration run of actual BDS/FAT/LoadImage/StartImage chain",
+    "Phone GOP/runtime/reset/available-memory behavior",
+    "Reviewed SM7150 UFS provider for phone disk/GPT and user physical-readiness condition",
+    "StorUFS/ACPI/IORT/power/coherency and OS handoff for Target B"
+  ],
+  "earlier_audit_corrections": [
+    "PI large FFS Size[3] must be zero, SECTION2 uses0xffffff; actual generated FV exposed this and final C+audit+test fixed it",
+    "Pad files are not section streams; final audit skips PAD type0xf0"
+  ],
+  "uefi_emulated_nv_variables": true,
+  "rtc": "Explicit EFI_UNSUPPORTED, no fabricated date",
+  "reset": "Runtime WFI trap, no hardware reset",
+  "capsule": "Explicit EFI_UNSUPPORTED",
+  "compiled_acpi_checksums": "PASS; CPU-only tables + disabled storage SSDT",
+  "compiled_variable_nv_mode": 1,
+  "regression_scope": "Host tests and both DEBUG profiles; no physical new-profile or other-device regression"
+}

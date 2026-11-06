@@ -1,0 +1,139 @@
+{
+  "repository": "Rivko/android-firmware-qti-sdm670",
+  "commit": "20bb8ae36c93fc16bbadda0e0a83f930c0c8a271",
+  "classification": "Publicly readable reference, not a verified SM7150 port; proprietary/confidential header is not an open-source license.",
+  "files": [
+    {
+      "path": "boot_images/QcomPkg/Library/UfsCommonLib/UfsCommonLib.inf",
+      "blob_sha": "da1ea05bf231ea982c5c846eff796e99f218bf53",
+      "url": "https://github.com/Rivko/android-firmware-qti-sdm670/blob/20bb8ae36c93fc16bbadda0e0a83f930c0c8a271/boot_images/QcomPkg/Library/UfsCommonLib/UfsCommonLib.inf",
+      "lines": [
+        {
+          "line": 54,
+          "text": "UfsTargetUefiLib"
+        }
+      ]
+    },
+    {
+      "path": "boot_images/QcomPkg/Library/UfsCommonLib/ufs_bsp.h",
+      "blob_sha": "cfebe57d9eb5b099e41c81cab8ffda94df6383b1",
+      "url": "https://github.com/Rivko/android-firmware-qti-sdm670/blob/20bb8ae36c93fc16bbadda0e0a83f930c0c8a271/boot_images/QcomPkg/Library/UfsCommonLib/ufs_bsp.h",
+      "lines": [
+        {
+          "line": 57,
+          "text": "void ufs_bsp_clk_set (uint8_t hostid, uint32_t mode);"
+        },
+        {
+          "line": 59,
+          "text": "void ufs_bsp_reset (uint8_t hostid);"
+        },
+        {
+          "line": 60,
+          "text": "void ufs_bsp_device_reset (uint8_t hostid);"
+        },
+        {
+          "line": 65,
+          "text": "uint32_t ufs_bsp_get_mphy_init_item_table (struct ufs_mphy_init_item **itm);"
+        },
+        {
+          "line": 66,
+          "text": "uint32_t ufs_bsp_get_mphy_init_2_lane_item_table (struct ufs_mphy_init_item **itm);"
+        },
+        {
+          "line": 67,
+          "text": "uint32_t ufs_bsp_get_mphy_init_rate_b_item_table (struct ufs_mphy_init_item **itm);"
+        },
+        {
+          "line": 68,
+          "text": "uint32_t ufs_bsp_get_mphy_init_non_hsg4_item_table (struct ufs_mphy_init_item **itm);"
+        },
+        {
+          "line": 74,
+          "text": "void ufs_bsp_cache_op (void *addr, uint32_t len, uint32_t op);"
+        },
+        {
+          "line": 80,
+          "text": "void *ufs_bsp_allocate_xfer_buf (size_t size);"
+        },
+        {
+          "line": 84,
+          "text": "uintptr_t ufs_bsp_get_reg_baseaddress (uint8_t hostid);"
+        }
+      ]
+    },
+    {
+      "path": "boot_images/QcomPkg/Library/UfsCommonLib/ufs_api.c",
+      "blob_sha": "26873e808d8d680b262fe8406882180b063f6f50",
+      "url": "https://github.com/Rivko/android-firmware-qti-sdm670/blob/20bb8ae36c93fc16bbadda0e0a83f930c0c8a271/boot_images/QcomPkg/Library/UfsCommonLib/ufs_api.c",
+      "lines": [
+        {
+          "line": 214,
+          "text": "struct ufs_handle *ufs_open (uint32 core_id, uint32 lun)"
+        }
+      ]
+    },
+    {
+      "path": "boot_images/QcomPkg/Library/UfsCommonLib/ufs_utp_core.c",
+      "blob_sha": "64ed5406393c231e1d219e6724e650b822a2ba9c",
+      "url": "https://github.com/Rivko/android-firmware-qti-sdm670/blob/20bb8ae36c93fc16bbadda0e0a83f930c0c8a271/boot_images/QcomPkg/Library/UfsCommonLib/ufs_utp_core.c",
+      "lines": [
+        {
+          "line": 673,
+          "text": "ufs_bsp_cache_op ((void *)(uintptr_t)pinfo->utp_xfr_desc_phy, 256, FLUSH);"
+        },
+        {
+          "line": 676,
+          "text": "ufs_bsp_cache_op ((void *)(uintptr_t)pinfo->utp_cmd_desc_phy,"
+        },
+        {
+          "line": 681,
+          "text": "ufs_bsp_cache_op ((void *)(size_t)pinfo->data_buf_phy, pinfo->data_xfer_len, CLEAN);"
+        },
+        {
+          "line": 683,
+          "text": "ufs_bsp_cache_op ((void *)(size_t)pinfo->data_buf_phy, pinfo->data_xfer_len, FLUSH);"
+        },
+        {
+          "line": 710,
+          "text": "ufs_bsp_cache_op ((void *)(uintptr_t)pinfo->utp_cmd_desc_phy,"
+        },
+        {
+          "line": 823,
+          "text": "hba->ufs_hci_addr = ufs_bsp_get_reg_baseaddress(hba->ufs_core_id);"
+        },
+        {
+          "line": 865,
+          "text": "ufs_bsp_reset (hba->ufs_core_id);"
+        },
+        {
+          "line": 866,
+          "text": "ufs_bsp_clk_set (hba->ufs_core_id, UFS_CLOCK_MODE_ON);"
+        },
+        {
+          "line": 871,
+          "text": "ufs_bsp_device_reset(hba->ufs_core_id);"
+        },
+        {
+          "line": 1010,
+          "text": "hba->ufs_req_list_phy = GET_PHY_ADDR(ufs_bsp_allocate_xfer_buf(REQUEST_LIST_BUFFER_SIZE));"
+        },
+        {
+          "line": 1124,
+          "text": "size = ufs_bsp_get_mphy_init_item_table (&mphy_init_table);"
+        },
+        {
+          "line": 1138,
+          "text": "size = ufs_bsp_get_mphy_init_2_lane_item_table (&mphy_init_table);"
+        },
+        {
+          "line": 1152,
+          "text": "size = ufs_bsp_get_mphy_init_non_hsg4_item_table (&mphy_init_table);"
+        },
+        {
+          "line": 1163,
+          "text": "size = ufs_bsp_get_mphy_init_rate_b_item_table (&mphy_init_table);"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "fixture_bootmgfw_read_exit_code": 1,
+  "stderr": "/workspace/work/wbt-tools/usr/bin/mtype: File \"::/EFI/Microsoft/Boot/bootmgfw.efi\" not found\n",
+  "expected": "Fixture intentionally has no Microsoft Boot Manager"
+}

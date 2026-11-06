@@ -1,0 +1,388 @@
+{
+  "source_and_built_inventory": [
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/PCD/Dxe/Pcd.inf",
+      "guid": "80cf7257-87ab-47f9-a3fe-d50b76d89541",
+      "name": "PcdDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiPcdProtocolGuid",
+        "gEfiGetPcdInfoProtocolGuid",
+        "gEdkiiVariableLockProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Binaries/davinci/QcomPkg/Drivers/EnvDxe/EnvDxe.inf",
+      "guid": "90a49afd-422f-08ae-9611-e788d3804845",
+      "name": "EnvDxe",
+      "in_built_fv": true,
+      "depex": "0608",
+      "protocol_declarations": [],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/CpuDxe/CpuDxe.inf",
+      "guid": "b8d9777e-d72a-451f-9bdb-bafb52a68415",
+      "name": "ArmCpuDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiCpuArchProtocolGuid",
+        "gEfiMemoryAttributeProtocolGuid",
+        "gEdkiiGcdSyncCompleteProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/ArmGicDxe/ArmGicDxe.inf",
+      "guid": "de371f7c-dec4-4d21-adf1-593abcc15882",
+      "name": "ArmGicDxe",
+      "in_built_fv": true,
+      "depex": "02b1ccba26426fd411bce70080c73c888102f6f0a3134a26f03ef2e0dec512342f340308",
+      "protocol_declarations": [
+        "gEfiCpuArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/EmbeddedPkg/MetronomeDxe/MetronomeDxe.inf",
+      "guid": "4c6e0267-c77d-410d-8100-1495911a989d",
+      "name": "MetronomeDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiMetronomeArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Silicon/Arm/Mu_Tiano/ArmPkg/Drivers/TimerDxe/TimerDxe.inf",
+      "guid": "49ea041e-6752-42ca-b0b1-7344fe2546b7",
+      "name": "ArmTimerDxe",
+      "in_built_fv": true,
+      "depex": "02eab390283d054316ad0cd64808da3ff102f6f0a3134a26f03ef2e0dec512342f340308",
+      "protocol_declarations": [
+        "gEfiTimerArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Core/RuntimeDxe/RuntimeDxe.inf",
+      "guid": "b601f8c4-43b7-4784-95b1-f4226cb40cee",
+      "name": "RuntimeDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiRuntimeArchProtocolGuid",
+        "gEfiLoadedImageProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/SecurityStubDxe/SecurityStubDxe.inf",
+      "guid": "f80697e9-7fd6-4665-8646-88e33ef71dfc",
+      "name": "SecurityStubDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiSecurityArchProtocolGuid",
+        "gEfiSecurity2ArchProtocolGuid",
+        "gEfiDeferredImageLoadProtocolGuid",
+        "gEfiDxeSmmReadyToLockProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Variable/RuntimeDxe/VariableRuntimeDxe.inf",
+      "guid": "cbd2e4d5-7068-4ff5-b462-9822b4ad8d60",
+      "name": "VariableRuntimeDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiFirmwareVolumeBlockProtocolGuid",
+        "gEfiFaultTolerantWriteProtocolGuid",
+        "gEfiVariableWriteArchProtocolGuid",
+        "gEfiVariableArchProtocolGuid",
+        "gEdkiiVariableLockProtocolGuid",
+        "gEdkiiVariablePolicyProtocolGuid",
+        "gEdkiiVarCheckProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/WatchdogTimerDxe/WatchdogTimer.inf",
+      "guid": "f099d67f-71ae-4c36-b2a3-dceb0eb2b7d8",
+      "name": "WatchdogTimer",
+      "in_built_fv": true,
+      "depex": "02b3ccba26426fd411bce70080c73c888102f6f0a3134a26f03ef2e0dec512342f340308",
+      "protocol_declarations": [
+        "gEfiWatchdogTimerArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/EmbeddedPkg/EmbeddedMonotonicCounter/EmbeddedMonotonicCounter.inf",
+      "guid": "fcabe6a7-7953-4a84-b7ec-d29e89b62e87",
+      "name": "EmbeddedMonotonicCounter",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiMonotonicCounterArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/DevicePathDxe/DevicePathDxe.inf",
+      "guid": "9b680fce-ad6b-4f3a-b60b-f59899003443",
+      "name": "DevicePathDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiDevicePathToTextProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiDevicePathFromTextProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiDevicePathUtilitiesProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/HiiDatabaseDxe/HiiDatabaseDxe.inf",
+      "guid": "348c4d62-bfbd-4882-9ece-c80bb1c4783b",
+      "name": "HiiDatabase",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiDevicePathProtocolGuid",
+        "gEfiHiiStringProtocolGuid",
+        "gEfiHiiImageProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiHiiImageExProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiHiiImageDecoderProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiHiiConfigRoutingProtocolGuid",
+        "gEfiHiiDatabaseProtocolGuid",
+        "gEfiHiiFontProtocolGuid",
+        "gEfiHiiConfigAccessProtocolGuid",
+        "gEfiConfigKeywordHandlerProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Silicon/Silicium/SiliciumPkg/Drivers/SimpleFbDxe/SimpleFbDxe.inf",
+      "guid": "dcfd1e6d-788d-4ffc-8e1b-ca2f75651a92",
+      "name": "SimpleFbDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiGraphicsOutputProtocolGuid",
+        "gEfiDevicePathProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Console/ConSplitterDxe/ConSplitterDxe.inf",
+      "guid": "408edcec-cf6d-477c-a5a8-b4844e3de281",
+      "name": "ConSplitterDxe",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiSimplePointerProtocolGuid",
+        "gEfiAbsolutePointerProtocolGuid",
+        "gEfiSimpleTextInProtocolGuid",
+        "gEfiSimpleTextInputExProtocolGuid",
+        "gEfiSimpleTextOutProtocolGuid",
+        "gEfiGraphicsOutputProtocolGuid",
+        "gEfiUgaDrawProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Console/GraphicsConsoleDxe/GraphicsConsoleDxe.inf",
+      "guid": "cccb0c28-4b24-11d5-9a5a-0090273fc14d",
+      "name": "GraphicsConsoleDxe",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiDevicePathProtocolGuid",
+        "gEfiSimpleTextOutProtocolGuid",
+        "gEfiGraphicsOutputProtocolGuid",
+        "gEfiUgaDrawProtocolGuid",
+        "gEfiHiiFontProtocolGuid",
+        "gEfiHiiDatabaseProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Disk/DiskIoDxe/DiskIoDxe.inf",
+      "guid": "6b38f7b4-ad98-40e9-9093-aca2b5a253c4",
+      "name": "DiskIoDxe",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiDiskIoProtocolGuid",
+        "gEfiDiskIo2ProtocolGuid",
+        "gEfiBlockIoProtocolGuid",
+        "gEfiBlockIo2ProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Disk/UnicodeCollation/EnglishDxe/EnglishDxe.inf",
+      "guid": "cd3bafb6-50fb-4fe8-8e4e-ab74d2c1a600",
+      "name": "EnglishDxe",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiUnicodeCollationProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid",
+        "gEfiUnicodeCollation2ProtocolGuid",
+        "gEfiMdeModulePkgTokenSpaceGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Common/Mu_Tiano_Plus/FatPkg/EnhancedFatDxe/Fat.inf",
+      "guid": "961578fe-b6b7-44c3-af35-6bc705cd2b1f",
+      "name": "Fat",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiDiskIoProtocolGuid",
+        "gEfiDiskIo2ProtocolGuid",
+        "gEfiBlockIoProtocolGuid",
+        "gEfiSimpleFileSystemProtocolGuid",
+        "gEfiUnicodeCollationProtocolGuid",
+        "gEfiUnicodeCollation2ProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Acpi/AcpiTableDxe/AcpiTableDxe.inf",
+      "guid": "9622e42c-8e38-4a08-9e8f-54f784652f6b",
+      "name": "AcpiTableDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiAcpiTableProtocolGuid",
+        "gEfiAcpiSdtProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Universal/Acpi/AcpiPlatformDxe/AcpiPlatformDxe.inf",
+      "guid": "cb933912-df8f-4305-b1f9-7b44fa11395c",
+      "name": "AcpiPlatform",
+      "in_built_fv": true,
+      "depex": "02dd6be0ff0761a6467bb25a9c7ec5275c02f6f0a3134a26f03ef2e0dec512342f340308",
+      "protocol_declarations": [
+        "gEfiAcpiTableProtocolGuid",
+        "gEfiFirmwareVolume2ProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Platforms/Xiaomi/davinciPkg/Drivers/WindowsBootTestDxe/WindowsBootTestDxe.inf",
+      "guid": "99b114cc-292f-413b-b556-6e7ae4866d91",
+      "name": "DavinciWindowsBootTestDxe",
+      "in_built_fv": true,
+      "depex": "02f6f0a3134a26f03ef2e0dec512342f3408",
+      "protocol_declarations": [
+        "gEfiBdsArchProtocolGuid",
+        "gEfiCapsuleArchProtocolGuid",
+        "gEfiBlockIoProtocolGuid",
+        "gEfiDevicePathProtocolGuid",
+        "gEfiSimpleFileSystemProtocolGuid",
+        "gEfiGraphicsOutputProtocolGuid",
+        "gEfiSimpleTextOutProtocolGuid",
+        "gEfiResetArchProtocolGuid",
+        "gEfiRealTimeClockArchProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Mu_Basecore/MdeModulePkg/Core/Dxe/DxeMain.inf",
+      "guid": "d6a2cb7f-6a18-4e2f-b43b-9920a733700a",
+      "name": "DxeCore",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [
+        "gEfiDecompressProtocolGuid",
+        "gEfiSimpleFileSystemProtocolGuid",
+        "gEfiLoadFileProtocolGuid",
+        "gEfiLoadFile2ProtocolGuid",
+        "gEfiBusSpecificDriverOverrideProtocolGuid",
+        "gEfiDriverFamilyOverrideProtocolGuid",
+        "gEfiPlatformDriverOverrideProtocolGuid",
+        "gEfiDriverBindingProtocolGuid",
+        "gEfiFirmwareVolumeBlockProtocolGuid",
+        "gEfiFirmwareVolume2ProtocolGuid",
+        "gEfiDevicePathProtocolGuid",
+        "gEfiLoadedImageProtocolGuid",
+        "gEfiLoadedImageDevicePathProtocolGuid",
+        "gEfiHiiPackageListProtocolGuid",
+        "gEfiSmmBase2ProtocolGuid",
+        "gEdkiiPeCoffImageEmulatorProtocolGuid",
+        "gEfiBdsArchProtocolGuid",
+        "gEfiCpuArchProtocolGuid",
+        "gEfiMetronomeArchProtocolGuid",
+        "gEfiMonotonicCounterArchProtocolGuid",
+        "gEfiRealTimeClockArchProtocolGuid",
+        "gEfiResetArchProtocolGuid",
+        "gEfiRuntimeArchProtocolGuid",
+        "gEfiSecurityArchProtocolGuid",
+        "gEfiSecurity2ArchProtocolGuid",
+        "gEfiTimerArchProtocolGuid",
+        "gEfiVariableWriteArchProtocolGuid",
+        "gEfiVariableArchProtocolGuid",
+        "gEfiCapsuleArchProtocolGuid",
+        "gEfiWatchdogTimerArchProtocolGuid",
+        "gEfiCpu2ProtocolGuid",
+        "gEfiMemoryAttributeProtocolGuid",
+        "gEdkiiGcdSyncCompleteProtocolGuid"
+      ],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Platforms/Xiaomi/davinciPkg/AcpiTables/AcpiTables.inf",
+      "guid": "f42c938b-3360-4321-bb26-552e320093f0",
+      "name": "DavinciCpuOnlyAcpi",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Platforms/Xiaomi/davinciPkg/AcpiTables/Fadt.inf",
+      "guid": "64d95b2c-a7d3-495d-8f02-02dfd6268d1e",
+      "name": "DavinciResearchFadt",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Platforms/Xiaomi/davinciPkg/AcpiTables/Gtdt.inf",
+      "guid": "afd9c40b-6cbc-4d58-bda2-67879b60834d",
+      "name": "DavinciResearchGtdt",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [],
+      "runtime_protocol_installation_verified": false
+    },
+    {
+      "path": "Platforms/Xiaomi/davinciPkg/AcpiTables/StorageDev.inf",
+      "guid": "1b1961de-831c-4699-a7a7-385efc4e7706",
+      "name": "DavinciStorageDevAcpi",
+      "in_built_fv": true,
+      "depex": null,
+      "protocol_declarations": [],
+      "runtime_protocol_installation_verified": false
+    }
+  ],
+  "protocol_declarations_are_not_runtime_measurements": true,
+  "env_binary_unchanged": true
+}
