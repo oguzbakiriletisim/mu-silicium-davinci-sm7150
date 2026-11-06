@@ -1,0 +1,8 @@
+{
+  "upstream_repository": "https://github.com/microsoft/mu_tiano_plus",
+  "upstream_commit": "2dd1beb9cd7631030dfc8e74cb4840a89b5d008d",
+  "upstream_path": "EmbeddedPkg/Library/PrePiLib",
+  "scope": "WINDOWS_BOOT_TEST SEC only; original library/submodule untouched",
+  "reason": "align decoded INNER header, not compressed OUTER header",
+  "line_endings": "LF normalized from upstream CRLF"
+}

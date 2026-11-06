@@ -1,0 +1,50 @@
+--- upstream/FwVol.c
++++ WindowsPrePiLib/FwVol.c
+@@ -292,0 +293,3 @@
++  VOID                      *DecodeBuffer;
++  UINTN                     InnerHeaderSize;
++  EFI_HOB_HANDOFF_INFO_TABLE *Memory;
+@@ -378,0 +382,3 @@
++      Memory = (EFI_HOB_HANDOFF_INFO_TABLE *)GetHobList ();
++      DEBUG ((DEBUG_ERROR, "WBT FV REQUEST dst=%u scratch=%u top=%lx bottom=%lx\n",
++        DstBufferSize, ScratchBufferSize, Memory->EfiFreeMemoryTop, Memory->EfiFreeMemoryBottom));
+@@ -379,0 +386 @@
++      DEBUG ((DEBUG_ERROR, "WBT FV SCRATCH address=%p status=%r\n", ScratchBuffer, ScratchBuffer ? EFI_SUCCESS : EFI_OUT_OF_RESOURCES));
+@@ -387,0 +395 @@
++      DEBUG ((DEBUG_ERROR, "WBT FV DEST pages=%u address=%p status=%r\n", (UINT32)(EFI_SIZE_TO_PAGES (DstBufferSize) + 1), DstBuffer, DstBuffer ? EFI_SUCCESS : EFI_OUT_OF_RESOURCES));
+@@ -392,9 +400,5 @@
+-      //
+-      // DstBuffer still is one section. Adjust DstBuffer offset, skip EFI section header
+-      // to make section data at page alignment.
+-      //
+-      if (IS_SECTION2 (Section)) {
+-        DstBuffer = (UINT8 *)DstBuffer + EFI_PAGE_SIZE - sizeof (EFI_COMMON_SECTION_HEADER2);
+-      } else {
+-        DstBuffer = (UINT8 *)DstBuffer + EFI_PAGE_SIZE - sizeof (EFI_COMMON_SECTION_HEADER);
+-      }
++      // Reserve for the largest INNER section header, not the outer GUID
++      // section header. Large FV_IMAGE uses SECTION2 even when its compressed
++      // outer section fits in the normal 24-bit size. No second FV allocation.
++      DstBuffer = (UINT8 *)DstBuffer + EFI_PAGE_SIZE - sizeof (EFI_COMMON_SECTION_HEADER2);
++      DecodeBuffer = DstBuffer;
+@@ -432,0 +437,16 @@
++        if (DstBufferSize < sizeof (EFI_COMMON_SECTION_HEADER)) {
++          return EFI_VOLUME_CORRUPTED;
++        }
++        InnerHeaderSize = IS_SECTION2 ((EFI_COMMON_SECTION_HEADER *)DstBuffer) ?
++          sizeof (EFI_COMMON_SECTION_HEADER2) : sizeof (EFI_COMMON_SECTION_HEADER);
++        if (DstBufferSize < InnerHeaderSize) {
++          return EFI_VOLUME_CORRUPTED;
++        }
++        // Non-processing guided handlers may return an alias into input.
++        // Never move that memory. Only adjust the buffer we actually own.
++        if ((DstBuffer == DecodeBuffer) && (InnerHeaderSize < sizeof (EFI_COMMON_SECTION_HEADER2))) {
++          CopyMem ((UINT8 *)DstBuffer + sizeof (EFI_COMMON_SECTION_HEADER2) - InnerHeaderSize, DstBuffer, DstBufferSize);
++          DstBuffer = (UINT8 *)DstBuffer + sizeof (EFI_COMMON_SECTION_HEADER2) - InnerHeaderSize;
++        }
++        DEBUG ((DEBUG_ERROR, "WBT FV DECODE status=%r inner-header=%u section=%p payload=%p\n",
++          Status, (UINT32)InnerHeaderSize, DstBuffer, (UINT8 *)DstBuffer + InnerHeaderSize));
+@@ -872,0 +893 @@
++  DEBUG ((DEBUG_ERROR, "WBT FV RESULT start=%p size=%lu alignment=%u\n", FvImageInfo.FvStart, FvImageInfo.FvSize, FvAlignment));
+@@ -873,0 +895 @@
++    DEBUG ((DEBUG_ERROR, "WBT FV REALIGN requested size=%lu\n", FvImageInfo.FvSize));

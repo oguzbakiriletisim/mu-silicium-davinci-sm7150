@@ -129,6 +129,11 @@
 
 !include MooreaPkg/MooreaPkg.dsc.inc
 
+!if $(WINDOWS_BOOT_TEST) == 1
+[LibraryClasses.common.SEC]
+  PrePiLib|davinciPkg/Library/WindowsPrePiLib/PrePiLib.inf
+!endif
+
 [Components.common]
 !if $(WINDOWS_BOOT_SMOKE) == 1
   davinciPkg/Applications/WindowsBootSmoke/WindowsBootSmoke.inf {
